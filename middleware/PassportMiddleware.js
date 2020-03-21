@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: keys.clientID,
       clientSecret: keys.clientSecret,
-      callbackURL: "http://localhost:3000/auth/google/callback"
+      callbackURL: "https://hostel-managment-portal.herokuapp.com/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
 
