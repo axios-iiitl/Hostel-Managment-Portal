@@ -3,89 +3,33 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy,
   keys = require("../config/keys"),
   User = require("../models/User");
 
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: keys.clientID,
-//       clientSecret: keys.clientSecret,
-//       callbackURL: "http://localhost:3000/auth/google/callback"
-//     },
-//     function(accessToken, refreshToken, profile, done) {
-
-//       User.findOne({ googleId: profile.id }, function(err, user) {
-//         if (err) {
-//           return done(err);
-//         }
-//         if (!user) {
-//           user = new User({
-//             googleId: profile.id,
-//             name: profile.displayName
-//           });
-//           user.save(function(err) {
-//             if (err) console.log(err);
-//             return done(err, user);
-//           });
-//         } else {
-//           return done(err, user);
-//         }
-//       });
-//     }
-//   )
-// );
-
 passport.use(
-  new GoogleStrategy({
-  clientID:keys.clientID,
-  clientSecret: keys.clientSecret,
-  callbackURL: "http://localhost:3000/auth/google/callback"
-},
-function(accessToken, refreshToken, profile, done) {
-  User.findOne({googleId:profile.id},function(err,user){
-      if(err){
+  new GoogleStrategy(
+    {
+      clientID: keys.clientID,
+      clientSecret: keys.clientSecret,
+      callbackURL: "http://localhost:3000/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+      User.findOne({ googleId: profile.id }, function(err, user) {
+        if (err) {
           return done(err);
-      }
-      if(!user){
-          user=new User({
-              googleId:profile.id,
-              name:profile.displayName
+        }
+        if (!user) {
+          user = new User({
+            googleId: profile.id,
+            name: profile.displayName
           });
-          user.items.push({
-            TableNo:"",
-            ChairNo:"",
-            ShelfNo:"",
-            LampNo:"",
-            RoomNo:""
-        });
-        user.contacts.push({
-           PhoneNo:"",
-           FatherName:"",
-           FatherNo:"",
-           Address:""
-        })
-      }
-    //   if(!user){
-    //   user.items.push({
-    //       TableNo:"",
-    //       ChairNo:"",
-    //       ShelfNo:"",
-    //       LampNo:"",
-    //       RoomNo:""
-    //   });
-    //   user.contacts.push({
-    //      PhoneNo:"",
-    //      FatherName:"",
-    //      FatherNo:"",
-    //      Address:""
-    //   })
-    // }
+        }
 
-      user.save(function(err){
-          if(err) console.log(err);
-          return done(err,user);
+        user.save(function(err) {
+          if (err) console.log(err);
+          return done(err, user);
+        });
       });
-  });
-}
-));
+    }
+  )
+);
 
 passport.serializeUser(function(user, done) {
   done(null, user);

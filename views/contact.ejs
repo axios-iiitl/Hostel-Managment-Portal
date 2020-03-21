@@ -3,38 +3,61 @@
 <%- include('partials/header'); -%>
 
 <div class="container">
-    <div class="row">
-        <h1 style="text-align: center;">Edit your contact details <%=user.name%></h1>
-        <div style="width:30%;margin:25px auto;">
-            <form action="/user/dashboard/contacts/<%=user.googleId%>" method="POST">
+  <div class="row">
+    <h1 style="text-align: center;">
+      Edit your contact details <%=user.name%>
+    </h1>
+    <div style="width:30%;margin:25px auto;">
+      <form action="/user/dashboard/contacts/<%=user.googleId%>" method="POST">
+        <div class="form-group">
+          <label>Contact Number</label>
+          <input
+            class="form-control"
+            type="text"
+            name="contacts[phoneNumber]"
+            value="<%=user.contacts.phoneNumber%>"
+            placeholder="Contact Number"
+          />
+        </div>
+        <div class="form-group">
+          <label>Father's Name</label>
+          <input
+            class="form-control"
+            type="text"
+            name="contacts[guardianName]"
+            value="<%=user.contacts.guardianName%>"
+            placeholder="Father's Name"
+          />
+        </div>
 
-                    <div class="form-group">
-                        <label>Contact Number</label>
-                       <input class="form-control" type="text" name="contacts[PhoneNo]" value="<%=user.contacts[0].PhoneNo%>" placeholder="Contact Number">
-                    </div>
-                    <div class="form-group">
-                        <label>Father's Name</label>
-                        <input class="form-control" type="text" name="contacts[FatherName]" value="<%=user.contacts[0].FatherName%>" placeholder="Father's Name">
-                    </div>
+        <div class="form-group">
+          <label>Father's Contact No.</label>
+          <input
+            class="form-control"
+            type="text"
+            name="contacts[guardianNumber]"
+            value="<%=user.contacts.guardianNumber%>"
+            placeholder="Father's Contact Number"
+          />
+        </div>
 
-                    <div class="form-group">
-                        <label>Father's Contact No.</label>
-                        <input class="form-control" type="text" name="contacts[FatherNo]" value="<%=user.contacts[0].FatherNo%>" placeholder="Father's Contact Number">
-                    </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input
+            class="form-control"
+            type="text"
+            name="contacts[address]"
+            value="<%=user.contacts.address%>"
+            placeholder="Address"
+          />
+        </div>
 
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input class="form-control" type="text" name="contacts[Address]" value="<%=user.contacts[0].Address%>" placeholder="Address">
-                    </div>
-
-                    <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-                    </div>
-            </form>
-            <a href="/user/dashboard">Go back</a>
-        </div>    
-    
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+        </div>
+      </form>
+      <a href="/user/dashboard">Go back</a>
     </div>
+  </div>
 </div>
 <%- include('partials/footer'); -%>
- 
