@@ -1,10 +1,12 @@
 <%- include('partials/header'); -%>
 
-<div class="jumbotron">
-<h1>Landing Page</h1>
+<div class="jumbotron container">
+<h1>Landing Page</h1> 
 
-<form>
-    
-</form>
-<%- include('partials/footer'); -%>
+ <h2>Dashboard</h2>
+ <li><a href="/user/dashboard/items/<%=currentUser.googleId%>"> Edit Profile </a></li>
+ <li><a href="/user/dashboard/contacts/<%=currentUser.googleId%>"> Edit Contact Information</a></li>
+   
 </div>
+<%- include('partials/footer'); -%>
+
