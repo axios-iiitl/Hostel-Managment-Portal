@@ -30,7 +30,20 @@ app.use(passport.session());
 
 app.get("/", function(req, res) {
   res.render("home", { currentUser: req.user });
+
 });
+
+app.get("/dashboard", function(req, res) {
+  res.render("landing", { currentUser: req.user });
+  console.log(req.body);
+});
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log(res.body);
+    res.redirect('/dashboard');
+  });
 
 app.use("/auth", authRoutes);
 app.use("/user", user);
