@@ -6,24 +6,31 @@
     <div class="row">
         <h1 style="text-align: center;">Edit your item details <%=user.name%></h1>
         <div style="width:30%;margin:25px auto;">
-            <form action="/user/dashboard/items/<%=user.googleId%>" method="POST">
+            <form action="/user/dashboard/items/<%=user.googleId%>" method="POST" >
 
+                    
                     <div class="form-group">
+                       <label>Table Number</label>
                        <input class="form-control" type="text" name="items[TableNo]" value="<%=user.items[0].TableNo%>" placeholder="Table Number">
                     </div>
+                    
                     <div class="form-group">
+                        <label>Chair Number</label>
                         <input class="form-control" type="text" name="items[ChairNo]" value="<%=user.items[0].ChairNo%>" placeholder="Chair Number">
                     </div>
 
                     <div class="form-group">
+                        <label>Shelf Number</label>
                         <input class="form-control" type="text" name="items[ShelfNo]" value="<%=user.items[0].ShelfNo%>" placeholder="Shelf Number">
                     </div>
 
                     <div class="form-group">
+                        <label>Lamp Number</label>
                         <input class="form-control" type="text" name="items[LampNo]" value="<%=user.items[0].LampNo%>" placeholder="Lamp Number">
                     </div>
 
                     <div class="form-group">
+                        <label>Room Number</label>
                         <input class="form-control" type="text" name="items[RoomNo]" value="<%=user.items[0].RoomNo%>" placeholder="Room Number">
                     </div>
                     <div class="form-group">
