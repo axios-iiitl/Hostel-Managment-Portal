@@ -4,6 +4,7 @@ const express = require("express"),
   cookieSession = require("cookie-session"),
   authRoutes = require("./routes/api/auth"),
   user = require("./routes/api/user"),
+  admin = require("./routes/api/admin"),
   passport = require("passport");
 
 require("./db/mongoose");
@@ -35,6 +36,7 @@ app.get("/", function(req, res) {
 
 app.use("/auth", authRoutes);
 app.use("/user", user);
+app.use("/admin",admin);
 
 const PORT = process.env.PORT || 3000;
 

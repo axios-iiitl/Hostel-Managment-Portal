@@ -1,6 +1,8 @@
 const express = require("express"),
-  auth = require("../../middleware/auth"),
+  auth = require("../../middleware/authuser"),
   passport = require("passport");
+  Admin=require("../../models/Admin");
+  User=require("../../models/User");
 
 const router = express.Router();
 
@@ -17,7 +19,16 @@ router.get(
   (req, res) => {
     req.session.token = req.user.googleId;
     res.cookie("token", req.session.token);
-    res.redirect("/user/dashboard");
+    Admin.findOne({email:req.user.email},function(err,admin){
+       if(admin){
+         res.redirect("/admin/dashboard");
+         User.deleteOne({email:req.user.email},function(err,user){
+           
+         })
+       }else{
+        res.redirect("/user/dashboard");
+      }
+    });
   }
 );
 
