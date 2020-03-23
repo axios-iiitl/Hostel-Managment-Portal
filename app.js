@@ -14,6 +14,9 @@ const app = express();
 app.use(express.json());
 app.set("view engine", "ejs");
 
+//to link statis files
+app.use(express.static('./assets'))
+
 app.use(
   cookieSession({
     name: "session",
