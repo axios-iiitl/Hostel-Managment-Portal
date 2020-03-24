@@ -10,7 +10,17 @@
             <div class="form-group">
                 <input class="form-control" type="email" name="email" placeholder="Enter the email whose details you want to search">
             </div>
-            
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div style="width:30%;margin:25px auto;">
+        <form action="/admin/dashboard/info/leave" method="POST">
+            <h2>Details of past leaves of a particular Student</h2>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Enter the email whose leave details you want to search">
+            </div>
             <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block">Submit</button>
             </div>
@@ -18,4 +28,25 @@
     </div>
 </div>
 
+<div class="jumbotron">
+    <div class="container">
+        <div style="width:30%;margin:25px auto;">
+            <h2>Students who had applied for leave</h2>
+            <%leaves.forEach(function(leave){%>
+                <%if(leave.Approve==null){%>
+                <div class="row">
+                    <strong>Name:</strong>  <p><%=leave.Name%></p>
+                    <strong>Email:</strong>  <p><%=leave.Email%></p>
+                    <strong>Leave Date:</strong>  <p><%=leave.Leave%></p>
+                    <strong>Return Date:</strong>  <p><%=leave.Return%></p>
+                    <strong>Reason:</strong>  <p><%=leave.Reason%></p>
+                    <a href="/admin/dashboard/permit/accept/<%=leave._id%>"> <button class="btn btn-success">Success</button></a>
+                    <a href="/admin/dashboard/permit/reject/<%=leave._id%>"><button class="btn btn-danger">Reject</button></a>
+                    <strong>=======================================================</strong>
+                </div> 
+              <%}%>
+            <%})%>
+        </div>
+    </div>
+</div>
 <%- include('partials/footer'); -%>

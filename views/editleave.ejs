@@ -1,0 +1,41 @@
+<%- include('partials/header'); -%>
+<div class="container">
+    <div class="jumbotron">    
+  <h2>Edit your Application for Leave</h2>
+        <form action="/user/dashboard/edit/leave/<%=leave._id%>" method="POST">
+            <div class="form-group">
+              <label>Name:</label><br>
+              <input type="text" name="leave[Name]" value="<%=leave.Name%>" readonly required>
+            </div>
+
+            <div class="form-group">
+                <label>Name:</label><br>
+                <input type="text" name="leave[Email]" value="<%=leave.Email%>" readonly required>
+            </div>
+             
+            <div class="form-group">
+                <label>Leaving Date</label><br>
+                <input type="date" name="leave[Leave]"  value="<%=leave.Leave%>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Returning Date</label><br>
+                <input type="date" name="leave[Return]" value="<%=leave.Return%>" required>
+            </div>
+
+            <div class="form group">
+                <label>Reason</label><br>
+                <input type="text" name="leave[Reason]" placeholder="Reason" value="<%=leave.Reason%>"required>
+            </div>
+
+            <div class="form-group">
+                <br>
+                <button class="btn btn-primary ">Submit!</button>
+            </div>
+               
+        </form>
+        <a href="/user/dashboard"><button>Go Back</button></a>
+    </div>
+</div>
+
+<%- include('partials/footer'); -%>

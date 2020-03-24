@@ -1,13 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const JsAlert=require("js-alert");
 const auth = require("../../middleware/authuser");
 const User = require("../../models/User");
+const Leave = require("../../models/Leave");
+
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard", auth, (req, res) => {
-  res.render("landing", { currentUser: req.user });
+  Leave.find({Email:req.user.email},function(err,leaves){
+    if(err)
+    {
+      res.redirect("/");
+    }else{
+    res.render("landing", { currentUser: req.user,leaves:leaves});
+    }
+  });
 });
 
 router.get("/dashboard/items/:id", auth, function(req, res) {
@@ -64,6 +74,61 @@ router.post("/dashboard/contacts/:id", auth, function(req, res) {
           res.redirect("/user/dashboard");
         }
       });
+    }
+  });
+});
+
+//Leave Routes
+
+router.post("/dashboard/leave",auth,function(req,res){
+   Leave.create(req.body.leave,function(err,leave){
+     if(err){
+       res.redirect("/user/dashboard");
+     }else{
+       res.redirect("/user/dashboard");
+     }
+   });
+});
+
+router.get("/dashboard/edit/leave/:id",auth,function(req,res){
+    Leave.findOne({_id:req.params.id},function(err,leave){
+      if(err){
+        res.redirect("/user/dashboard");
+      }
+      console.log(leave);
+      res.render("editleave",{currentUser:req.user,leave:leave});
+    });
+});
+
+router.post("/dashboard/edit/leave/:id",auth,function(req,res){
+  Leave.findOne({_id:req.params.id},function(err,leave){
+    if(err){
+      res.redirect("/user/dashboard");
+    }else{
+      Leave.deleteOne({_id:req.params.id},function(err,leave){
+        if(err){
+          res.redirect("/user/dashboard");
+        }else{
+
+          Leave.create(req.body.leave,function(err,leave){
+             if(err){
+               res.redirect("/user/dashboard");
+             }else{
+                    res.redirect("/user/dashboard");
+             }
+          });
+        }
+      });
+    }
+  });
+});
+
+router.get("/dashboard/delete/leave/:id",auth,function(req,res){
+  Leave.deleteOne({_id:req.params.id},function(err,leave){
+    if(err){
+      res.redirect("/user/dashboard");
+    }else{
+      res.redirect("/user/dashboard");
     }
   });
 });
