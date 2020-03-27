@@ -45,26 +45,19 @@ router.post("/dashboard/info/leave",auth,function(req,res){
  });
 });
 
-
 router.get("/dashboard/permit/accept/:id",function(req,res){
     Leave.findOne({_id:req.params.id},function(err,leave){
           if(err){
               res.redirect("/admin/dashboard");
           }else{
               leave.Approve=true;
-              Leave.deleteOne({_id:req.param.id},function(err,del){
-                  if(err){
-                      res.redirect("/admin/dashboard");
-                  }else{
-                      Leave.create(leave,function(err,leave){
-                          if(err){
-                              res.redirect("/admin/dashboard");
-                          }else{
-                              res.redirect("/admin/dashboard");
-                          }
-                      });
-                  }
-              });
+              Leave.findOneAndUpdate({_id:req.params.id},leave,function(err,leave){
+                           if(err){
+                               res.redirect("/admin/dashboard");
+                           }else{
+                               res.redirect("/admin/dashboard");
+                           }
+              })
           }
     });
 });
@@ -75,19 +68,13 @@ router.get("/dashboard/permit/reject/:id",function(req,res){
               res.redirect("/admin/dashboard");
           }else{
               leave.Approve=false;
-              Leave.deleteOne({_id:req.param.id},function(err,del){
-                  if(err){
-                      res.redirect("/admin/dashboard");
-                  }else{
-                      Leave.create(leave,function(err,leave){
-                          if(err){
-                              res.redirect("/admin/dashboard");
-                          }else{
-                              res.redirect("/admin/dashboard");
-                          }
-                      });
-                  }
-              });
+              Leave.findOneAndUpdate({_id:req.params.id},leave,function(err,leave){
+                           if(err){
+                               res.redirect("/admin/dashboard");
+                           }else{
+                               res.redirect("/admin/dashboard");
+                           }
+              })
           }
     });
 });
