@@ -12,10 +12,22 @@ const router=express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard",auth,function(req,res){
-    Leave.find({},function(err,leaves){
-        res.render("landingadmin",{currentUser:req.user,leaves:leaves});
-    });
+    var x;
+    if(req.query.number==null){
+        x=5;
+    }else{
+    x=req.query.number;
+    }
+    Leave.find({}).sort('-createdAt').exec(function(err,leaves){
+        if(err){
+          res.redirect("/");
+        }else{
+        res.render("landingadmin", { currentUser: req.user,leaves:leaves,number:x});
+        }
+      });
 });
+
+
 
 router.post("/dashboard/info",auth,function(req,res){
     User.findOne({email:req.body.email},function(err,user){

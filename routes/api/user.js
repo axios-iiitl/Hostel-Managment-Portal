@@ -10,9 +10,8 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard", auth, (req, res) => {
-  Leave.find({Email:req.user.email},function(err,leaves){
-    if(err)
-    {
+  Leave.find({Email:req.user.email}).sort('-createdAt').exec(function(err,leaves){
+    if(err){
       res.redirect("/");
     }else{
     res.render("landing", { currentUser: req.user,leaves:leaves});
@@ -81,6 +80,7 @@ router.post("/dashboard/contacts/:id", auth, function(req, res) {
 //Leave Routes
 
 router.post("/dashboard/leave",auth,function(req,res){
+  req.body.leave.date=new Date();
    Leave.create(req.body.leave,function(err,leave){
      if(err){
        res.redirect("/user/dashboard");
@@ -100,27 +100,17 @@ router.get("/dashboard/edit/leave/:id",auth,function(req,res){
     });
 });
 
+
 router.post("/dashboard/edit/leave/:id",auth,function(req,res){
-  Leave.findOne({_id:req.params.id},function(err,leave){
+  
+  Leave.findOneAndUpdate({_id:req.params.id},req.body.leave,function(err,leave){
     if(err){
       res.redirect("/user/dashboard");
     }else{
-      Leave.deleteOne({_id:req.params.id},function(err,leave){
-        if(err){
-          res.redirect("/user/dashboard");
-        }else{
-
-          Leave.create(req.body.leave,function(err,leave){
-             if(err){
-               res.redirect("/user/dashboard");
-             }else{
-                    res.redirect("/user/dashboard");
-             }
-          });
-        }
-      });
-    }
+            res.redirect("/user/dashboard");
+    } 
   });
+
 });
 
 router.get("/dashboard/delete/leave/:id",auth,function(req,res){

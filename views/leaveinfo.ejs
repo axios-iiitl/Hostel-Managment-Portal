@@ -12,8 +12,10 @@
             <strong>Reason:</strong>  <p><%=leave.Reason%></p>
             <%if(leave.Approve==true){%>
                 <button class="btn btn-success ">Approved</button>
-            <%}else{%>
+            <%}else if(leave.Approve==false){%>
                 <button class="btn btn-danger ">Rejected</button>
+            <%}else{%>
+                <button class="btn btn-info ">Waiting</button>
             <%}%><br><br>
             <strong>==================================</strong><br>
         <%})%>

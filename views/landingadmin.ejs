@@ -49,4 +49,36 @@
         </div>
     </div>
 </div>
+
+<div class="jumbotron">
+    <div class="container">
+        <div style="width:30%;margin:25px auto;">
+            <h2>Recent Applications</h2>
+            <%num=number%>
+         <%leaves.forEach(function(leave){%>
+            <%if(num>0){%>
+            <div class="row">
+                <strong>Name:</strong>  <p><%=leave.Name%></p>
+                <strong>Email:</strong>  <p><%=leave.Email%></p>
+                <strong>Leave Date:</strong>  <p><%=leave.Leave%></p>
+                <strong>Return Date:</strong>  <p><%=leave.Return%></p>
+                <strong>Reason:</strong>  <p><%=leave.Reason%></p>
+                <%if(leave.Approve==null){%>
+                    <button class="btn btn-info">Waiting</button>
+                    <%}else if(leave.Approve==true){%>
+                    <button class="btn btn-success">Approved</button>
+                    <%}else if(leave.Approve==false){%>
+                    <button class="btn btn-danger">Rejected</button>
+                    <%}%>
+                <strong>=======================================================</strong>
+            </div>
+          <%num=num-1;}%>
+         <%})%>
+         <%number=number+5%>
+         <%var str="/admin/dashboard?number="%>
+         <%var res=str.concat(number) %>
+         <a href="<%=res%>" > More Applications</a>
+       </div>
+    </div>
+</div>
 <%- include('partials/footer'); -%>

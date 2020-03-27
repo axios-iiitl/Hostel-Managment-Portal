@@ -28,8 +28,6 @@ const LeaveSchema= new mongoose.Schema({
     },
     Approve:{
         type:Boolean
-    }
-
-});
-
+    }  
+},{timestamps:true});
 module.exports = mongoose.model("Leave", LeaveSchema);
