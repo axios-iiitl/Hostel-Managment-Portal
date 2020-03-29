@@ -80,7 +80,6 @@ router.post("/dashboard/contacts/:id", auth, function(req, res) {
 //Leave Routes
 
 router.post("/dashboard/leave",auth,function(req,res){
-  req.body.leave.date=new Date();
    Leave.create(req.body.leave,function(err,leave){
      if(err){
        res.redirect("/user/dashboard");

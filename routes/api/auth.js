@@ -21,6 +21,7 @@ router.get(
     res.cookie("token", req.session.token);
     Admin.findOne({email:req.user.email},function(err,admin){
        if(admin){
+         req.session.status="applied";
          res.redirect("/admin/dashboard");
          User.deleteOne({email:req.user.email},function(err,user){
            

@@ -28,35 +28,27 @@
     </div>
 </div>
 
-<div class="jumbotron">
-    <div class="container">
-        <div style="width:30%;margin:25px auto;">
-            <h2>Students who had applied for leave</h2>
-            <%leaves.forEach(function(leave){%>
-                <%if(leave.Approve==null){%>
-                <div class="row">
-                    <strong>Name:</strong>  <p><%=leave.Name%></p>
-                    <strong>Email:</strong>  <p><%=leave.Email%></p>
-                    <strong>Leave Date:</strong>  <p><%=leave.Leave%></p>
-                    <strong>Return Date:</strong>  <p><%=leave.Return%></p>
-                    <strong>Reason:</strong>  <p><%=leave.Reason%></p>
-                    <a href="/admin/dashboard/permit/accept/<%=leave._id%>"> <button class="btn btn-success">Success</button></a>
-                    <a href="/admin/dashboard/permit/reject/<%=leave._id%>"><button class="btn btn-danger">Reject</button></a>
-                    <strong>=======================================================</strong>
-                </div> 
-              <%}%>
-            <%})%>
-        </div>
-    </div>
-</div>
 
 <div class="jumbotron">
     <div class="container">
-        <div style="width:30%;margin:25px auto;">
-            <h2>Recent Applications</h2>
-            <%num=number%>
-         <%leaves.forEach(function(leave){%>
-            <!-- <%if(num>0){%> -->
+         <h4>
+           Select from these options:
+          <form action="/admin/dashboard" method="GET">
+            <select id="hello" name="status">
+                <option value="applied" >Applications for leave</option>
+                <option value="recent">Recent Applications</option>
+            </select>
+            <button>Submit</button>
+          </form>
+        </h4>
+          <strong> =============================================================================  </strong>
+           <%if(status=="applied"){%>
+               <h2>Applications for Leave</h2>
+           <%}else if(status=="recent"){%>
+               <h2>Recent Applications</h2>
+           <%}%>
+        <br>
+        <%leaves.forEach(function(leave){%>
             <div class="row">
                 <strong>Name:</strong>  <p><%=leave.Name%></p>
                 <strong>Email:</strong>  <p><%=leave.Email%></p>
@@ -64,21 +56,21 @@
                 <strong>Return Date:</strong>  <p><%=leave.Return%></p>
                 <strong>Reason:</strong>  <p><%=leave.Reason%></p>
                 <%if(leave.Approve==null){%>
-                    <button class="btn btn-info">Waiting</button>
-                    <%}else if(leave.Approve==true){%>
+                    <a href="/admin/dashboard/permit/accept/<%=leave._id%>"> <button class="btn btn-success">Success</button></a>
+                    <a href="/admin/dashboard/permit/reject/<%=leave._id%>"><button class="btn btn-danger">Reject</button></a>
+                <%}else if(leave.Approve==true){%>
                     <button class="btn btn-success">Approved</button>
-                    <%}else if(leave.Approve==false){%>
+                   <%}else if(leave.Approve==false){%>
                     <button class="btn btn-danger">Rejected</button>
-                    <%}%>
-                <strong>=======================================================</strong>
+                   <%}%><br><br>
+                   <strong>=======================================================</strong><br><br>
             </div>
-          <!-- <%num=num-1;}%> -->
-         <%})%>
-         <%number=number+5%>
-         <%var str="/admin/dashboard?number="%>
-         <%var res=str.concat(number) %>
-         <a href="<%=res%>" > More Applications</a>
-       </div>
+        <%})%>
+        
+        <%for(var i=0;i< number;i++){%>
+            <a href="/admin/dashboard/?page=<%=i%>"><%=i%></a>
+        <%}%>
     </div>
 </div>
+
 <%- include('partials/footer'); -%>

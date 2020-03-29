@@ -12,44 +12,54 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get("/dashboard", auth, function(req, res) {
   var perPage = 4,
     page;
-
+    
   req.query.page == undefined ? (page = 0) : (page = parseInt(req.query.page));
 
-  Leave.find()
+  if(req.query.status=="recent"){
+      req.session.status="recent";
+  }else if(req.query.status=="applied"){
+      req.session.status="applied";
+  }
+
+  if(req.session.status=="applied"){
+  Leave.find({Approve:null})
+    .limit(perPage)
+    .skip(perPage*parseInt(page))
+    .sort({
+        createdAt:"desc"
+    })
+    .exec(function(err,leaves){
+        Leave.countDocuments({Approve:null}).exec(function(err,count){
+
+            res.render("landingadmin",{
+                currentUser: req.user,
+                leaves: leaves,
+                page: page,
+                number: count / perPage,
+                status:"applied"
+            })
+        });
+    })
+ }else if(req.session.status=="recent"){
+    Leave.find()
     .limit(perPage)
     .skip(perPage * parseInt(page))
     .sort({
-      updatedAt: "desc"
+      createdAt: "desc"
     })
     .exec(function(err, leaves) {
-      console.log(leaves);
       Leave.countDocuments().exec(function(err, count) {
-        console.log("````````````````````````````````");
-        console.log(count, perPage, page);
-        console.log("````````````````````````````````");
+       
         res.render("landingadmin", {
           currentUser: req.user,
           leaves: leaves,
           page: page,
-          number: count / perPage
+          number: count / perPage,
+          status:"recent"
         });
       });
     });
-  // .sort("-createdAt")
-  // .skip(skip)
-  // .limit(limit)
-  /* .exec(function(err, leaves) {
-      console.log(leaves);
-      if (err) {
-        res.redirect("/");
-      } else {
-        res.render("landingadmin", {
-          currentUser: req.user,
-          leaves: leaves,
-          number: limit
-        });
-      }
-    }); */
+ }
 });
 
 router.post("/dashboard/info", auth, function(req, res) {
@@ -69,13 +79,14 @@ router.post("/dashboard/info/leave", auth, function(req, res) {
 });
 
 router.get("/dashboard/permit/accept/:id", function(req, res) {
+    console.log("hello");
   Leave.findOne({ _id: req.params.id }, function(err, leave) {
     if (err) {
       res.redirect("/admin/dashboard");
     } else {
       leave.Approve = true;
       Leave.findOneAndUpdate(
-        { _id: req.params.id, useFindAndModify: true },
+        { _id: req.params.id },
         leave,
         function(err, leave) {
           if (err) {
@@ -96,7 +107,7 @@ router.get("/dashboard/permit/reject/:id", function(req, res) {
     } else {
       leave.Approve = false;
       Leave.findOneAndUpdate(
-        { _id: req.params.id, useFindAndModify: true },
+        { _id: req.params.id },
         leave,
         function(err, leave) {
           if (err) {
