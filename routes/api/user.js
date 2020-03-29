@@ -103,7 +103,7 @@ router.get("/dashboard/edit/leave/:id",auth,function(req,res){
 
 router.post("/dashboard/edit/leave/:id",auth,function(req,res){
   
-  Leave.findOneAndUpdate({_id:req.params.id},req.body.leave,function(err,leave){
+  Leave.findOneAndUpdate({_id:req.params.id, useFindAndModify: true},req.body.leave,function(err,leave){
     if(err){
       res.redirect("/user/dashboard");
     }else{

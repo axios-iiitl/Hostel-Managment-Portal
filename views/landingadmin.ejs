@@ -56,7 +56,7 @@
             <h2>Recent Applications</h2>
             <%num=number%>
          <%leaves.forEach(function(leave){%>
-            <%if(num>0){%>
+            <!-- <%if(num>0){%> -->
             <div class="row">
                 <strong>Name:</strong>  <p><%=leave.Name%></p>
                 <strong>Email:</strong>  <p><%=leave.Email%></p>
@@ -72,7 +72,7 @@
                     <%}%>
                 <strong>=======================================================</strong>
             </div>
-          <%num=num-1;}%>
+          <!-- <%num=num-1;}%> -->
          <%})%>
          <%number=number+5%>
          <%var str="/admin/dashboard?number="%>
