@@ -1,17 +1,85 @@
 <%- include('partials/header'); -%>
 
 <div class="jumbotron container">
-    <h2>Dashboard</h2> 
-    
-     <!-- <h2>Dashboard</h2> -->
-     <div class="li-container">
-        <div class="li-item i1">
-            <div class="li-hidden"><a href="/user/dashboard/items/<%=currentUser.googleId%>"> Edit Profile </a></div>
-        </div>
-        <div class="li-item i1">
-            <div class="li-hidden"><a href="/user/dashboard/contacts/<%=currentUser.googleId%>"> Edit Contact Information</a></div>
-        </div>
-     </div>  
+<h1>Landing Page</h1> 
+
+ <h2>Dashboard</h2>
+ <li><a href="/user/dashboard/items/<%=currentUser.googleId%>"> Edit Profile </a></li>
+ <li><a href="/user/dashboard/contacts/<%=currentUser.googleId%>"> Edit Contact Information</a></li>
+ <li><%=currentUser.name%></li>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Application for Leave</h2>
+        <h4 style="color:red;">   /*Don't create multiple applications at the same time. You can edit the existing from the edit button </h4>
+        <form action="/user/dashboard/leave" method="POST">
+            <div class="form-group">
+              <label>Name:</label><br>
+              <input type="text" name="leave[Name]" value="<%=currentUser.name%>" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Name:</label><br>
+                <input type="text" name="leave[Email]" value="<%=currentUser.email%>" readonly>
+            </div>
+             
+            <div class="form-group">
+                <label>Leaving Date</label><br>
+                <input type="date" name="leave[Leave]" >
+            </div>
+
+            <div class="form-group">
+                <label>Returning Date</label><br>
+                <input type="date" name="leave[Return]" >
+            </div>
+
+            <div class="form group">
+                <label>Reason</label><br>
+                <input type="text" name="leave[Reason]" placeholder="Reason">
+            </div>
+
+            <div class="form-group">
+                <br>
+                <button class="btn btn-primary ">Submit!</button>
+            </div>
+        </form>
     </div>
+</div>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <%if(leaves.length==0){%>
+            <div><p>No Applications</p></div>
+        <%}else{%>
+            <h2>Leave Application Information/Status</h2>
+            <!-- // -->
+            <br>
+            <h4>Latest Leave</h4>
+        <%leaves.forEach(function(leave){%>
+            <div>    
+               <br>
+              <strong>Name:</strong>  <p><%=leave.Name%></p>
+              <strong>Email:</strong>  <p><%=leave.Email%></p>
+              <strong>Leave Date:</strong>  <p><%=leave.Leave%></p>
+              <strong>Return Date:</strong>  <p><%=leave.Return%></p>
+              <strong>Reason:</strong>  <p><%=leave.Reason%></p>
+              <%if(leave.Approve==null){%>
+              <a href="/user/dashboard/edit/leave/<%=leave._id%>"><button class="btn btn-primary ">Edit </button></a>
+              <a href="/user/dashboard/delete/leave/<%=leave._id%>"><button class="btn btn-danger ">Delete </button></a>
+              <button class="btn btn-info ">Waiting</button>
+              <%}else if(leave.Approve==true){%>
+                <button class="btn btn-success ">Approved</button>
+              <%}else if(leave.Approve==false){%>
+                <button class="btn btn-danger ">Rejected</button>
+              <%}%>
+              <br><br>
+              <strong>=======================================================</strong>
+            </div>
+          <%})%>
+        <%}%>
+    </div>
+</div>
 <%- include('partials/footer'); -%>
 
