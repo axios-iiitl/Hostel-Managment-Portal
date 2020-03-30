@@ -22,11 +22,13 @@ router.get(
     Admin.findOne({email:req.user.email},function(err,admin){
        if(admin){
          req.session.status="applied";
+         req.session.client = "admin";
          res.redirect("/admin/dashboard");
          User.deleteOne({email:req.user.email},function(err,user){
            
          })
        }else{
+        req.session.client = "user";
         res.redirect("/user/dashboard");
       }
     });

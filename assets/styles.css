@@ -1,61 +1,40 @@
-@import url('https://fonts.googleapis.com/css?family=Headland+One&display=swap');
-.navbar{
-    position: absolute;top: 3%;left: 50%;
-    width: 80%;transform: translate(-50%, -3% );
-    background-image: linear-gradient(135deg , rgb(94 , 89 ,111) , rgb(43,42,58));
-    border: none;border-radius: 10px;
-    display: flex;
-}
-.glyphicon-picture{
-    background-image: url(https://iiitl.ac.in/wp-content/uploads/2019/10/Final_Logo_IIITL.png);
-}
-.navbar-right{
-    float: right;
+@import url("https://fonts.googleapis.com/css?family=Headland+One&display=swap");
+
+:root {
+  --white-bg-text: rgba(0, 0, 0, 0.712);
 }
 
-body{
-    background-image: linear-gradient(135deg , rgb(117, 108, 139),rgb(33, 37, 56));
-}
-.jumbotron{
-    position: relative;top: 12%;width: 80%; min-height: 50vh;
-    background-image: linear-gradient(135deg , rgb(94 , 89 ,111) , rgb(43,42,58));
-    border: none;border-radius: 10px;
-    text-transform: uppercase;
-}
-.jumbotron h2{
-    position: relative; margin-top: -15px;
-    font-family: 'Headland One', serif;
-    color: rgb(1 ,154, 215 );text-align: center;
-}
-.li-container{
-    position: relative;top: 30%;width: 100%;
-    display: flex;flex-wrap: wrap;justify-content: space-around;
-    margin-top: 20px;
-}
-.li-item{
-    height: 30vh;width: 20%;
-    /* background-image: linear-gradient(135deg,rgba(74, 76,91,0.4),rgba(34,34,44,0.6)); */
-    background-color: rgba(6, 6, 8, 0.308);
-      transition: .7s;
-}
-.li-hidden{
-    position:relative;top: 80%; height: 20%;
-    display: flex;justify-content: center;align-items: center; transition: .7s;
-}
-.li-hidden a{
-   
-    color: #fff;
-    text-decoration: none; transition: .7s;
-}
-.li-hidden a:hover{
-    color: rgb(1, 154, 215) ; transition: .3s;
-}
-.li-hidden:hover{
-    transform: scale(1.1);
-    /* background-image: linear-gradient(to bottom , rgba(169, 116, 254, 0.432) , rgba(122, 51, 245, 0.384)); */
-   border-radius: 10px;z-index: 10; transition: .7s;
-}
-.li-item:hover{
-    transform: scale(1.1);transition: .7s;
+body {
+  font-family: "Headland One", serif;
 }
 
+nav {
+  background: white;
+  box-shadow: none;
+}
+
+nav .brand-logo {
+  color: var(--white-bg-text);
+}
+
+nav ul a {
+  color: var(--white-bg-text);
+}
+
+.login-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px 40px;
+}
+
+.login-card h4 {
+  color: var(--white-bg-text);
+  font-size: 18px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
