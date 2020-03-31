@@ -26,10 +26,31 @@ nav ul a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px 40px;
+}
+
+.login-card-inner {
+  height: 69vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-card img {
+  height: 260px;
+}
+
+.login-card a {
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  padding: 10px;
+  color: #323a3ec9;
+}
+
+.login-card a:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .login-card h4 {

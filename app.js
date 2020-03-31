@@ -16,7 +16,6 @@ app.set("view engine", "ejs");
 
 //to link statis files
 app.use(express.static("./assets"));
-app.use(express.static("public"));
 
 app.use(
   cookieSession({
