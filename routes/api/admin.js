@@ -61,6 +61,10 @@ router.get("/dashboard", auth, function(req, res) {
   }
 });
 
+router.get("/dashboard/details",function(req,res){
+  res.render("details",{currentUser:req.user});
+})
+
 router.post("/dashboard/info", auth, function(req, res) {
   User.findOne({ email: req.body.email }, function(err, user) {
     res.render("userinfo", { user: user, currentUser: req.user });
@@ -68,13 +72,14 @@ router.post("/dashboard/info", auth, function(req, res) {
 });
 
 router.post("/dashboard/info/leave", auth, function(req, res) {
-  Leave.find({ Email: req.body.email }, function(err, leaves) {
-    if (err) {
-      res.redirect("/user/dashboard");
-    } else {
-      res.render("leaveinfo", { currentUser: req.user, leaves: leaves });
-    }
-  });
+  Leave.find({ Email: req.body.email })
+       .sort({createdAt:"desc"})
+       .exec(function(err,leaves){
+             if(err){
+               res.redirect("/admin/dashboard")
+             }
+             res.render("leaveinfo",{currentUser:req.user,leaves:leaves});
+       })
 });
 
 router.get("/dashboard/permit/accept/:id", function(req, res) {
