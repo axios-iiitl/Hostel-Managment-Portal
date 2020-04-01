@@ -15,7 +15,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 
 //to link statis files
-app.use(express.static('./assets'))
+app.use(express.static("./assets"));
 
 app.use(
   cookieSession({
@@ -33,13 +33,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", function(req, res) {
-  res.render("home", { currentUser: req.user });
+  res.render("home", { currentUser: req.user, clientType: req.session.client });
 });
-
 
 app.use("/auth", authRoutes);
 app.use("/user", user);
-app.use("/admin",admin);
+app.use("/admin", admin);
 
 const PORT = process.env.PORT || 3000;
 

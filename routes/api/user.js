@@ -14,7 +14,7 @@ router.get("/dashboard", auth, (req, res) => {
     if(err){
       res.redirect("/");
     }else{
-    res.render("landing", { currentUser: req.user,leaves:leaves});
+    res.render("landing", { currentUser: req.user,leaves:leaves, clientType: req.session.client});
     }
   });
 });
@@ -24,7 +24,7 @@ router.get("/dashboard/items/:id", auth, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("item", { user: user, currentUser: req.user });
+      res.render("item", { user: user, currentUser: req.user, clientType: req.session.client });
     }
   });
 });
@@ -53,7 +53,7 @@ router.get("/dashboard/contacts/:id", auth, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("contact", { user: user, currentUser: req.user });
+      res.render("contact", { user: user, currentUser: req.user, clientType: req.session.client });
     }
   });
 });
@@ -95,7 +95,7 @@ router.get("/dashboard/edit/leave/:id",auth,function(req,res){
         res.redirect("/user/dashboard");
       }
       console.log(leave);
-      res.render("editleave",{currentUser:req.user,leave:leave});
+      res.render("editleave",{currentUser:req.user,leave:leave, clientType: req.session.client});
     });
 });
 
