@@ -10,11 +10,11 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard", auth, (req, res) => {
-  Leave.find({Email:req.user.email}).sort('-createdAt').exec(function(err,leaves){
-    if(err){
-      res.redirect("/");
+  Leave.findOne({Email:req.user.email,Approve:null}).exec(function(err,leave){
+    if(leave){
+      res.render("landing",{currentUser: req.user,leave:leave, clientType: req.session.client,flag:1});
     }else{
-    res.render("landing", { currentUser: req.user,leaves:leaves, clientType: req.session.client});
+    res.render("landing", { currentUser: req.user,leave:leave, clientType: req.session.client,flag:0});
     }
   });
 });
@@ -104,19 +104,13 @@ router.post("/dashboard/contacts/:id", auth, function(req, res) {
 //Leave Routes
 
 router.post("/dashboard/leave",auth,function(req,res){
-  Leave.findOne({Email:req.user.email,Approve:null},function(err,leave){
-    if(leave){
-      console.log("Leave already exists");
+  Leave.create(req.body.leave,function(err,leave){
+    if(err){
+      res.redirect("/user/dashboard");
     }else{
-      Leave.create(req.body.leave,function(err,leave){
-        if(err){
-          res.redirect("/user/dashboard");
-        }else{
-          res.redirect("/user/dashboard");
-        }
-      });
+      res.redirect("/user/dashboard");
     }
-  })
+  });
 });
 
 router.get("/dashboard/edit/leave/:id",auth,function(req,res){
