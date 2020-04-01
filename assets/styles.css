@@ -59,3 +59,17 @@ nav ul a {
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
 }
+
+.sidenav-trigger {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  color: #323a3e;
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.sidenav-trigger i {
+  font-size: 30px;
+}

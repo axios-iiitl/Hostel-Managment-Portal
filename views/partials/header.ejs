@@ -6,18 +6,32 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://kit.fontawesome.com/742a48addb.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all">
+    <script
+      src="https://kit.fontawesome.com/742a48addb.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css"
+      media="all"
+    />
     <link rel="stylesheet" href="/styles.css" />
-</head>
-<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
     <nav>
       <div class="nav-wrapper" style="padding: 10px 40px;">
-        <div class="left" ><img src="https://iiitl.ac.in/wp-content/uploads/2019/10/Final_Logo_IIITL.png" style="height: 75px"/> </div>
-            <a href="#!" class="brand-logo center">Hostel</a>
+        <div class="left">
+          <img
+            src="https://iiitl.ac.in/wp-content/uploads/2019/10/Final_Logo_IIITL.png"
+            style="height: 75px"
+          />
+        </div>
+        <a href="#!" class="brand-logo center">Hostel</a>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <%if(!currentUser){%>
@@ -26,12 +40,12 @@
           <li><a href="#">Signed in as <%=currentUser.name%></a></li>
           <li>
             <%if(clientType == "admin"){%>
-            <a href="#">
-              <%}else{%>
-              <a href="/user/dashboard/items/<%=currentUser.googleId%>">
-                <%}%>
+            <!-- <a href="#">Edit Profile </a> -->
+            <%}else{%>
+            <a href="/user/dashboard/items/<%=currentUser.googleId%>">
               Edit Profile
             </a>
+            <%}%>
           </li>
           <li><a href="/auth/logout">LogOut</a></li>
           <%}%>
@@ -39,4 +53,10 @@
       </div>
     </nav>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll(".sidenav");
+      var instances = M.Sidenav.init(elems, {});
+    });
+  </script>
 </html>
