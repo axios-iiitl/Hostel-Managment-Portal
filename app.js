@@ -33,7 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", function(req, res) {
-  res.render("home", { currentUser: req.user });
+  res.render("home", { currentUser: req.user, clientType: req.session.client });
 });
 
 app.use("/auth", authRoutes);
