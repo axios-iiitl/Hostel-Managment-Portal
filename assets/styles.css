@@ -73,3 +73,11 @@ nav ul a {
 .sidenav-trigger i {
   font-size: 30px;
 }
+
+.slide-out-icon{
+  position: fixed;
+}
+.jumbotron-lorem{
+  position: relative;
+  width: 80%;left: 10%;
+}
