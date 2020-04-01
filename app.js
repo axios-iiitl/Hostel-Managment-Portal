@@ -6,6 +6,7 @@ const express = require("express"),
   user = require("./routes/api/user"),
   admin = require("./routes/api/admin"),
   passport = require("passport");
+  Admin=require("./models/Admin")
 
 require("./db/mongoose");
 
@@ -33,7 +34,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", function(req, res) {
+  if(req.session.token==null)
   res.render("home", { currentUser: req.user, clientType: req.session.client });
+  else {
+    Admin.findOne({googleId:req.session.token},function(err,admin){
+        if(admin){
+            res.redirect("/admin/dashboard");
+        }else{
+            res.redirect("/user/dashboard")
+        }
+    });
+  }
 });
 
 app.use("/auth", authRoutes);

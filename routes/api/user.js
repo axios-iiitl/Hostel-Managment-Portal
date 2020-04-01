@@ -19,6 +19,30 @@ router.get("/dashboard", auth, (req, res) => {
   });
 });
 
+router.get("/dashboard/leavehistory",auth,(req,res)=>{
+  var perPage=4; 
+  var page;
+      req.query.pageno == undefined ? (page = 0) : (page = parseInt(req.query.pageno));
+
+     Leave.find({Email:req.user.email})
+     .limit(perPage)
+     .skip(perPage * parseInt(page))
+     .sort({
+       createdAt:"desc"
+     })
+     .exec(function(err,leaves){
+      Leave.countDocuments({Email:req.user.email}).exec(function(err,count){
+           res.render("leavehistory",{
+                leaves:leaves,
+                currentUser:req.user,
+                clientType:req.session.client,
+                page:page,
+                number:count/perPage
+           });
+      });
+     });
+});
+ 
 router.get("/dashboard/items/:id", auth, function(req, res) {
   User.findOne({ googleId: req.params.id }, function(err, user) {
     if (err) {
@@ -80,13 +104,19 @@ router.post("/dashboard/contacts/:id", auth, function(req, res) {
 //Leave Routes
 
 router.post("/dashboard/leave",auth,function(req,res){
-   Leave.create(req.body.leave,function(err,leave){
-     if(err){
-       res.redirect("/user/dashboard");
-     }else{
-       res.redirect("/user/dashboard");
-     }
-   });
+  Leave.findOne({Email:req.user.email,Approve:null},function(err,leave){
+    if(leave){
+      console.log("Leave already exists");
+    }else{
+      Leave.create(req.body.leave,function(err,leave){
+        if(err){
+          res.redirect("/user/dashboard");
+        }else{
+          res.redirect("/user/dashboard");
+        }
+      });
+    }
+  })
 });
 
 router.get("/dashboard/edit/leave/:id",auth,function(req,res){
