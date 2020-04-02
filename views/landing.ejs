@@ -5,90 +5,92 @@
 <div class="container">
   <div class="jumbotron">
 
-   <%if(flag==1){%>
-    <h2>Edit your current Application for Leave</h2>
-    <form action="/user/dashboard/edit/leave/<%=leave._id%>" method="POST">
-        <div class="form-group">
-          <label>Name:</label><br>
-          <input type="text" name="leave[Name]" value="<%=leave.Name%>" readonly required>
-        </div>
-
-        <div class="form-group">
+    <%if(flag==1){%>
+      <h2>Edit your current Application for Leave</h2>
+      <form action="/user/dashboard/edit/leave/<%=leave._id%>" method="POST">
+          <div class="form-group">
             <label>Name:</label><br>
-            <input type="text" name="leave[Email]" value="<%=leave.Email%>" readonly required>
-        </div>
-         
+            <input type="text" name="leave[Name]" value="<%=leave.Name%>" readonly required>
+          </div>
+
+          <div class="form-group">
+              <label>Email:</label><br>
+              <input type="text" name="leave[Email]" value="<%=leave.Email%>" readonly required>
+          </div>
+          
+          <div class="form-group">
+              <label>Leaving Date</label><br>
+              <input type="date" name="leave[Leave]"  value="<%=leave.Leave%>" required>
+          </div>
+
+          <div class="form-group">
+              <label>Returning Date</label><br>
+              <input type="date" name="leave[Return]" value="<%=leave.Return%>" required>
+          </div>
+
+          <div class="form group field">
+              <label>Reason</label><br>
+              <input type="text" name="leave[Reason]" placeholder="Reason" value="<%=leave.Reason%>"required>
+          </div>
+
+          <div class="form-group">
+              <br>
+              <button class="btn btn-primary ">Submit!</button>
+          </div>
+            
+      </form>
+    <%}else if(flag==0){%>
+      <h2>Application for New Leave</h2>
+      <form action="/user/dashboard/leave" method="POST">
         <div class="form-group">
-            <label>Leaving Date</label><br>
-            <input type="date" name="leave[Leave]"  value="<%=leave.Leave%>" required>
+          <label>Name:</label><br />
+          <input
+            type="text"
+            name="leave[Name]"
+            value="<%=currentUser.name%>"
+            readonly
+          />
         </div>
 
         <div class="form-group">
-            <label>Returning Date</label><br>
-            <input type="date" name="leave[Return]" value="<%=leave.Return%>" required>
+          <label>Email:</label><br />
+          <input
+            type="text"
+            name="leave[Email]"
+            value="<%=currentUser.email%>"
+            readonly
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Leaving Date</label><br />
+          <input type="date" name="leave[Leave]" />
+        </div>
+
+        <div class="form-group">
+          <label>Returning Date</label><br />
+          <input type="date" name="leave[Return]" />
         </div>
 
         <div class="form group">
-            <label>Reason</label><br>
-            <input type="text" name="leave[Reason]" placeholder="Reason" value="<%=leave.Reason%>"required>
+          <label>Reason</label><br />
+          <input type="text" name="leave[Reason]" placeholder="Reason" />
         </div>
 
         <div class="form-group">
-            <br>
-            <button class="btn btn-primary ">Submit!</button>
+          <br />
+          <button class="btn btn-primary ">Submit!</button>
         </div>
-           
-    </form>
-   <%}else if(flag==0){%>
-    <h2>Application for New Leave</h2>
-    <form action="/user/dashboard/leave" method="POST">
-      <div class="form-group">
-        <label>Name:</label><br />
-        <input
-          type="text"
-          name="leave[Name]"
-          value="<%=currentUser.name%>"
-          readonly
-        />
-      </div>
+      </form>
+      <%}%>
 
-      <div class="form-group">
-        <label>Name:</label><br />
-        <input
-          type="text"
-          name="leave[Email]"
-          value="<%=currentUser.email%>"
-          readonly
-        />
-      </div>
-
-      <div class="form-group">
-        <label>Leaving Date</label><br />
-        <input type="date" name="leave[Leave]" />
-      </div>
-
-      <div class="form-group">
-        <label>Returning Date</label><br />
-        <input type="date" name="leave[Return]" />
-      </div>
-
-      <div class="form group">
-        <label>Reason</label><br />
-        <input type="text" name="leave[Reason]" placeholder="Reason" />
-      </div>
-
-      <div class="form-group">
-        <br />
-        <button class="btn btn-primary ">Submit!</button>
-      </div>
-    </form>
-  <%}%>
+  <p>number of applications so far : <%= leave.length %>  /* lav joshi check this once</p>
+<a href="/user/dashboard/leavehistory"><h4>Link for past applications</h4></a>
   </div>
 </div>
 
 
-<p>number of applications so far : <%= leave.length %>  /* lav joshi check this once</p>
-<a href="/user/dashboard/leavehistory"><h4>Link for past applications</h4></a>
+
 
 
 <%- include('partials/footer'); -%>

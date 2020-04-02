@@ -2,19 +2,20 @@
 
 <%- include('partials/sidenav'); -%>
 
+<div class="leave-h2">
+  <h2>Leave History </h2></div>
 
-<h2>Leave History </h2>
 <div class="container">
     <div class="jumbotron">
       <%if(leaves.length==0){%>
-      <div><p>No Applications</p></div>
+      <div class="status-heading">No Applications</div>
       <%}else{%>
-      <h2>Leave Application Information/Status</h2>
+      <div class="status-heading"><h3>Leave Application Information/Status</h3></div>
       <!-- // -->
       <br />
-      <h4>Latest Leave</h4>
+      <h4 style="margin-bottom: 35px;">Latest Leave:</h4>
       <%leaves.forEach(function(leave){%>
-      <div>
+      <div class="leave-content">
         <br />
         <strong>Name:</strong>
         <p><%=leave.Name%></p>
