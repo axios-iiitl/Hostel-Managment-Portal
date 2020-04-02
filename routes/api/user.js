@@ -19,7 +19,7 @@ router.get("/dashboard", auth, (req, res) => {
   });
 });
 
-router.get("/leavehistory",auth,(req,res)=>{
+router.get("/dashboard/leavehistory",auth,(req,res)=>{
   var perPage=4; 
   var page;
       req.query.pageno == undefined ? (page = 0) : (page = parseInt(req.query.pageno));
