@@ -1,0 +1,58 @@
+<%- include('partials/header'); -%>
+
+<%- include('partials/sidenav'); -%>
+
+
+<h2>Leave History </h2>
+<div class="container">
+    <div class="jumbotron">
+      <%if(leaves.length==0){%>
+      <div><p>No Applications</p></div>
+      <%}else{%>
+      <h2>Leave Application Information/Status</h2>
+      <!-- // -->
+      <br />
+      <h4>Latest Leave</h4>
+      <%leaves.forEach(function(leave){%>
+      <div>
+        <br />
+        <strong>Name:</strong>
+        <p><%=leave.Name%></p>
+        <strong>Email:</strong>
+        <p><%=leave.Email%></p>
+        <strong>Leave Date:</strong>
+        <p><%=leave.Leave%></p>
+        <strong>Return Date:</strong>
+        <p><%=leave.Return%></p>
+        <strong>Reason:</strong>
+        <p><%=leave.Reason%></p>
+        <%if(leave.Approve==null){%>
+        <a href="/user/dashboard/edit/leave/<%=leave._id%>"
+          ><button class="btn btn-primary ">Edit</button></a
+        >
+        <a href="/user/dashboard/delete/leave/<%=leave._id%>"
+          ><button class="btn btn-danger ">Delete</button></a
+        >
+        <button class="btn btn-info ">Waiting</button>
+        <%}else if(leave.Approve==true){%>
+        <button class="btn btn-success ">Approved</button>
+        <%}else if(leave.Approve==false){%>
+        <button class="btn btn-danger ">Rejected</button>
+        <%}%>
+        <br /><br />
+  
+        <strong>=======================================================</strong>
+      </div>
+      <%})%> <%}%>
+
+      <%for(var i=0;i< number;i++){%>
+        <a href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i%></a>
+    <%}%>
+    
+    </div>
+  </div>
+
+ 
+
+
+<%- include('partials/footer'); -%>
