@@ -61,7 +61,7 @@ nav ul a {
 }
 
 .sidenav-trigger {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 10px;
   color: #323a3e;
@@ -89,9 +89,7 @@ nav ul a {
   left: 120%;top: -80%;
 }
 
-.slide-out-icon{
-  position: fixed;
-}
+
 .container{
   display: flex;
   justify-content: center;
@@ -108,6 +106,10 @@ nav ul a {
   padding: 20px 40px;
 }
 
+.jumbotron h3{
+  width: 100%; height: fit-content;
+  display: flex; justify-content: center; align-items: center;
+}
 
 /* leaving history */
 .leave-h2{

@@ -2,11 +2,14 @@
 
 <%- include('partials/sidenav'); -%>
 
+<div class="leave-h2">
+  <h2>Leave Application </h2></div>
+
 <div class="container">
   <div class="jumbotron">
 
     <%if(flag==1){%>
-      <h2>Edit your current Application for Leave</h2>
+      <h3>Edit your current Application for Leave</h3>
       <form action="/user/dashboard/edit/leave/<%=leave._id%>" method="POST">
           <div class="form-group">
             <label>Name:</label><br>
@@ -19,17 +22,17 @@
           </div>
           
           <div class="form-group">
-              <label>Leaving Date</label><br>
+              <label>Leaving Date:</label><br>
               <input type="date" name="leave[Leave]"  value="<%=leave.Leave%>" required>
           </div>
 
           <div class="form-group">
-              <label>Returning Date</label><br>
+              <label>Returning Date:</label><br>
               <input type="date" name="leave[Return]" value="<%=leave.Return%>" required>
           </div>
 
           <div class="form group field">
-              <label>Reason</label><br>
+              <label>Reason:</label><br>
               <input type="text" name="leave[Reason]" placeholder="Reason" value="<%=leave.Reason%>"required>
           </div>
 
@@ -40,7 +43,7 @@
             
       </form>
     <%}else if(flag==0){%>
-      <h2>Application for New Leave</h2>
+      <h3>Application for New Leave</h3>
       <form action="/user/dashboard/leave" method="POST">
         <div class="form-group">
           <label>Name:</label><br />
@@ -63,17 +66,17 @@
         </div>
 
         <div class="form-group">
-          <label>Leaving Date</label><br />
+          <label>Leaving Date:</label><br />
           <input type="date" name="leave[Leave]" />
         </div>
 
         <div class="form-group">
-          <label>Returning Date</label><br />
+          <label>Returning Date:</label><br />
           <input type="date" name="leave[Return]" />
         </div>
 
-        <div class="form group">
-          <label>Reason</label><br />
+        <div class="form-group">
+          <label>Reason:</label><br />
           <input type="text" name="leave[Reason]" placeholder="Reason" />
         </div>
 
@@ -84,8 +87,12 @@
       </form>
       <%}%>
 
-  <p>number of applications so far : <%= leave.length %>  /* lav joshi check this once</p>
-<a href="/user/dashboard/leavehistory"><h4>Link for past applications</h4></a>
+
+  </div>
+</div>
+<div class="container">
+  <div class="jumbotron">
+  <a href="/user/dashboard/leavehistory"><h4>Link for past applications</h4></a>
   </div>
 </div>
 
