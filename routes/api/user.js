@@ -19,6 +19,16 @@ router.get("/dashboard", auth, (req, res) => {
   });
 });
 
+router.get("/dashboard/application", auth, (req, res) => {
+  Leave.findOne({Email:req.user.email,Approve:null}).exec(function(err,leave){
+    if(err){
+      res.render("landing",{currentUser: req.user,leave:leave, clientType: req.session.client,flag:1});
+    }else{
+    res.render("application", { currentUser: req.user,leave:leave, clientType: req.session.client,flag:0});
+    }
+  });
+});
+
 router.get("/dashboard/leavehistory",auth,(req,res)=>{
   var perPage=4; 
   var page;
