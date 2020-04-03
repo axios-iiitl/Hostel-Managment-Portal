@@ -1,8 +1,13 @@
 <%- include('partials/header'); -%>
 <%- include('partials/sidenav'); -%>
+
+<div class="start-h2">
+  <a href="/user/dashboard"><button><i class="material-icons back-icon">chevron_left</i></button></a>
+  <h2>Items </h2></div>
+
 <div class="container">
   <div class="row">
-    <h1 style="text-align: center;">Edit your item details <%=user.name%></h1>
+    <h3 style="text-align: center;">Edit your item details <%=user.name%></h3>
     <div style="width:30%;margin:25px auto;">
       <form action="/user/dashboard/items/<%=user.googleId%>" method="POST">
         <div class="form-group">
@@ -63,7 +68,6 @@
           <button class="btn btn-lg btn-primary btn-block">Submit!</button>
         </div>
       </form>
-      <a href="/user/dashboard">Go back</a>
     </div>
   </div>
 </div>
