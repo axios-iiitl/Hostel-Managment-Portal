@@ -111,19 +111,53 @@ nav ul a {
   display: flex; justify-content: center; align-items: center;
 }
 
-/* leaving history */
-.leave-h2{
+/* Main heading div */
+.start-h2{
   width: 100%; height: 10%;
   display:flex;justify-content: center;  align-items: center;
 }
-.leave-h2 h2{
+.start-h2 h2{
   border-bottom: 2px solid red;
 }
+.start-h2 a{
+  position: relative;
+  left: -40%; top: 20%;
+}
+.start-h2 a button{
+  border: none; border-radius: 100%;
+  height: 30px; width: 30px;
+  cursor: pointer;
+  display:flex;justify-content: center;  align-items: center;
+  background-color: transparent;  
+  border: 1px solid #ccc; transition: .5s;
+}
+.start-h2 a button i{
+  position: relative;
+  font-size: 28px; top:-1px;
+}
+.start-h2 a button:hover{
+  transform: scale(1.1);
+  transition: .5s;
+  background-color: #26a69a;
+  color: #fff;
+}
+.start-h2 a button i:hover{
+  transform: translateX(24px);
+}
+.start-h2 a button:hover::after{
+  content: 'Back to Dashboard';
+  transition-delay: .5s;
+  font-size: 10px;
+  color: #323a3e;
+  position: relative;
+  left: 200%;top: -80%;
+}
+
+/* leavehistory.ejs */
 .status-heading{
   width: 100%; height: fit-content;
   display: flex; justify-content: center; align-items: center;
 }
-
 .leave-content{
   border: 1px solid #ccc;
   border-radius: 10px;

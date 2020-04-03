@@ -1,8 +1,13 @@
 <%- include('partials/header'); -%>
 <%- include('partials/sidenav'); -%>
+
+<div class="start-h2">
+    <a href="/user/dashboard"><button><i class="material-icons back-icon">chevron_left</i></button></a>
+    <h2>Edit </h2></div>
+
 <div class="container">
     <div class="jumbotron">    
-  <h2>Edit your Application for Leave</h2>
+  <h3>Edit your Application for Leave</h3>
         <form action="/user/dashboard/edit/leave/<%=leave._id%>" method="POST">
             <div class="form-group">
               <label>Name:</label><br>
@@ -35,7 +40,7 @@
             </div>
                
         </form>
-        <a href="/user/dashboard"><button>Go Back</button></a>
+        
     </div>
 </div>
 
