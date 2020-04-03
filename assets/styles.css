@@ -120,8 +120,8 @@ nav ul a {
   border-bottom: 2px solid red;
 }
 .start-h2 a{
-  position: relative;
-  left: -40%; top: 20%;
+  position: absolute;
+  left: 8%; top: 16%;
 }
 .start-h2 a button{
   border: none; border-radius: 100%;
