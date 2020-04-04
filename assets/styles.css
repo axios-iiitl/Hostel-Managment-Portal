@@ -105,6 +105,10 @@ nav ul a {
   border-radius: 10px;
   padding: 20px 40px;
 }
+.dashboard{
+  border: none;
+  margin-top: 20px;
+}
 
 .jumbotron h3{
   width: 100%; height: fit-content;
