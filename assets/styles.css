@@ -80,14 +80,14 @@ nav ul a {
   transform: scale(1.4) translateX(15px);
   transition: .5s;
 }
-.sidenav-trigger:hover::after{
+/* .sidenav-trigger:hover::after{
   content: 'Click Me!';
   transition-delay: .5s;
   font-size: 10px;
   color: #323a3e;
   position: relative;
   left: 120%;top: -80%;
-}
+} */
 
 
 .container{
