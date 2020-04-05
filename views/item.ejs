@@ -7,68 +7,68 @@
 
 <div class="container">
   <div class="row">
-    <h3 style="text-align: center;">Edit your item details <%=user.name%></h3>
-    <div style="width:30%;margin:25px auto;">
-      <form action="/user/dashboard/items/<%=user.googleId%>" method="POST">
-        <div class="form-group">
-          <label>Table Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[tableNumber]"
-            value="<%=user.items.tableNumber%>"
-            placeholder="Table Number"
-          />
-        </div>
+    <h4 style="text-align: center;">Edit your item details <%=user.name%></h4>
+    
+      <form class="form-container " action="/user/dashboard/items/<%=user.googleId%>" method="POST">
+          <div class="inp-animation-container">
+            <input
+              type="text"
+              name="items[tableNumber]"
+              value="<%=user.items.tableNumber%>"
+            required/>
+            <div class="inp-label"> 
+              <span> Table Number </span>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label>Chair Number</label>
+        <div class="inp-animation-container">
           <input
-            class="form-control"
             type="text"
             name="items[chairNumber]"
             value="<%=user.items.chairNumber%>"
-            placeholder="Chair Number"
-          />
+          required/>
+          <div class="inp-label"> 
+            <span> Chair Number </span>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Shelf Number</label>
+        <div class="inp-animation-container">
           <input
-            class="form-control"
             type="text"
             name="items[shelfNumber]"
             value="<%=user.items.shelfNumber%>"
-            placeholder="Shelf Number"
-          />
-        </div>
+          required/>
+          <div class="inp-label"> 
+            <span> Shelf Number </span>
+          </div>
+      </div>
 
-        <div class="form-group">
-          <label>Lamp Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[lampNumber]"
-            value="<%=user.items.lampNumber%>"
-            placeholder="Lamp Number"
-          />
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[lampNumber]"
+          value="<%=user.items.lampNumber%>"
+        required/>
+        <div class="inp-label"> 
+          <span> Lamp Number </span>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label>Room Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[roomNumber]"
-            value="<%=user.items.roomNumber%>"
-            placeholder="Room Number"
-          />
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[roomNumber]"
+          value="<%=user.items.roomNumber%>"
+        required/>
+        <div class="inp-label"> 
+          <span> Room Number </span>
         </div>
-        <div class="form-group">
+      </div>
+
+        <div class="form-group" style="margin-top: 15px;">
           <button class="btn btn-lg btn-primary btn-block">Submit!</button>
         </div>
       </form>
-    </div>
   </div>
 </div>
 <%- include('partials/footer'); -%>
