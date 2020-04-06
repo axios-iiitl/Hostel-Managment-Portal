@@ -67,14 +67,14 @@ nav ul a {
   color: #323a3e;
   font-size: 2rem;
   border: 1px solid #ccc;
-  border-radius: 50%;
-   height: 32px; width: 32px;
+  /* border-radius: 50%;
+   height: 32px; width: 32px; */
 }
 
-.sidenav-trigger i {
+/* .sidenav-trigger i {
   position: relative; margin-left: 1px;
   font-size: 30px;
-}
+} */
 
 .sidenav-trigger:hover{
   transform: scale(1.4) translateX(15px);
@@ -126,35 +126,30 @@ nav ul a {
 .start-h2 a{
   position: absolute;
   left: 8%; top: 16%;
-}
-.start-h2 a button{
   border: none; border-radius: 100%;
   height: 30px; width: 30px;
   cursor: pointer;
   display:flex;justify-content: center;  align-items: center;
   background-color: transparent;  
   border: 1px solid #ccc; transition: .5s;
+  color: black;
 }
-.start-h2 a button i{
+.start-h2 a i{
   position: relative;
-  font-size: 28px; top:-1px;
+  font-size: 28px; 
 }
-.start-h2 a button:hover{
+.start-h2 a:hover{
   transform: scale(1.1);
   transition: .5s;
   background-color: #26a69a;
   color: #fff;
 }
-.start-h2 a button i:hover{
-  transform: translateX(24px);
-}
-.start-h2 a button:hover::after{
+.start-h2 a:hover::after{
   content: 'Back to Dashboard';
   transition-delay: .5s;
   font-size: 10px;
   color: #323a3e;
-  position: relative;
-  left: 200%;top: -80%;
+  position: absolute; left: 35px;
 }
 
 /* leavehistory.ejs */

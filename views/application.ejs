@@ -3,7 +3,7 @@
 <%- include('partials/sidenav'); -%>
 
 <div class="start-h2">
-    <a href="/user/dashboard"><button><i class="material-icons back-icon">chevron_left</i></button></a>
+    <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
 </div>
   
   <div class="container">
@@ -93,7 +93,7 @@
   
           <div class="form-group">
             <br />
-            <button class="btn btn-primary ">Submit!</button>
+            <button class="btn btn-primary " onclick="M.toast({html: 'Application Submitted'})">Submit!</button>
           </div>
         </form>
         <%}%>

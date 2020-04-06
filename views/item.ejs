@@ -2,7 +2,7 @@
 <%- include('partials/sidenav'); -%>
 
 <div class="start-h2">
-  <a href="/user/dashboard"><button><i class="material-icons back-icon">chevron_left</i></button></a>
+  <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
 </div>
 
 <div class="container">
@@ -66,7 +66,7 @@
       </div>
 
         <div class="form-group" style="margin-top: 15px;">
-          <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+          <button class="btn btn-lg btn-primary btn-block"  onclick="M.toast({html: 'Submitted'})">Submit!</button>
         </div>
       </form>
   </div>
