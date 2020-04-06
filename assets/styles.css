@@ -8,19 +8,6 @@ body {
   font-family: "Headland One", serif;
 }
 
-nav {
-  background: white;
-  box-shadow: none;
-}
-
-nav .brand-logo {
-  color: var(--white-bg-text);
-}
-
-nav ul a {
-  color: var(--white-bg-text);
-}
-
 .login-card {
   position: absolute;
   top: 50%;
@@ -60,6 +47,21 @@ nav ul a {
   border-bottom: 1px solid #ccc;
 }
 
+
+/* sidenave */
+nav {
+  background: white;
+  box-shadow: none;
+}
+
+nav .brand-logo {
+  color: var(--white-bg-text);
+}
+
+nav ul a {
+  color: var(--white-bg-text);
+}
+
 .sidenav-trigger {
   position: fixed;
   top: 50%;
@@ -67,29 +69,13 @@ nav ul a {
   color: #323a3e;
   font-size: 2rem;
   border: 1px solid #ccc;
-  /* border-radius: 50%;
-   height: 32px; width: 32px; */
 }
-
-/* .sidenav-trigger i {
-  position: relative; margin-left: 1px;
-  font-size: 30px;
-} */
-
 .sidenav-trigger:hover{
   transform: scale(1.4) translateX(15px);
   transition: .5s;
 }
-/* .sidenav-trigger:hover::after{
-  content: 'Click Me!';
-  transition-delay: .5s;
-  font-size: 10px;
-  color: #323a3e;
-  position: relative;
-  left: 120%;top: -80%;
-} */
 
-
+/* whole container */
 .container{
   display: flex;
   justify-content: center;

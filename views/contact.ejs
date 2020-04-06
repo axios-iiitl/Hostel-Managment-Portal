@@ -1,60 +1,66 @@
 <%- include('partials/header'); -%>
 <%- include('partials/sidenav'); -%>
+
+<div class="start-h2">
+  <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
+</div>
+
 <div class="container">
   <div class="row">
-    <h1 style="text-align: center;">
+    <h4 style="text-align: center;">
       Edit your contact details <%=user.name%>
-    </h1>
+    </h4>
     <div style="width:30%;margin:25px auto;">
       <form action="/user/dashboard/contacts/<%=user.googleId%>" method="POST">
-        <div class="form-group">
-          <label>Contact Number</label>
+    
+        <div class="inp-animation-container">
           <input
-            class="form-control"
             type="text"
             name="contacts[phoneNumber]"
             value="<%=user.contacts.phoneNumber%>"
-            placeholder="Contact Number"
-          />
+          required/>
+          <div class="inp-label"> 
+            <span> Contact Number </span>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Father's Name</label>
+        
+        <div class="inp-animation-container">
           <input
-            class="form-control"
             type="text"
             name="contacts[guardianName]"
             value="<%=user.contacts.guardianName%>"
-            placeholder="Father's Name"
-          />
+          required/>
+          <div class="inp-label"> 
+            <span> Father's Number </span>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label>Father's Contact No.</label>
+        
+        <div class="inp-animation-container">
           <input
-            class="form-control"
             type="text"
             name="contacts[guardianNumber]"
             value="<%=user.contacts.guardianNumber%>"
-            placeholder="Father's Contact Number"
-          />
+          required/>
+          <div class="inp-label"> 
+            <span> Father's Contact No. </span>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label>Address</label>
+        
+        <div class="inp-animation-container">
           <input
-            class="form-control"
             type="text"
             name="contacts[address]"
             value="<%=user.contacts.address%>"
-            placeholder="Address"
-          />
+          required/>
+          <div class="inp-label"> 
+            <span> Address </span>
+          </div>
         </div>
-
+        <br>
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block"  onclick="M.toast({html: 'Submitted'})">Submit!</button>
         </div>
       </form>
-      <a href="/user/dashboard">Go back</a>
     </div>
   </div>
 </div>
