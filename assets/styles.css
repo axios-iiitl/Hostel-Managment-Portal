@@ -47,7 +47,6 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
-
 /* sidenave */
 nav {
   background: white;
@@ -69,14 +68,18 @@ nav ul a {
   color: #323a3e;
   font-size: 2rem;
   border: 1px solid #ccc;
+  background: transparent;
 }
-.sidenav-trigger:hover{
-  transform: scale(1.4) translateX(15px);
-  transition: .5s;
+.sidenav-trigger i {
+  color: black;
+}
+.sidenav-trigger:hover {
+  background: #9e9e9e80;
+  transition: 0.5s;
 }
 
 /* whole container */
-.container{
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,141 +87,160 @@ nav ul a {
 }
 
 /* main-container */
-.jumbotron{
+.jumbotron {
   width: 80vw;
   position: relative;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px 40px;
 }
-.dashboard{
+.dashboard {
   border: none;
   margin-top: 20px;
 }
 
-.jumbotron h3{
-  width: 100%; height: fit-content;
-  display: flex; justify-content: center; align-items: center;
+.jumbotron h3 {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Main heading div */
-.start-h2{
-  width: 100%; height: 10%;
-  display:flex;justify-content: center;  align-items: center;
+.start-h2 {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.start-h2 h2{
+.start-h2 h2 {
   border-bottom: 2px solid red;
 }
-.start-h2 a{
+.start-h2 a {
   position: absolute;
-  left: 8%; top: 16%;
-  border: none; border-radius: 100%;
-  height: 30px; width: 30px;
+  left: 8%;
+  top: 16%;
+  border: none;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
-  display:flex;justify-content: center;  align-items: center;
-  background-color: transparent;  
-  border: 1px solid #ccc; transition: .5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  transition: 0.5s;
   color: black;
 }
-.start-h2 a i{
+.start-h2 a i {
   position: relative;
-  font-size: 28px; 
+  font-size: 28px;
 }
-.start-h2 a:hover{
+.start-h2 a:hover {
   transform: scale(1.1);
-  transition: .5s;
+  transition: 0.5s;
   background-color: #26a69a;
   color: #fff;
 }
-.start-h2 a:hover::after{
-  content: 'Back to Dashboard';
-  transition-delay: .5s;
+.start-h2 a:hover::after {
+  content: "Back to Dashboard";
+  transition-delay: 0.5s;
   font-size: 10px;
   color: #323a3e;
-  position: absolute; left: 35px;
+  position: absolute;
+  left: 35px;
 }
 
 /* leavehistory.ejs */
-.status-heading{
-  width: 100%; height: fit-content;
-  display: flex; justify-content: center; align-items: center;
+.status-heading {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.leave-content{
+.leave-content {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px 40px;
   margin-bottom: 20px;
   transition: 1s;
 }
-.leave-content:hover{
+.leave-content:hover {
   border: 1px solid rgb(11, 224, 189);
   transform: scale(1.03);
   transition: 1s;
 }
 
-
-.form-container
-{
-  width:30%;margin:0px auto;
+.form-container {
+  width: 30%;
+  margin: 0px auto;
 }
-
 
 /* inp */
 .inp-animation-container {
-  width: 100%; height: 60px ;
-  margin-bottom: 0px ;
+  width: 100%;
+  height: 60px;
+  margin-bottom: 0px;
   overflow: hidden;
 }
 
-
-.inp-animation-container input{
-  width: 100% ; 
-    height: 100% ;
-    color: #595f6e ;
-    padding-top: 20px !important;
-    padding-bottom: 0px !important;
-    border: none ;
-    outline: none ;
-    z-index: 10;
-    background-color: red ;
+.inp-animation-container input {
+  width: 100%;
+  height: 100%;
+  color: #595f6e;
+  padding-top: 20px !important;
+  padding-bottom: 0px !important;
+  border: none;
+  outline: none;
+  z-index: 10;
+  background-color: red;
 }
-.inp-label{
-  position: relative ;     
-    bottom: 2px !important;
-    left: 0% !important; top: -130% !important;
-    width: 100% ;height: 100% ;
-    pointer-events: none !important;
-    border-bottom: 1px solid #9e9e9e ;
-    /* background-color: pink !important; */
-    pointer-events: none;
-    z-index: -1;
-    color: #9e9e9e;
+.inp-label {
+  position: relative;
+  bottom: 2px !important;
+  left: 0% !important;
+  top: -130% !important;
+  width: 100%;
+  height: 100%;
+  pointer-events: none !important;
+  border-bottom: 1px solid #9e9e9e;
+  /* background-color: pink !important; */
+  pointer-events: none;
+  z-index: -1;
+  color: #9e9e9e;
 }
 
-.inp-label::after{
+.inp-label::after {
   content: "";
-    position: absolute ;
-    left:0px ; 
-    bottom: -1px ;
-    height: 100% ; width: 100% ;
-    border-bottom: 3px solid #26a69a !important;
-    transform: translateX(-101%);
-    transition: transform 0.5s ease ;
+  position: absolute;
+  left: 0px;
+  bottom: -1px;
+  height: 100%;
+  width: 100%;
+  border-bottom: 3px solid #26a69a !important;
+  transform: translateX(-101%);
+  transition: transform 0.5s ease;
 }
 
-.inp-label span{
+.inp-label span {
   position: absolute !important;
-    bottom: 0px !important;
-    left: 0px !important;
-    transition: all 0.5s ease !important;
-    font-size: 18px ;
+  bottom: 0px !important;
+  left: 0px !important;
+  transition: all 0.5s ease !important;
+  font-size: 18px;
 }
 
-.inp-animation-container input:focus + .inp-label span , .inp-animation-container input:valid + .inp-label span{
-  transform: translateY(-150%) ;
+.inp-animation-container input:focus + .inp-label span,
+.inp-animation-container input:valid + .inp-label span {
+  transform: translateY(-150%);
   font-size: 12px;
   color: #26a69a;
 }
-.inp-animation-container input:focus + .inp-label::after , .inp-animation-container input:valid + .inp-label::after{
-  transform: translateX(0%) ;
+.inp-animation-container input:focus + .inp-label::after,
+.inp-animation-container input:valid + .inp-label::after {
+  transform: translateX(0%);
 }
