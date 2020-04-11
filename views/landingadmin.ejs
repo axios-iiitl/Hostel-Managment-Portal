@@ -1,37 +1,38 @@
+<div class="admin-header shadows">
 <%- include('partials/header'); -%>
-<div class="jumbotron">
-<h3>Hello</h3>
-<h3>Everyone I am Admin</h3>
-<a href="/admin/dashboard/details"><h3>Click for details</h3></a>
 </div>
-
-<!-- <div class="container">
-    <div style="width:30%;margin:25px auto;">
-        <form action="/admin/dashboard/info" method="POST">
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Enter the email whose details you want to search">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
+    <div class="admin-welcome">
+        <div class="admin-image">
+            <img style="float: right;margin-right: 40px;" src="../images/admin-dashboard.svg" />
+        </div>
+        <div class="admin-image-content">
+            <h2 style="color: #a9000c;">Content</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quos pariatur incidunt rerum error illum explicabo animi eligendi quia veritatis?</p>
+        </div>
     </div>
-    <div style="width:30%;margin:25px auto;">
-        <form action="/admin/dashboard/info/leave" method="POST">
-            <h2>Details of past leaves of a particular Student</h2>
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Enter the email whose leave details you want to search">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
-    </div>
-</div> -->
+    <div class="jumbotron-admin alerts">
+        <div class="alert-content">
+            <h3 style="width: 100%;color: #a9000c;text-align: center;">Notifications</h3><br>
+        <ul class="collapsible expandible">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+          </ul>
+          
+          </div>
 
 
-<div class="jumbotron">
-    <div class="container">
+        <a href="/admin/dashboard/details"><h3>Click for details</h3></a>
+    <div class="container-admin">
          <h4>
            Select from these options:
           <form action="/admin/dashboard" method="GET">
@@ -73,5 +74,10 @@
         <%}%>
     </div>
 </div>
-
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, {accordion: false});
+  });
+</script>
 <%- include('partials/footer'); -%>
