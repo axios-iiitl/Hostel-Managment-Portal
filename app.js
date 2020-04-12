@@ -34,12 +34,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", function(req, res) {
-<<<<<<< HEAD
-  res.render("home", { currentUser: req.user });
-});
-
-
-=======
   if(req.session.token==null)
   res.render("home", { currentUser: req.user, clientType: req.session.client });
   else {
@@ -53,7 +47,6 @@ app.get("/", function(req, res) {
   }
 });
 
->>>>>>> new-dashboard
 app.use("/auth", authRoutes);
 app.use("/user", user);
 app.use("/admin", admin);
