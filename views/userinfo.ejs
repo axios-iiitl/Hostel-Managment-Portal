@@ -1,0 +1,38 @@
+<%- include('partials/header'); -%>
+<div class="container-admin info-bg">
+    <div class="info-img">
+        <img  src="../../images/personal_info.svg" />
+    </div>
+    
+    <div class="jumbotron-admin">
+       
+       <h2>Basic Details:</h2>
+       <div><strong>Name:</strong><%=user.name%></div>
+       <div><strong>Email:</strong><%=user.email%></div>
+       <div><strong>Guardian Name:</strong><%=user.guardianName%></div>
+       <br>
+
+       <h2>Item Information:</h2>
+       <div><strong>Chair Number:</strong><%=user.items.chairNumber%></div>
+       <div><strong>Lamp Number:</strong><%=user.items.lampNumber%></div>
+       <div><strong>Room Number:</strong><%=user.items.roomNumber%></div>
+       <div><strong>Shelf Number:</strong><%=user.items.ShelfNumber%></div>
+       <div><strong>Table Number:</strong><%=user.items.tableNumber%></div>
+       <br>
+
+       <h2>Contact Information:</h2>
+       <div><strong>Address:</strong><%=user.contacts.address%></div>
+       <div><strong>Contact Number:</strong><%=user.contacts.phoneNumber%></div>
+       <div><strong>Guardian Name:</strong><%=user.contacts.guardianName%></div>
+       <div><strong>Guardian Number:</strong><%=user.contacts.guardianNumber%></div>
+       <br>
+
+       <button><a href="/admin/dashboard/details">Go back</a></button>
+
+   </div>
+</div>
+
+
+
+
+<%- include('partials/footer'); -%>

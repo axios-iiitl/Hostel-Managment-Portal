@@ -1,39 +1,64 @@
 <html>
-    <head>
-        <title>Hostel Management Portal</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <style>
+  <head>
+    <title>Hostel Management Portal</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-        </style>
-    </head>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                <a href="#" class="navbar-brand"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Hostel</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-nav-demo">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">About</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <%if(!currentUser){%>
-                   <li><a href="/auth/google">Sign Up/Login with G+</a></li>
-                    <%}else{%>
-                    <li><a href="#">Signed in as <%=currentUser.name%></a></li>
-                   <li><a href="/auth/logout">LogOut</a></li>
-                    <%}%>
-                </ul>
-            </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/742a48addb.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css"
+      media="all"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/card.css" />
+    <link rel="stylesheet" href="/admin-styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper" style="padding: 10px 40px;">
+        <div class="left">
+          <img
+            src="https://iiitl.ac.in/wp-content/uploads/2019/10/Final_Logo_IIITL.png"
+            style="height: 75px"
+          />
         </div>
+        <a href="#!" class="brand-logo center">Hostel</a>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <%if(!currentUser){%>
+          <li><a href="/auth/google">Sign Up/Login with G+</a></li>
+          <%}else{%>
+          <li><a href="#">Signed in as <%=currentUser.name%></a></li>
+          <li>
+            <%if(clientType == "admin"){%>
+            <!-- <a href="#">Edit Profile </a> -->
+            <%}else{%>
+            <a href="/user/dashboard/items/<%=currentUser.googleId%>">
+              Edit Profile
+            </a>
+            <%}%>
+          </li>
+          <li><a href="/auth/logout">LogOut</a></li>
+          <%}%>
+        </ul>
+      </div>
     </nav>
-
-<body>
-
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll(".sidenav");
+      var instances = M.Sidenav.init(elems, {});
+    });
+  </script>
+</html>

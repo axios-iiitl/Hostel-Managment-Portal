@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
+body{
+    font-family: 'Gotu', sans-serif;
+}
+
+.container-admin{
+    width: 100%;
+    display: flex;flex-wrap: wrap;justify-content: center;
+}
+.jumbotron-admin h2{
+    color: #a9000c;
+}
+.jumbotron-admin div strong{
+    color: #333;
+    font-size: large;
+}
+
+/* box-shadow */
+.shadows
+{
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+            height: 90px;width: 100vw;
+}
+.collapsible{
+    width: 85%;
+}
+.admin-welcome{
+    min-height: 85vh;  
+    display: flex;flex-wrap: wrap;
+    border-bottom: 0.5px solid #e6e6e6;
+}
+.admin-image{
+    position: relative;
+    width: 60%;height: 85vh;
+}
+.admin-image img{
+    position: absolute; 
+    height: 70%; width: 70%;
+    left: 45%;top: 50%;transform: translate(-30%,-50%);
+}
+.admin-image-content{
+    margin-top: 10%;
+    margin-right: 10px;
+    position: relative;
+    width: 39%;
+    height: 90%;
+    text-align: center;
+}
+.alerts{
+    position: relative;
+    top: 50px;
+}
+.alert-content{
+    display: flex;justify-content: center;align-items: center;
+    flex-wrap: wrap;
+    padding-top: 3px;
+}
+
+.appr-rej{
+    height: 34px;
+    z-index: 10;
+}

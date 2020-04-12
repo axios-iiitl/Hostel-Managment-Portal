@@ -1,0 +1,69 @@
+<%- include('partials/header'); -%>
+
+<%- include('partials/sidenav'); -%>
+
+<div class="start-h2">
+    <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
+</div>
+  
+  <div class="container">
+    <div class="jumbotron">
+  
+        <h3>Application for New Leave</h3>
+        <form action="/user/dashboard/leave" method="POST">
+          <div class="form-group">
+            <label>Name:</label><br />
+            <input
+              type="text"
+              name="leave[Name]"
+              value="<%=currentUser.name%>"
+              readonly
+            />
+          </div>
+  
+          <div class="form-group">
+            <label>Email:</label><br />
+            <input
+              type="text"
+              name="leave[Email]"
+              value="<%=currentUser.email%>"
+              readonly
+            />
+          </div>
+  
+          <div class="form-group">
+            <label>Leaving Date:</label><br />
+            <input type="date" name="leave[Leave]"  required>
+          </div>
+  
+          <div class="form-group">
+            <label>Returning Date:</label><br />
+            <input type="date" name="leave[Return]"  required>
+          </div>
+
+          <div class="inp-animation-container">
+            <input
+              type="text"
+              name="leave[Reason]"
+            required/>
+            <div class="inp-label"> 
+              <span> Reason </span>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <br />
+            <button class="btn btn-primary blue-grey darken-1" onclick="M.toast({html: 'Application Submitted'})">Submit!</button>
+          </div>
+        </form>
+  
+  
+    </div>
+  </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {format: "dd/mm/yyyy"});
+  });
+</script>
+<%- include('partials/footer'); -%>

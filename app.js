@@ -4,7 +4,9 @@ const express = require("express"),
   cookieSession = require("cookie-session"),
   authRoutes = require("./routes/api/auth"),
   user = require("./routes/api/user"),
+  admin = require("./routes/api/admin"),
   passport = require("passport");
+  Admin=require("./models/Admin")
 
 require("./db/mongoose");
 
@@ -12,6 +14,9 @@ const app = express();
 
 app.use(express.json());
 app.set("view engine", "ejs");
+
+//to link statis files
+app.use(express.static("./assets"));
 
 app.use(
   cookieSession({
@@ -29,12 +34,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", function(req, res) {
+<<<<<<< HEAD
   res.render("home", { currentUser: req.user });
 });
 
 
+=======
+  if(req.session.token==null)
+  res.render("home", { currentUser: req.user, clientType: req.session.client });
+  else {
+    Admin.findOne({googleId:req.session.token},function(err,admin){
+        if(admin){
+            res.redirect("/admin/dashboard");
+        }else{
+            res.redirect("/user/dashboard")
+        }
+    });
+  }
+});
+
+>>>>>>> new-dashboard
 app.use("/auth", authRoutes);
 app.use("/user", user);
+app.use("/admin", admin);
 
 const PORT = process.env.PORT || 3000;
 

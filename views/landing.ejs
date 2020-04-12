@@ -1,10 +1,45 @@
 <%- include('partials/header'); -%>
 
-<div class="jumbotron">
-<h1>Landing Page</h1>
-
-<form>
-    
-</form>
-<%- include('partials/footer'); -%>
+<%- include('partials/sidenav'); -%>
+<div class="start-h2">
 </div>
+
+<div class="container">
+  <div class="jumbotron dashboard">
+    <div class="c-container">
+      <div class="c-box">
+          <div class="c-content">
+              <%if(flag==0){%>
+                <h2>New</h2>
+              <h3>New Application</h3>
+              <p>Here you can a create new application for your leave </p>
+              <a href="/user/dashboard/application">Create</a>
+              <%}else if(flag==1){%>
+                <h2>Edit</h2>
+                <h3>Edit Application</h3>
+                <p>Here you can edit the existing application of yours.</p>
+                <a href="/user/dashboard/edit/leave/<%=leave._id%>">Edit</a>
+              <%}%>
+          </div>
+      </div>
+      <div class="c-image">
+          <img src="/images/undraw_new_entries_nh3h.svg" />
+      </div>
+      <div class="c-box">
+          <div class="c-content">
+              <h2>Recents</h2>
+              <h3>Past Applications</h3>
+              <p>View recent applications</p>
+              <a href="/user/dashboard/leavehistory">View</a>
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+<%- include('partials/footer'); -%>
+
