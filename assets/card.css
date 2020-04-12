@@ -53,7 +53,7 @@
   padding: 0;
   font-size: 24px;
   font-weight: 500;
-  color: #e91e63;
+  color: #25241b;
 }
 .c-content p {
   margin-top: 35px;
@@ -73,6 +73,7 @@
   transform: translateY(-40px);
   opacity: 0;
   visibility: hidden;
+  border-radius: 0px 10px 0px 10px;
 }
 .c-box:hover .c-content a {
   transform: translateY(0px);
