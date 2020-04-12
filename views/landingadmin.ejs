@@ -1,37 +1,68 @@
+<div class="admin-header shadows">
 <%- include('partials/header'); -%>
-<div class="jumbotron">
-<h3>Hello</h3>
-<h3>Everyone I am Admin</h3>
-<a href="/admin/dashboard/details"><h3>Click for details</h3></a>
 </div>
-
-<!-- <div class="container">
-    <div style="width:30%;margin:25px auto;">
-        <form action="/admin/dashboard/info" method="POST">
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Enter the email whose details you want to search">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
+    <div class="admin-welcome">
+        <div class="admin-image">
+            <img src="../images/admin-dashboard.svg" />
+        </div>
+        <div class="admin-image-content">
+            <h2 style="color: #a9000c;">Content</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quos pariatur incidunt rerum error illum explicabo animi eligendi quia veritatis?</p>
+        </div>
     </div>
-    <div style="width:30%;margin:25px auto;">
-        <form action="/admin/dashboard/info/leave" method="POST">
-            <h2>Details of past leaves of a particular Student</h2>
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Enter the email whose leave details you want to search">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
-    </div>
-</div> -->
+    <div class="jumbotron-admin alerts">
+        <div class="alert-content">
+            <h3 style="width: 100%;color: #a9000c;text-align: center;">Notifications</h3><br>
+        <ul class="collapsible expandible">
+            <%leaves.forEach(function(leave){%>
+                <li>
+                    <div class="collapsible-header" style="display: flex; align-items: center;"><i class="material-icons">notifications_active</i><span style="color: #a9000c;display: flex;align-items: center;">
+                        <span class="material-icons" style="font-size: 20px;">person</span>&nbsp;<%=leave.Name%></span>
+                        <span style="position: absolute;left: 50%;transform: translate(-50%);">Days : /*number*/</span>
+                        <span style="position: absolute;right: 10%;"> 
+                            <%if(leave.Approve==null){%>
+                            <div class="appr-rej">
+                                <a href="/admin/dashboard/permit/accept/<%=leave._id%>"> <button class="btn btn-success">Approve</button></a>
+                                <a href="/admin/dashboard/permit/reject/<%=leave._id%>"><button class="btn btn-danger" style="background-color: #a9000c;">Reject</button></a>
+                            </div>
+                            <%}else if(leave.Approve==true){%>
+                                <button class="btn btn-success">Approved</button>
+                            <%}else if(leave.Approve==false){%>
+                                <button class="btn btn-danger">Rejected</button>
+                            <%}%>
+                        </span>
+                    </div>
+                    <div class="collapsible-body">
+                        <strong style="color: #a9000c;">Email:</strong>  <p><%=leave.Email%></p>
+                        <strong style="color: #a9000c;">Leave Date:</strong>  <p><%=leave.Leave%></p>
+                        <strong style="color: #a9000c;">Return Date:</strong>  <p><%=leave.Return%></p>
+                        <strong style="color: #a9000c;">Reason:</strong>  <p><%=leave.Reason%></p>
+                        <!-- <%if(leave.Approve==null){%>
+                            <a href="/admin/dashboard/permit/accept/<%=leave._id%>"> <button class="btn btn-success">Approve</button></a>
+                            <a href="/admin/dashboard/permit/reject/<%=leave._id%>"><button class="btn btn-danger" style="background-color: #a9000c;">Reject</button></a>
+                        <%}else if(leave.Approve==true){%>
+                            <button class="btn btn-success">Approved</button>
+                        <%}else if(leave.Approve==false){%>
+                            <button class="btn btn-danger">Rejected</button>
+                        <%}%> -->
+                    </div>
+                </li>
+            <%})%>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+          </ul>
+          
+          </div>
 
 
-<div class="jumbotron">
-    <div class="container">
+        <a href="/admin/dashboard/details"><h3>Click for details</h3></a>
+    <div class="container-admin">
          <h4>
            Select from these options:
           <form action="/admin/dashboard" method="GET">
@@ -43,7 +74,7 @@
           </form>
         </h4>
           <strong> =============================================================================  </strong>
-           <%if(status=="applied"){%>
+           <!-- <%if(status=="applied"){%>
                <h2>Applications for Leave</h2>
            <%}else if(status=="recent"){%>
                <h2>Recent Applications</h2>
@@ -66,12 +97,17 @@
                    <%}%><br><br>
                    <strong>=======================================================</strong><br><br>
             </div>
-        <%})%>
+        <%})%> -->
         
         <%for(var i=0;i< number;i++){%>
             <a href="/admin/dashboard/?page=<%=i%>"><%=i%></a>
         <%}%>
     </div>
 </div>
-
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, {accordion: false});
+  });
+</script>
 <%- include('partials/footer'); -%>

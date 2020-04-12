@@ -11,12 +11,17 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard", auth, (req, res) => {
   Leave.findOne({Email:req.user.email,Approve:null}).exec(function(err,leave){
-    if(leave){
+    if(leave){      
       res.render("landing",{currentUser: req.user,leave:leave, clientType: req.session.client,flag:1});
     }else{
     res.render("landing", { currentUser: req.user,leave:leave, clientType: req.session.client,flag:0});
     }
   });
+});
+
+router.get("/dashboard/application", auth, (req, res) => {
+  
+    res.render("application", { currentUser: req.user, clientType: req.session.client,flag:0});
 });
 
 router.get("/dashboard/leavehistory",auth,(req,res)=>{
@@ -103,9 +108,10 @@ router.post("/dashboard/contacts/:id", auth, function(req, res) {
 
 //Leave Routes
 
-router.post("/dashboard/leave",auth,function(req,res){
+router.post("/dashboard/leave",function(req,res){
   Leave.create(req.body.leave,function(err,leave){
     if(err){
+      console.log(err);
       res.redirect("/user/dashboard");
     }else{
       res.redirect("/user/dashboard");
@@ -118,7 +124,6 @@ router.get("/dashboard/edit/leave/:id",auth,function(req,res){
       if(err){
         res.redirect("/user/dashboard");
       }
-      console.log(leave);
       res.render("editleave",{currentUser:req.user,leave:leave, clientType: req.session.client});
     });
 });
@@ -126,11 +131,11 @@ router.get("/dashboard/edit/leave/:id",auth,function(req,res){
 
 router.post("/dashboard/edit/leave/:id",auth,function(req,res){
   
-  Leave.findOneAndUpdate({_id:req.params.id, useFindAndModify: true},req.body.leave,function(err,leave){
+  Leave.findOneAndUpdate({_id:req.params.id},req.body.leave,function(err,leave){
     if(err){
       res.redirect("/user/dashboard");
     }else{
-            res.redirect("/user/dashboard");
+      res.redirect("/user/dashboard");
     } 
   });
 

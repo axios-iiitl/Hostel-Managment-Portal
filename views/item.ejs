@@ -1,70 +1,99 @@
-<%- include('partials/header'); -%>
-<%- include('partials/sidenav'); -%>
+<%- include('partials/header'); -%> <%- include('partials/sidenav'); -%>
+
+<div class="start-h2">
+  <a href="/user/dashboard"
+    ><i class="material-icons back-icon">chevron_left</i></a
+  >
+</div>
+
 <div class="container">
-  <div class="row">
-    <h1 style="text-align: center;">Edit your item details <%=user.name%></h1>
-    <div style="width:30%;margin:25px auto;">
-      <form action="/user/dashboard/items/<%=user.googleId%>" method="POST">
-        <div class="form-group">
-          <label>Table Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[tableNumber]"
-            value="<%=user.items.tableNumber%>"
-            placeholder="Table Number"
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Chair Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[chairNumber]"
-            value="<%=user.items.chairNumber%>"
-            placeholder="Chair Number"
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Shelf Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[shelfNumber]"
-            value="<%=user.items.shelfNumber%>"
-            placeholder="Shelf Number"
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Lamp Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[lampNumber]"
-            value="<%=user.items.lampNumber%>"
-            placeholder="Lamp Number"
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Room Number</label>
-          <input
-            class="form-control"
-            type="text"
-            name="items[roomNumber]"
-            value="<%=user.items.roomNumber%>"
-            placeholder="Room Number"
-          />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-        </div>
-      </form>
-      <a href="/user/dashboard">Go back</a>
+  <div class="row item-detail">
+    <div>
+      <h4 style="text-align: center;">Edit your item details <%=user.name%></h4>
     </div>
+    <img
+      src="/images/undraw_apartment_rent_o0ut.svg"
+      style="height: 25vh;"
+      class="center"
+    />
+    <form
+      class="form-container "
+      action="/user/dashboard/items/<%=user.googleId%>"
+      method="POST"
+      style="width: 80%"
+    >
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[tableNumber]"
+          value="<%=user.items.tableNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Table Number </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[chairNumber]"
+          value="<%=user.items.chairNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Chair Number </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[shelfNumber]"
+          value="<%=user.items.shelfNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Shelf Number </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[lampNumber]"
+          value="<%=user.items.lampNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Lamp Number </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[roomNumber]"
+          value="<%=user.items.roomNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Room Number </span>
+        </div>
+      </div>
+
+      <div
+        class="form-group"
+        style="margin-top: 15px; display: flex; justify-content: center"
+      >
+        <button
+          class="btn btn-lg btn-block blue darken-2"
+          onclick="M.toast({html: 'Submitted'})"
+        >
+          Submit!
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 <%- include('partials/footer'); -%>
