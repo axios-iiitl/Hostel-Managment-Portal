@@ -23,6 +23,7 @@ body{
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
             height: 90px;width: 100vw;
+    overflow: hidden;
 }
 .collapsible{
     width: 85%;
@@ -52,6 +53,9 @@ body{
 .alerts{
     position: relative;
     top: 50px;
+    border-bottom: 0.5px solid #e6e6e6;
+    padding-bottom: 60px;
+    
 }
 .alert-content{
     display: flex;justify-content: center;align-items: center;
@@ -62,4 +66,28 @@ body{
 .appr-rej{
     height: 34px;
     z-index: 10;
+}
+.info-img{
+    position: absolute;
+    width: 100%;
+    height: 90%;
+}
+.img-cont-name{
+    display: flex;align-items: center;
+    justify-content: center;
+    position: absolute;
+    /* border: 1.5px solid black; */
+    top: 61.5%;
+    padding: .45%;
+    left: 32%;transform: translate(-32% , -61.5%);
+    min-width: 14%;
+}
+.userinfo-cont{
+    margin-top: 30px;
+    width: 90%;
+    height: fit-content;
+    display: flex; flex-wrap: wrap;
+}
+.userinfo-cont h2{
+    color: #a9000c;
 }
