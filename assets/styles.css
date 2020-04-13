@@ -251,3 +251,60 @@ nav ul a {
   flex-direction: column;
   align-items: center;
 }
+
+
+/* responsive */
+
+/* header */
+.view-on-med-and-down{
+  position: absolute;right: 5%;
+  display: none;pointer-events: none;
+}
+
+@media screen and (max-width: 1000px){
+  .view-on-med-and-down{
+    display: inline;pointer-events: all;
+  }
+  .hide-on-med-and-down{
+    display: none;pointer-events: none;
+  }
+}
+@media screen and (max-width: 1250px){
+  .signed-as{
+    display: none;
+  }
+}
+
+/* user dashboard */
+@media screen and (max-width: 950px){
+  .c-image{
+    display: none;
+  }
+}
+@media screen and (max-width: 730px){
+  .c-container{
+    display: flex; flex-wrap: wrap;
+  }
+  .c-box{
+    margin-bottom: 30px;
+    border: .5px solid #333;
+    
+  }
+  .c-box::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #333;
+    transform: skew(2deg ,2deg);
+    z-index: -1;
+  }
+  .c-box:nth-child(1)::before{
+    background-image: linear-gradient(315deg , #474243 , #2b2725);
+  }
+  .c-box:nth-child(3)::before{
+    background-image: linear-gradient(315deg , #474243 , #2b2725);
+  }
+}

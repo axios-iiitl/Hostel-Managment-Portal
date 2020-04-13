@@ -15,6 +15,7 @@ body{
     font-size: large;
 }
 
+
 /* box-shadow */
 .shadows
 {
@@ -90,4 +91,22 @@ body{
 }
 .userinfo-cont h2{
     color: #a9000c;
+}
+
+/* responsive */
+
+/* dashboard */
+
+@media screen and (max-width: 1020px){
+    .admin-image{
+        width: 100%; height: 50vh;
+    }
+    .admin-image img{
+        width: 50%;
+    }
+    .admin-image-content{
+        left: 10%;
+        margin-top: 0%; margin-right: 0px; width: 80%;
+        text-align: center;
+    }
 }
