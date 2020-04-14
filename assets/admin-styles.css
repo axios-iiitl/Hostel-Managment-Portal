@@ -106,7 +106,25 @@ body{
     }
     .admin-image-content{
         left: 10%;
-        margin-top: 0%; margin-right: 0px; width: 80%;
+        margin-top: -15%; margin-right: 0px; width: 80%;
+        margin-bottom: -10%;
         text-align: center;
     }
 }
+
+/* search */
+.search-container{
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    min-height: 60vh;
+}
+.search-group{
+    width: 40%;
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+}
+@media screen and (max-width:960px){
+    .search-group{
+        width: 70%;
+    }
+} 

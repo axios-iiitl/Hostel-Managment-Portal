@@ -1,15 +1,23 @@
+<div style="overflow: hidden;">
 <div class="admin-header shadows">
 <%- include('partials/header'); -%>
 
 <%- include('partials/admin-sidenav'); -%>
 </div>
+
+<div class="start-h2" style="height: 0px;">
+    <a class="search-icon" href="/admin/dashboard/details"
+      ><i class="material-icons back-icon">search</i></a
+    >
+  </div>
+
     <div class="admin-welcome">
         <div class="admin-image">
             <img src="../images/admin-dashboard.svg" />
         </div>
         <div class="admin-image-content">
             <h2 style="color: #a9000c;">Content</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quos pariatur incidunt rerum error illum explicabo animi eligendi quia veritatis?</p>
+            <p>Add content that describes the use and need of this site to the admin</p>
         </div>
     </div>
     <div id="notifications" class="jumbotron-admin alerts">
@@ -55,22 +63,14 @@
                         </div>
                     </li>
                 <%})%>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">notifications_active</i>Name</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
                 <% }%>
               </ul>
             </div>
         </div>
               <br><br>
 
-
-        <a href="/admin/dashboard/details"><h3>Click for details</h3></a>
+        <div style="height: 60px; width: 100%;"></div>
+        <!-- <a href="/admin/dashboard/details"><h3>Click for details</h3></a>
     <div class="container-admin">
          <h4>
            Select from these options:
@@ -83,7 +83,7 @@
           </form>
         </h4>
           <strong> =============================================================================  </strong>
-           <!-- <%if(status=="applied"){%>
+           <%if(status=="applied"){%>
                <h2>Applications for Leave</h2>
            <%}else if(status=="recent"){%>
                <h2>Recent Applications</h2>
@@ -106,12 +106,12 @@
                    <%}%><br><br>
                    <strong>=======================================================</strong><br><br>
             </div>
-        <%})%> -->
+        <%})%>
         
         <%for(var i=0;i< number;i++){%>
             <a href="/admin/dashboard/?page=<%=i%>"><%=i%></a>
         <%}%>
-    </div>
+    </div> -->
 </div>
 <script>
      document.addEventListener('DOMContentLoaded', function() {
@@ -120,3 +120,4 @@
   });
 </script>
 <%- include('partials/footer'); -%>
+</div>

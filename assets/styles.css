@@ -135,9 +135,33 @@ nav ul a {
   transition: 0.5s;
   color: black;
 }
+
+.start-h2 .search-icon{
+  position: absolute;
+  left: 90%;
+  top: 16%;
+  border: none;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  transition: 0.5s;
+  color: black;
+}
+
 .start-h2 a i {
   position: relative;
   font-size: 28px;
+}
+
+.start-h2 .search-icon i {
+  position: relative;
+  font-size: 20px;
 }
 .start-h2 a:hover {
   transform: scale(1.1);
@@ -152,6 +176,9 @@ nav ul a {
   color: #323a3e;
   position: absolute;
   left: 35px;
+}
+.start-h2 .search-icon:hover::after {
+  content: "Go to Search";
 }
 
 /* leavehistory.ejs */
