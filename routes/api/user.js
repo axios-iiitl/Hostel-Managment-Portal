@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const JsAlert = require("js-alert");
 const auth = require("../../middleware/authuser");
 const User = require("../../models/User");
 const Leave = require("../../models/Leave");
@@ -21,7 +20,7 @@ router.get("/dashboard", auth, (req, res) => {
         clientType: req.session.client,
         flag: 1
       });
-    } else {
+    } else if (err) {
       res.render("landing", {
         currentUser: req.user,
         leave: leave,
@@ -43,7 +42,7 @@ router.get("/dashboard/application", auth, (req, res) => {
 router.get("/dashboard/leavehistory", auth, (req, res) => {
   var perPage = 4;
   var page;
-  req.query.pageno == undefined
+  req.query.pageno === undefined
     ? (page = 0)
     : (page = parseInt(req.query.pageno));
 
@@ -54,18 +53,23 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
       createdAt: "desc"
     })
     .exec(function (err, leaves) {
-      Leave.countDocuments({ Email: req.user.email }).exec(function (
-        err,
-        count
-      ) {
-        res.render("leavehistory", {
-          leaves: leaves,
-          currentUser: req.user,
-          clientType: req.session.client,
-          page: page,
-          number: count / perPage
+      if (err) {
+        res.redirect("/user/dashboard");
+      } else {
+        Leave.countDocuments({ Email: req.user.email }).exec(function (err, count) {
+          if (err) {
+            res.redirect("/user/dashboard");
+          } else if (count) {
+            res.render("leavehistory", {
+              leaves: leaves,
+              currentUser: req.user,
+              clientType: req.session.client,
+              page: page,
+              number: count / perPage
+            });
+          }
         });
-      });
+      }
     });
 });
 

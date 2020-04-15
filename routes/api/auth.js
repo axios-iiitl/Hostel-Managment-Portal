@@ -1,8 +1,7 @@
 const express = require("express");
-const auth = require("../../middleware/authuser");
 const passport = require("passport");
-Admin = require("../../models/Admin");
-User = require("../../models/User");
+const Admin = require("../../models/Admin");
+const User = require("../../models/User");
 
 const router = express.Router();
 
@@ -24,8 +23,13 @@ router.get(
         req.session.status = "applied";
         req.session.client = "admin";
         res.redirect("/admin/dashboard");
-        User.deleteOne({ email: req.user.email }, function (err, user) {});
-      } else {
+        User.deleteOne({ email: req.user.email }, function (err, user) {
+          if (err) {
+            res.redirect("/user/dashboard");
+          } else if (user) {
+          }
+        });
+      } else if (err) {
         req.session.client = "user";
         res.redirect("/user/dashboard");
       }

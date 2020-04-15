@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const Admin = require("../models/Admin");
 
 const auth = async (req, res, next) => {
@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
       Admin.findOne({ googleId: req.session.token }, function (err, admin) {
         if (admin) {
           next();
-        } else {
+        } else if (err) {
           res.cookie("token", "");
           res.redirect("/");
         }
