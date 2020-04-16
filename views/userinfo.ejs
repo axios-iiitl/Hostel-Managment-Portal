@@ -20,41 +20,75 @@
             <img style="width: 100%; height: 100%;" src="../../images/profile_data.svg" alt="">
         </div>
        <div style="width: 40%;">
-        <h2>Basic Details:</h2>
-        <div><strong>Name:&nbsp;</strong><%=user.name%></div><br>
-        <div><strong>Email:&nbsp;</strong><%=user.email%></div><br>
-        <div><strong>Guardian Name:&nbsp;</strong><%=user.guardianName%></div>
-        <br>
-
+          <h2>Basic Details:</h2>
+          <div><strong>Name:&nbsp;</strong><%=user.name%></div><br>
+          <div><strong>Email:&nbsp;</strong><%=user.email%></div><br>
+          <div><strong>Guardian Name:&nbsp;</strong><%=user.guardianName%></div>
+          <br>
         <h2>Item Information:</h2>
-        <div><strong>Chair Number:&nbsp;</strong><%=user.items.chairNumber%></div>
-        <div><strong>Lamp Number:&nbsp;</strong><%=user.items.lampNumber%></div>
-        <div><strong>Room Number:&nbsp;</strong><%=user.items.roomNumber%></div>
-        <div><strong>Shelf Number:&nbsp;</strong><%=user.items.ShelfNumber%></div>
-        <div><strong>Table Number:&nbsp;</strong><%=user.items.tableNumber%></div>
-        <br>
+          <div><strong>Chair Number:&nbsp;</strong><%=user.items.chairNumber%></div>
+          <div><strong>Lamp Number:&nbsp;</strong><%=user.items.lampNumber%></div>
+          <div><strong>Room Number:&nbsp;</strong><%=user.items.roomNumber%></div>
+          <div><strong>Shelf Number:&nbsp;</strong><%=user.items.ShelfNumber%></div>
+          <div><strong>Table Number:&nbsp;</strong><%=user.items.tableNumber%></div>
+          <br>
        </div>
     </div>
 
     <div class="userinfo-cont" style="margin-left: 9%; margin-bottom: 5%;">
        <div style="width: 40%;">
-        <h2>Contact Information:</h2>
-        <div><strong>Address:&nbsp;</strong><%=user.contacts.address%></div><br>
-        <div><strong>Email:&nbsp;</strong><%=user.email%></div>
-        <div><strong>Contact Number:&nbsp;</strong><%=user.contacts.phoneNumber%></div><br>
-        <div><strong>Guardian Name:&nbsp;</strong><%=user.contacts.guardianName%></div>
-        <div><strong>Guardian Number:&nbsp;</strong><%=user.contacts.guardianNumber%></div>
-        <br>
+          <h2>Contact Information:</h2>
+          <div><strong>Address:&nbsp;</strong><%=user.contacts.address%></div><br>
+          <div><strong>Email:&nbsp;</strong><%=user.email%></div>
+          <div><strong>Contact Number:&nbsp;</strong><%=user.contacts.phoneNumber%></div><br>
+          <div><strong>Guardian Name:&nbsp;</strong><%=user.contacts.guardianName%></div>
+          <div><strong>Guardian Number:&nbsp;</strong><%=user.contacts.guardianNumber%></div>
+          <br>
        </div>
 
         <div style="width: 60%;">
-        <img style="width: 100%; height: 100%;" src="../../images/contact_us.svg" alt="">
+          <img style="width: 100%; height: 100%;" src="../../images/contact_us.svg" alt="">
         </div>
     </div>
 
 
 </div>
 
+
+<div class="container">
+  <div class="jumbotron item-detail">
+      <h2>Details of leave of <%=currentUser.name%></h2>
+      <img src="/images/undraw_schedule_pnbk.svg" style="height: 35vh; margin-top: 35px;" />
+      <%if(leaves.length==0){%>
+          <div class="status-heading">No Applications</div>
+          <%}else{%>
+       <br />
+       <h4 style="margin: 65px 0px 35px 0px;">Recent Leave:</h4>
+       <%leaves.forEach(function(leave){%>
+       <div class="leave-content">
+         <br />
+         <strong>Name:</strong>
+         <p><%=leave.Name%></p>
+         <strong>Email:</strong>
+         <p><%=leave.Email%></p>
+         <strong>Leave Date:</strong>
+         <p><%=leave.Leave%></p>
+         <strong>Return Date:</strong>
+         <p><%=leave.Return%></p>
+         <strong>Reason:</strong>
+         <p><%=leave.Reason%></p>
+         <%if(leave.Approve==null){%>
+         <button class="btn grey darken-1 ">Waiting</button>
+         <%}else if(leave.Approve==true){%>
+         <button class="btn light-green darken-2 ">Approved</button>
+         <%}else if(leave.Approve==false){%>
+         <button class="btn red darken-1 ">Rejected</button>
+         <%}%>
+         <br /><br />
+       </div>
+       <%})%> <%}%>
+ </div>
+</div>
 
 
 
