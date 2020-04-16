@@ -7,7 +7,7 @@ A simple Hostel Management Portal based on **Node.js**  with custom **Admin and 
    * Make the folder config inside the new folder and the file **keys.js** inside it.
    * Use **MongoDB** as the database for this project.
    * Make Database having collections named as **users,leaves and admins**.
-   * Make file **keys.js** like this: ![key.js](https://user-images.githubusercontent.com/42492389/79079756-9fbaab80-7d2e-11ea-807d-dc7ebb78c38e.png)
+   * Make file **keys.js** like this: ![key.js](https://user-images.githubusercontent.com/54629424/79287275-e9e38e80-7ee0-11ea-8041-9f8dd3ab330f.png)
 
  #### Enabling Login with Google:
   `A guide about this can be found here`: [Simple guide to get clientID and clientSecret.](https://developers.google.com/adwords/api/docs/guides/authentication)
