@@ -58,6 +58,9 @@ body{
     padding-bottom: 60px;
     
 }
+.view-on-mobile{
+    display: none;
+}
 .alert-content{
     display: flex;justify-content: center;align-items: center;
     flex-wrap: wrap;
@@ -128,3 +131,32 @@ body{
         width: 70%;
     }
 } 
+@media screen and (max-width:700px){
+    .admin-image{
+        max-height: 200px;
+        margin-bottom: 50px;
+        position: absolute;
+        top: 25%;
+    }
+    .admin-image-content{
+        position: absolute;
+        top: 65%;
+        height: fit-content;
+    }
+    .admin-welcome{
+        max-height: 80%;
+    }
+} 
+@media screen and (max-width:800px){
+    .no-days{
+        display: none;
+    }
+}
+@media screen and (max-width:620px){
+    .view-on-mobile{
+        display: block;
+    }
+    .hide-on-mobile{
+        display: none;
+    }
+}
