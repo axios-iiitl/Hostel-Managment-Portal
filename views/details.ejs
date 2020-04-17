@@ -1,30 +1,42 @@
-<%- include('partials/header'); -%>
-<br>
-<br><br><br>
-<div class="container">
-    <div style="width:30%;margin:25px auto;">
-        <form action="/admin/dashboard/info" method="POST">
-            <h2>Enter the email whose details you want to search</h2>
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Enter the email whose details you want to search">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
+<div style="overflow: hidden;">
+<div class="admin-header shadows">
+    <%- include('partials/header'); -%>
+    
+    <%- include('partials/admin-sidenav'); -%>
     </div>
-    <div style="width:30%;margin:25px auto;">
-        <form action="/admin/dashboard/info/leave" method="POST">
-            <h2>Details of past leaves of a particular Student</h2>
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Enter the email whose leave details you want to search">
+
+
+    <div class="start-h2">
+        <a href="/admin/dashboard"
+          ><i class="material-icons back-icon">chevron_left</i></a
+        >
+      </div>
+
+<div class="search-container">
+    <div class="search-group">
+        <form action="/admin/dashboard/info" method="POST">
+            <h4>Enter the email to get details of a student</h4>
+            <div class="c-image" style="display: flex; justify-content: center;margin-top: 25px;">
+                <img src="../../images/people_search_maroon.svg" alt="">
             </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
+            <!-- <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Enter the email whose details you want to search">
+            </div> -->
+
+            <div class="inp-animation-container" style="margin-left: 25%; max-width: 50%;">
+                <input  type="email" name="email"required/>
+                <div class="inp-label">
+                  <span> Enter the email </span>
+                </div>
+              </div>
+
+            <div class="form-group" style="margin-top: 15px; display: flex; justify-content: center">
+        <button style="background-color: #a9000c;" class="btn btn-lg btn-block" > Search </button>
+      </div>
         </form>
     </div>
 </div>
 
 
 <%- include('partials/footer'); -%>
+</div>
