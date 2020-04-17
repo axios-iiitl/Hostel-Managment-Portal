@@ -74,7 +74,7 @@ router.get("/dashboard/details", function (req, res) {
 
 router.post("/dashboard/info", auth, function (req, res) {
   User.findOne({ email: req.body.email }, function (err, user) {
-    if (err) Error(err);
+    // if (err) Error(err);
     Leave.find({ Email: req.body.email })
       .sort({ createdAt: "desc" })
       .exec(function (err, leaves) {
