@@ -56,7 +56,10 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
       if (err) {
         res.redirect("/user/dashboard");
       } else {
-        Leave.countDocuments({ Email: req.user.email }).exec(function (err, count) {
+        Leave.countDocuments({ Email: req.user.email }).exec(function (
+          err,
+          count
+        ) {
           if (err) {
             res.redirect("/user/dashboard");
           } else if (count) {
