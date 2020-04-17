@@ -1,24 +1,47 @@
 <%- include('partials/header'); -%>
-<div class="jumbotron">
-    <div class="container">
+
+
+<div class="start-h2">
+    <a href="/admin/dashboard"
+      ><i class="material-icons back-icon">chevron_left</i></a
+    >
+    <a class="search-icon" href="/admin/dashboard/details"
+      ><i class="material-icons back-icon">search</i></a
+    >
+  </div>
+
+<div class="container">
+    <div class="jumbotron item-detail">
         <h2>Details of leave of <%=currentUser.name%></h2>
-   
-        <%leaves.forEach(function(leave){%>
-            <br>
-            <strong>Name:</strong>  <p><%=leave.Name%></p>
-            <strong>Email:</strong>  <p><%=leave.Email%></p>
-            <strong>Leave Date:</strong>  <p><%=leave.Leave%></p>
-            <strong>Return Date:</strong>  <p><%=leave.Return%></p>
-            <strong>Reason:</strong>  <p><%=leave.Reason%></p>
-            <%if(leave.Approve==true){%>
-                <button class="btn btn-success ">Approved</button>
-            <%}else if(leave.Approve==false){%>
-                <button class="btn btn-danger ">Rejected</button>
+        <img src="/images/undraw_schedule_pnbk.svg" style="height: 35vh; margin-top: 35px;" />
+        <%if(leaves.length==0){%>
+            <div class="status-heading">No Applications</div>
             <%}else{%>
-                <button class="btn btn-info ">Waiting</button>
-            <%}%><br><br>
-            <strong>==================================</strong><br>
-        <%})%>
+         <br />
+         <h4 style="margin: 65px 0px 35px 0px;">Recent Leave:</h4>
+         <%leaves.forEach(function(leave){%>
+         <div class="leave-content">
+           <br />
+           <strong>Name:</strong>
+           <p><%=leave.Name%></p>
+           <strong>Email:</strong>
+           <p><%=leave.Email%></p>
+           <strong>Leave Date:</strong>
+           <p><%=leave.Leave%></p>
+           <strong>Return Date:</strong>
+           <p><%=leave.Return%></p>
+           <strong>Reason:</strong>
+           <p><%=leave.Reason%></p>
+           <%if(leave.Approve==null){%>
+           <button class="btn grey darken-1 ">Waiting</button>
+           <%}else if(leave.Approve==true){%>
+           <button class="btn light-green darken-2 ">Approved</button>
+           <%}else if(leave.Approve==false){%>
+           <button class="btn red darken-1 ">Rejected</button>
+           <%}%>
+           <br /><br />
+         </div>
+         <%})%> <%}%>
    </div>
 </div>
 <%- include('partials/footer'); -%>

@@ -37,9 +37,9 @@
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <%if(!currentUser){%>
-          <li><a href="/auth/google">Sign Up/Login with G+</a></li>
+          <li><a class="signed-as" href="/auth/google">Sign Up/Login with G+</a></li>
           <%}else{%>
-          <li><a href="#">Signed in as <%=currentUser.name%></a></li>
+          <li><a class="signed-as" href="#">Signed in as <%=currentUser.name%></a></li>
           <li>
             <%if(clientType == "admin"){%>
             <!-- <a href="#">Edit Profile </a> -->
@@ -52,6 +52,12 @@
           <li><a href="/auth/logout">LogOut</a></li>
           <%}%>
         </ul>
+
+        <ul id="nav-mobile" class="view-on-med-and-down">
+        </li>
+        <li><a href="/auth/logout">LogOut</a></li>
+        </ul>
+
       </div>
     </nav>
   </body>

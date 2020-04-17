@@ -15,6 +15,7 @@ body{
     font-size: large;
 }
 
+
 /* box-shadow */
 .shadows
 {
@@ -23,6 +24,7 @@ body{
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05) inset;
             height: 90px;width: 100vw;
+    overflow: hidden;
 }
 .collapsible{
     width: 85%;
@@ -52,6 +54,12 @@ body{
 .alerts{
     position: relative;
     top: 50px;
+    border-bottom: 0.5px solid #e6e6e6;
+    padding-bottom: 60px;
+    
+}
+.view-on-mobile{
+    display: none;
 }
 .alert-content{
     display: flex;justify-content: center;align-items: center;
@@ -62,4 +70,93 @@ body{
 .appr-rej{
     height: 34px;
     z-index: 10;
+}
+.info-img{
+    position: absolute;
+    width: 100%;
+    height: 90%;
+}
+.img-cont-name{
+    display: flex;align-items: center;
+    justify-content: center;
+    position: absolute;
+    /* border: 1.5px solid black; */
+    top: 61.5%;
+    padding: .45%;
+    left: 32%;transform: translate(-32% , -61.5%);
+    min-width: 14%;
+}
+.userinfo-cont{
+    margin-top: 30px;
+    width: 90%;
+    height: fit-content;
+    display: flex; flex-wrap: wrap;
+}
+.userinfo-cont h2{
+    color: #a9000c;
+}
+
+/* responsive */
+
+/* dashboard */
+
+@media screen and (max-width: 1020px){
+    .admin-image{
+        width: 100%; height: 50vh;
+    }
+    .admin-image img{
+        width: 50%;
+    }
+    .admin-image-content{
+        left: 10%;
+        margin-top: -15%; margin-right: 0px; width: 80%;
+        margin-bottom: -10%;
+        text-align: center;
+    }
+}
+
+/* search */
+.search-container{
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    min-height: 60vh;
+}
+.search-group{
+    width: 40%;
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+}
+@media screen and (max-width:960px){
+    .search-group{
+        width: 70%;
+    }
+} 
+@media screen and (max-width:700px){
+    .admin-image{
+        max-height: 200px;
+        margin-bottom: 50px;
+        position: absolute;
+        top: 25%;
+    }
+    .admin-image-content{
+        position: absolute;
+        top: 65%;
+        height: fit-content;
+    }
+    .admin-welcome{
+        max-height: 80%;
+    }
+} 
+@media screen and (max-width:800px){
+    .no-days{
+        display: none;
+    }
+}
+@media screen and (max-width:620px){
+    .view-on-mobile{
+        display: block;
+    }
+    .hide-on-mobile{
+        display: none;
+    }
 }
