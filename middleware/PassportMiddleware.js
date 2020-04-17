@@ -1,8 +1,7 @@
-const GoogleStrategy = require("passport-google-oauth20").Strategy,
-  passport = require("passport"),
-  keys = require("../config/keys"),
-  User = require("../models/User");
-  Admin=require("../models/Admin");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const passport = require("passport");
+const keys = require("../config/keys");
+const User = require("../models/User");
 
 passport.use(
   new GoogleStrategy(
@@ -11,8 +10,8 @@ passport.use(
       clientSecret: keys.clientSecret,
       callbackURL: "http://localhost:3000/auth/google/callback"
     },
-    function(accessToken, refreshToken, profile, done) {
-      User.findOne({ googleId: profile.id }, function(err, user) {
+    function (accessToken, refreshToken, profile, done) {
+      User.findOne({ googleId: profile.id }, function (err, user) {
         if (err) {
           return done(err);
         }
@@ -20,11 +19,11 @@ passport.use(
           user = new User({
             googleId: profile.id,
             name: profile.displayName,
-            email:profile.emails[0].value
+            email: profile.emails[0].value
           });
         }
 
-        user.save(function(err) {
+        user.save(function (err) {
           if (err) console.log(err);
           return done(err, user);
         });
@@ -33,10 +32,10 @@ passport.use(
   )
 );
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
   done(null, user);
 });
