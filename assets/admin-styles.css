@@ -126,6 +126,9 @@ body{
     display: flex; flex-wrap: wrap;
     justify-content: center; align-items: center;
 }
+/* responsive */
+
+/* search */
 @media screen and (max-width:960px){
     .search-group{
         width: 70%;
@@ -133,20 +136,35 @@ body{
 } 
 @media screen and (max-width:700px){
     .admin-image{
-        max-height: 200px;
-        margin-bottom: 50px;
+        height: 80vw;
         position: absolute;
-        top: 25%;
+        top: 0%;
     }
     .admin-image-content{
         position: absolute;
-        top: 65%;
-        height: fit-content;
+        top: 70%;
     }
     .admin-welcome{
-        max-height: 80%;
+        min-height: 90vh;
+        max-height: fit-content;
     }
-} 
+}
+
+@media screen and (max-width:550px){
+    .admin-welcome{
+        min-height: 90vh;
+    }
+    .admin-image{
+        height: 80vw;
+        position: absolute;
+        top: 15%;
+    }
+    .admin-image img{
+        height: 95vw;
+    }
+}
+
+
 @media screen and (max-width:800px){
     .no-days{
         display: none;

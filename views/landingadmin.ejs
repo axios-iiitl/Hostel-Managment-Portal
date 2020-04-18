@@ -16,8 +16,8 @@
             <img src="../images/admin-dashboard.svg" />
         </div>
         <div class="admin-image-content">
-            <h2 style="color: #a9000c;">Content</h2>
-            <p>Add content that describes the use and need of this site to the admin</p>
+            <h2 style="color: #a9000c;">Hostel Admin Portal</h2>
+            <p>This site makes it easy for the admin to work with the issues of student.</p><p>This is also packed with complete details of each and every student.</p>
         </div>
     </div>
     <div id="notifications" class="jumbotron-admin alerts">
@@ -74,48 +74,6 @@
               <br><br>
 
         <div style="height: 60px; width: 100%;"></div>
-        <!-- <a href="/admin/dashboard/details"><h3>Click for details</h3></a>
-    <div class="container-admin">
-         <h4>
-           Select from these options:
-          <form action="/admin/dashboard" method="GET">
-            <select id="hello" name="status">
-                <option value="applied" >Applications for leave</option>
-                <option value="recent">Recent Applications</option>
-            </select>
-            <button>Submit</button>
-          </form>
-        </h4>
-          <strong> =============================================================================  </strong>
-           <%if(status=="applied"){%>
-               <h2>Applications for Leave</h2>
-           <%}else if(status=="recent"){%>
-               <h2>Recent Applications</h2>
-           <%}%>
-        <br>
-        <%leaves.forEach(function(leave){%>
-            <div class="row">
-                <strong>Name:</strong>  <p><%=leave.Name%></p>
-                <strong>Email:</strong>  <p><%=leave.Email%></p>
-                <strong>Leave Date:</strong>  <p><%=leave.Leave%></p>
-                <strong>Return Date:</strong>  <p><%=leave.Return%></p>
-                <strong>Reason:</strong>  <p><%=leave.Reason%></p>
-                <%if(leave.Approve==null){%>
-                    <a href="/admin/dashboard/permit/accept/<%=leave._id%>"> <button class="btn btn-success">Success</button></a>
-                    <a href="/admin/dashboard/permit/reject/<%=leave._id%>"><button class="btn btn-danger">Reject</button></a>
-                <%}else if(leave.Approve==true){%>
-                    <button class="btn btn-success">Approved</button>
-                   <%}else if(leave.Approve==false){%>
-                    <button class="btn btn-danger">Rejected</button>
-                   <%}%><br><br>
-                   <strong>=======================================================</strong><br><br>
-            </div>
-        <%})%>
-        
-        <%for(var i=0;i< number;i++){%>
-            <a href="/admin/dashboard/?page=<%=i%>"><%=i%></a>
-        <%}%>
-    </div> -->
 </div>
 <script>
      document.addEventListener('DOMContentLoaded', function() {
