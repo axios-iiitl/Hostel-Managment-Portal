@@ -23,6 +23,19 @@
     <div id="notifications" class="jumbotron-admin alerts">
         <div class="alert-content">
             <h3 style="width: 100%;color: #a9000c;text-align: center;">Notifications</h3><br>
+            <form class="dropdown" action="/admin/dashboard" method="GET">
+                
+                <h5>Application Type:</h5>  
+                <select id="hello" name="status">
+                  <option value="applied" >Leave Applications</option>
+                  <option value="recent">Recent Applications</option>
+              </select>
+              
+              <button class="btn">Submit</button>
+              <br>
+              
+
+            </form><br>
         <ul class="collapsible expandible">
             <%if(leaves.length == 0){%>
                 <div class="collapsible-header" style="display: flex; align-items: center;pointer-events: none;"><i class="material-icons">notifications_off</i>
@@ -83,3 +96,4 @@
 </script>
 <%- include('partials/footer'); -%>
 </div>
+
