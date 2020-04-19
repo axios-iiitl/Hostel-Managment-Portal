@@ -3,7 +3,7 @@ const keys = require("../config/keys");
 mongoose.connect(
   keys.mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  function(err) {
+  function (err) {
     if (err) {
       console.log(err);
     } else {
