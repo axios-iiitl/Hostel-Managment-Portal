@@ -73,22 +73,22 @@
             if (leave.Approve == undefined) {
               render = `<div class="appr-rej">
                   <a href="/admin/dashboard/permit/accept/${leave._id}">
-                    <button class="btn btn-success">Approve</button></a
+                    <button class="btn blue darken-1">Approve</button></a
                   >
                   <a href="/admin/dashboard/permit/reject/${leave._id}"
                     ><button
-                      class="btn btn-danger"
+                      class="btn red accent-2"
                       style="background-color: #052c66;"
                     >
                       Reject
                     </button></a
                   >
                 </div>`;
-              render2 = `<a href="/admin/dashboard/permit/accept/${leave._id}>"><button class="btn btn-success">Approve</button></a><a href="/admin/dashboard/permit/reject/${leave._id}>"><buttonclass="btn btn-danger"style="background-color: #052c66;">Reject</button></a>`;
+              render2 = `<a href="/admin/dashboard/permit/accept/${leave._id}>"><button class="btn blue darken-1">Approve</button></a><a href="/admin/dashboard/permit/reject/${leave._id}>"><buttonclass="btn red accent-2"style="background-color: #052c66;">Reject</button></a>`;
             } else if (leave.Approve) {
-              render2 = render = `<button class="btn btn-success">Approved</button>`;
+              render2 = render = `<button class="btn green darken-2">Approved</button>`;
             } else {
-              render2 = render = `<button class="btn btn-success">Rejected</button>`;
+              render2 = render = `<button class="btn red accent-2">Rejected</button>`;
             }
             $("#lola").append(
               `
