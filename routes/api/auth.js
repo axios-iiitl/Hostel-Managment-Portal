@@ -19,19 +19,20 @@ router.get(
     req.session.token = req.user.googleId;
     res.cookie("token", req.session.token);
     Admin.findOne({ email: req.user.email }, function (err, admin) {
-      if (admin) {
-        req.session.status = "applied";
-        req.session.client = "admin";
-        res.redirect("/admin/dashboard");
+      if (err) Error(err);
+      if (!admin) {
+        req.session.client = "user";
+        res.redirect("/user/dashboard");
+      } else {
         User.deleteOne({ email: req.user.email }, function (err, user) {
           if (err) {
-            res.redirect("/user/dashboard");
+            res.redirect("/");
           } else if (user) {
           }
         });
-      } else if (err) {
-        req.session.client = "user";
-        res.redirect("/user/dashboard");
+        req.session.status = "applied";
+        req.session.client = "admin";
+        res.redirect("/admin/dashboard");
       }
     });
   }
