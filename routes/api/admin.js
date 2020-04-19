@@ -9,60 +9,11 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard", auth, function (req, res) {
-  var perPage = 4;
-  var page;
-
-  req.query.page === undefined ? (page = 0) : (page = parseInt(req.query.page));
-
-  if (req.query.status === "recent") {
-    req.session.status = "recent";
-  } else if (req.query.status === "applied") {
-    req.session.status = "applied";
-  }
-
-  if (req.session.status === "applied") {
-    Leave.find({ Approve: null })
-      .limit(perPage)
-      .skip(perPage * parseInt(page))
-      .sort({
-        createdAt: "desc"
-      })
-      .exec(function (err, leaves) {
-        if (err) Error(err);
-        Leave.countDocuments({ Approve: null }).exec(function (err, count) {
-          if (err) Error(err);
-          res.render("landingadmin", {
-            currentUser: req.user,
-            leaves: leaves,
-            page: page,
-            number: count / perPage,
-            status: "applied",
-            clientType: req.session.client
-          });
-        });
-      });
-  } else if (req.session.status === "recent") {
-    Leave.find()
-      .limit(perPage)
-      .skip(perPage * parseInt(page))
-      .sort({
-        createdAt: "desc"
-      })
-      .exec(function (err, leaves) {
-        if (err) Error(err);
-        Leave.countDocuments().exec(function (err, count) {
-          if (err) Error(err);
-          res.render("landingadmin", {
-            currentUser: req.user,
-            leaves: leaves,
-            page: page,
-            number: count / perPage,
-            status: "recent",
-            clientType: req.session.client
-          });
-        });
-      });
-  }
+  res.render("landingadmin", {
+    currentUser: req.user,
+    status: "applied",
+    clientType: req.session.client
+  });
 });
 
 router.get("/data/leaves", (req, res) => {
