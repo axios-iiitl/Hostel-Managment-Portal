@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  displayPicture: {
+    type: String,
+    trim: true
+  },
   items: {
     tableNumber: {
       type: String,

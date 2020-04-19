@@ -10,8 +10,8 @@ passport.use(
       clientSecret: keys.clientSecret,
       callbackURL: "http://localhost:3000/auth/google/callback"
     },
-    function (accessToken, refreshToken, profile, done) {
-      User.findOne({ googleId: profile.id }, function (err, user) {
+    async function (accessToken, refreshToken, profile, done) {
+      User.findOne({ googleId: profile.id }, async function (err, user) {
         if (err) {
           return done(err);
         }
@@ -19,14 +19,12 @@ passport.use(
           user = new User({
             googleId: profile.id,
             name: profile.displayName,
-            email: profile.emails[0].value
+            email: profile.emails[0].value,
+            displayPicture: profile.photos[0].value
           });
+          await user.save();
         }
-
-        user.save(function (err) {
-          if (err) console.log(err);
-          return done(err, user);
-        });
+        return done(err, user);
       });
     }
   )
