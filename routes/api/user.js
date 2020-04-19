@@ -13,6 +13,7 @@ router.get("/dashboard", auth, (req, res) => {
     err,
     leave
   ) {
+    if (err) Error(err);
     if (leave) {
       res.render("landing", {
         currentUser: req.user,
@@ -20,7 +21,7 @@ router.get("/dashboard", auth, (req, res) => {
         clientType: req.session.client,
         flag: 1
       });
-    } else if (err) {
+    } else {
       res.render("landing", {
         currentUser: req.user,
         leave: leave,
@@ -32,10 +33,19 @@ router.get("/dashboard", auth, (req, res) => {
 });
 
 router.get("/dashboard/application", auth, (req, res) => {
-  res.render("application", {
-    currentUser: req.user,
-    clientType: req.session.client,
-    flag: 0
+  Leave.findOne({ Email: req.user.email, Approve: null }, (err, leave) => {
+    if (err) {
+      res.redirect("/user/dashboard");
+    }
+    if (leave) {
+      res.redirect("/user/dashboard/edit/leave/" + leave.id);
+    } else {
+      res.render("application", {
+        currentUser: req.user,
+        clientType: req.session.client,
+        flag: 0
+      });
+    }
   });
 });
 
@@ -53,6 +63,7 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
       createdAt: "desc"
     })
     .exec(function (err, leaves) {
+      if (err) Error(err);
       if (err) {
         res.redirect("/user/dashboard");
       } else {
