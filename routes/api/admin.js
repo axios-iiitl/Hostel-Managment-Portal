@@ -65,6 +65,53 @@ router.get("/dashboard", auth, function (req, res) {
   }
 });
 
+router.get("/data/leaves", (req, res) => {
+  var perPage = 4;
+  var page;
+
+  req.query.page === undefined ? (page = 0) : (page = parseInt(req.query.page));
+
+  if (req.query.status === "recent") {
+    req.session.status = "recent";
+  } else if (req.query.status === "applied") {
+    req.session.status = "applied";
+  }
+
+  if (req.session.status === "applied") {
+    Leave.find({ Approve: null })
+      .limit(perPage)
+      .skip(perPage * parseInt(page))
+      .sort({
+        createdAt: "desc"
+      })
+      .exec(function (err, leaves) {
+        if (err) Error(err);
+        Leave.countDocuments({ Approve: null }).exec(function (err, count) {
+          if (err) Error(err);
+          res.send({
+            leaves: leaves
+          });
+        });
+      });
+  } else if (req.session.status === "recent") {
+    Leave.find()
+      .limit(perPage)
+      .skip(perPage * parseInt(page))
+      .sort({
+        createdAt: "desc"
+      })
+      .exec(function (err, leaves) {
+        if (err) Error(err);
+        Leave.countDocuments().exec(function (err, count) {
+          if (err) Error(err);
+          res.send({
+            leaves: leaves
+          });
+        });
+      });
+  }
+});
+
 router.get("/dashboard/details", function (req, res) {
   res.render("details", {
     currentUser: req.user,
