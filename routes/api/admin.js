@@ -9,6 +9,14 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/dashboard", auth, function (req, res) {
+  res.render("landingadmin", {
+    currentUser: req.user,
+    status: "applied",
+    clientType: req.session.client
+  });
+});
+
+router.get("/data/leaves", (req, res) => {
   var perPage = 4;
   var page;
 
@@ -31,13 +39,8 @@ router.get("/dashboard", auth, function (req, res) {
         if (err) Error(err);
         Leave.countDocuments({ Approve: null }).exec(function (err, count) {
           if (err) Error(err);
-          res.render("landingadmin", {
-            currentUser: req.user,
-            leaves: leaves,
-            page: page,
-            number: count / perPage,
-            status: "applied",
-            clientType: req.session.client
+          res.send({
+            leaves: leaves
           });
         });
       });
@@ -52,13 +55,8 @@ router.get("/dashboard", auth, function (req, res) {
         if (err) Error(err);
         Leave.countDocuments().exec(function (err, count) {
           if (err) Error(err);
-          res.render("landingadmin", {
-            currentUser: req.user,
-            leaves: leaves,
-            page: page,
-            number: count / perPage,
-            status: "recent",
-            clientType: req.session.client
+          res.send({
+            leaves: leaves
           });
         });
       });
