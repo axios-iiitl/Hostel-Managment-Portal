@@ -178,3 +178,33 @@ body{
         display: none;
     }
 }
+.dropdown{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    display: flex;justify-content: center;align-items: center;
+}
+.dropdown select{
+    position: relative;
+    display: block;
+    max-width: 200px;
+    border: none;
+    border-bottom: .5px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    outline: none;
+}
+.dropdown select option{
+    outline: none;
+}
+.dropdown button{
+    position: relative;
+    background: grey;
+}
+.dropdown button:hover{
+    background: rgb(102, 99, 99);
+}
+.dropdown-content{
+    position: relative;
+    width: 50%;height: 100px;
+}
