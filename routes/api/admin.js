@@ -130,4 +130,31 @@ router.get("/dashboard/permit/reject/:id", function (req, res) {
   });
 });
 
+router.get("/dashboard/permit", (req, res) => {
+  if (req.query.approve === true) {
+    Leave.findOne({ _id: req.query._id }, (err, leave) => {
+      if (err) Error(err);
+      leave.Approve = true;
+      Leave.findByIdAndUpdate(leave._id, leave, (err, leave) => {
+        if (err) Error(err);
+        console.log(leave);
+        res.send({
+          hello: "hello"
+        });
+      });
+    });
+  } else if (req.query.approve === false) {
+    Leave.findOne({ _id: req.query._id }, (err, leave) => {
+      if (err) Error(err);
+      leave.Approve = false;
+      Leave.findByIdAndUpdate(leave._id, leave, (err, leave) => {
+        if (err) Error(err);
+        console.log(leave);
+        res.send({
+          hello: "hello"
+        });
+      });
+    });
+  }
+});
 module.exports = router;

@@ -3,7 +3,6 @@
     <%- include('partials/header'); -%> <%- include('partials/admin-sidenav');
     -%>
   </div>
-
   <div class="start-h2" style="height: 0px;">
     <a
       style="z-index: 1000;"
@@ -72,19 +71,11 @@
               render2 = "";
             if (leave.Approve == undefined) {
               render = `<div class="appr-rej">
-                  <a href="/admin/dashboard/permit/accept/${leave._id}">
-                    <button class="btn blue darken-1">Approve</button></a
-                  >
-                  <a href="/admin/dashboard/permit/reject/${leave._id}"
-                    ><button
-                      class="btn red accent-2"
-                      style="background-color: #052c66;"
-                    >
-                      Reject
-                    </button></a
-                  >
+                    <button class="btn blue darken-1" value="${leave._id}" id="accept">Approve</button>
+                     
+                    <button class="btn red accent-2" value="${leave._id}"  id="reject" style="background-color: #052c66;">Reject </button>
                 </div>`;
-              render2 = `<a href="/admin/dashboard/permit/accept/${leave._id}>"><button class="btn blue darken-1">Approve</button></a><a href="/admin/dashboard/permit/reject/${leave._id}>"><buttonclass="btn red accent-2"style="background-color: #052c66;">Reject</button></a>`;
+              render2 = `<button class="btn blue darken-1" value="${leave._id}" id="accept2">Approve</button><button class="btn red accent-2" value="${leave._id}"  id="reject2" style="background-color: #052c66;">Reject </button>`;
             } else if (leave.Approve) {
               render2 = render = `<button class="btn green darken-2">Approved</button>`;
             } else {
@@ -115,7 +106,24 @@
       });
     });
   }
-  $(document).ready(function() {
+ 
+   function accept(y,x){
+     fetch(`/admin/dashboard/permit?approve=${y}&_id=${x}`).then(response => {
+         response.json().then(function(data){
+             //Remove the parent to that button
+            //  $("accept").closest().remove();
+         });
+     });
+   }
+   function reject(){
+    fetch(`/admin/dashboard/permit?approve=${y}&_id=${x}`).then(response => {
+         response.json().then(function(data){
+           
+         });
+     });
+   }
+
+   $(document).ready(function() {
     fetchLeaves("applied");
     $("#hello").change(function() {
       var selectedOption = $(this)
@@ -123,6 +131,18 @@
         .val();
       fetchLeaves(selectedOption);
     });
-  });
+      $("#reject").click(function(){
+            const z=$(this).val();
+            reject("false",z);
+      });
+      $("#accept").click(function(){
+          const z=$(this).val();
+          accept("true",z);
+      });
+});
+  
+  
+  
+
 </script>
 <%- include('partials/footer'); -%>
