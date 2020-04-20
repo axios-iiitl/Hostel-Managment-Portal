@@ -34,6 +34,8 @@ body {
   border-bottom: 0.5px solid #e6e6e6;
 }
 .admin-image {
+    width: 100%;
+    height: 37vh;
 }
 .admin-image img {
   height: 25vh;
@@ -94,10 +96,6 @@ body {
 /* dashboard */
 
 @media screen and (max-width: 1020px) {
-  .admin-image {
-    width: 100%;
-    height: 50vh;
-  }
   .admin-image img {
     width: 50%;
   }
@@ -135,11 +133,7 @@ body {
   }
 }
 @media screen and (max-width: 700px) {
-  .admin-image {
-    height: 80vw;
-    position: absolute;
-    top: 0%;
-  }
+
   .admin-image-content {
     position: absolute;
     top: 70%;
@@ -147,20 +141,6 @@ body {
   .admin-welcome {
     min-height: 90vh;
     max-height: fit-content;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .admin-welcome {
-    min-height: 90vh;
-  }
-  .admin-image {
-    height: 80vw;
-    position: absolute;
-    top: 15%;
-  }
-  .admin-image img {
-    height: 95vw;
   }
 }
 
