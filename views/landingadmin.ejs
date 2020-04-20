@@ -3,7 +3,6 @@
     <%- include('partials/header'); -%> <%- include('partials/admin-sidenav');
     -%>
   </div>
-
   <div class="start-h2" style="height: 0px;">
     <a
       style="z-index: 1000;"
@@ -18,19 +17,22 @@
       <h3 style="color: #1c4f6c;" class="notif-heading underline">
         Notifications
       </h3>
-      <div class="admin-image">
+      <div class="admin-image" style="width: 100%;display: flex;justify-content: center;align-items: center;">
         <img src="/images/notification.svg" />
       </div>
       <div class="dropdown">
         <h5>Application Type:</h5>
-        <select id="hello" name="status">
-          <option value="applied">Leave Applications</option>
-          <option value="recent">Recent Applications</option>
+        <select id="select-application-type" name="status">
+          <option value="applied">Recent Applications</option>
+          <option value="recent">Past Applications</option>
         </select>
         <br />
       </div>
       <br />
-      <ul class="collapsible expandible" id="lola"></ul>
+      <ul
+        class="collapsible expandible"
+        id="leaves-notification-collapsible"
+      ></ul>
     </div>
   </div>
   <br /><br />
@@ -43,6 +45,9 @@
     var instances = M.Collapsible.init(elems, { accordion: false });
   });
   function fetchLeaves(opt) {
+    $("#leaves-notification-collapsible").html(
+      ' <div class="progress"><div class="indeterminate"></div></div>'
+    );
     fetch(`/admin/data/leaves?status=${opt}`).then(response => {
       if (response.status !== 200) {
         console.log(
@@ -50,12 +55,12 @@
         );
         return;
       }
-      response.json().then(function(data) {
-        $("#lola").empty();
-        console.log(data);
-        if (data.leaves.length == 0) {
-          $("#lola").html(
-            `<div
+      setTimeout(() => {
+        response.json().then(function(data) {
+          $("#leaves-notification-collapsible").empty();
+          if (data.leaves.length == 0) {
+            $("#leaves-notification-collapsible").html(
+              `<div
           class="collapsible-header"
           style="display: flex; align-items: center;pointer-events: none;"
         >
@@ -65,64 +70,90 @@
             >No Notifications</span
           >
         </div>`
-          );
-        } else {
-          data.leaves.forEach(leave => {
-            var render = "",
-              render2 = "";
-            if (leave.Approve == undefined) {
-              render = `<div class="appr-rej">
-                  <a href="/admin/dashboard/permit/accept/${leave._id}">
-                    <button class="btn blue darken-1">Approve</button></a
-                  >
-                  <a href="/admin/dashboard/permit/reject/${leave._id}"
-                    ><button
-                      class="btn red accent-2"
-                      style="background-color: #052c66;"
-                    >
-                      Reject
-                    </button></a
-                  >
+            );
+          } else {
+            data.leaves.forEach(leave => {
+              var render = "",
+                render2 = "";
+
+              if (leave.Approve == undefined) {
+                render = `<div class="appr-rej">
+                    <button class="btn blue darken-1" value="${leave._id}" onclick="handleLeave(true, '${leave._id}')" id="accept">Approve</button>
+                     
+                    <button class="btn red accent-2" value="${leave._id}"  id="reject" onclick="handleLeave(false, '${leave._id}')" style="background-color: #052c66;">Reject </button>
                 </div>`;
-              render2 = `<a href="/admin/dashboard/permit/accept/${leave._id}>"><button class="btn blue darken-1">Approve</button></a><a href="/admin/dashboard/permit/reject/${leave._id}>"><buttonclass="btn red accent-2"style="background-color: #052c66;">Reject</button></a>`;
-            } else if (leave.Approve) {
-              render2 = render = `<button class="btn green darken-2">Approved</button>`;
-            } else {
-              render2 = render = `<button class="btn red accent-2">Rejected</button>`;
-            }
-            $("#lola").append(
-              `
-            <li>
+                render2 = `<button class="btn blue darken-1" value="${leave._id}" id="accept2">Approve</button><button class="btn red accent-2" value="${leave._id}"  id="reject2" style="background-color: #052c66;">Reject </button>`;
+              } else if (leave.Approve) {
+                render2 = render = `<button class="btn green darken-2">Approved</button>`;
+              } else {
+                render2 = render = `<button class="btn red accent-2">Rejected</button>`;
+              }
+
+              $("#leaves-notification-collapsible").append(
+                `
+            <li id="${leave._id}">
                 <div class="collapsible-header" style="display: flex; align-items: center;">
             <i class="material-icons"> notifications_active </i> <span style="color: #052c66;display: flex;align-items: center;">
               <span class="material-icons notifi-name" style="font-size: 20px;">person</span>&nbsp;${leave.Name}</span>
             <span class="no-days" style="position: absolute;left: 50%;transform: translate(-50%);" >Days : /*number*/</span>
             <span style="position: absolute;right: 10%;">
               <div class="hide-on-mobile">` +
-                render +
-                `</div>
+                  render +
+                  `</div>
             </span>
           </div>
           <div class="collapsible-body">
             <strong style="color: #052c66;">Email:</strong>
             <p>${leave.Email}</p><strong style="color: #052c66;">Leave Date:</strong><p>${leave.Leave}</p>
             <strong style="color: #052c66;">Return Date:</strong> <p>${leave.Return}</p> <strong style="color: #052c66;">Reason:</strong> <p>${leave.Reason}</p> <div class="view-on-mobile">` +
-                render2 +
-                `</div> </div> </li>`
-            );
-          });
-        }
-      });
+                  render2 +
+                  `</div> </div> </li>`
+              );
+            });
+          }
+        });
+      }, 1000);
     });
   }
+
+  function handleLeave(v, id) {
+    var toSelect = v ? "accept" : "reject";
+
+    $(`#${id.toString()} #${toSelect}`).html(
+      `<img src="/images/Ripple-1s-200px.svg" style="height: 100%;" />`
+    );
+
+    fetch(`/admin/dashboard/permit?approve=${v}&_id=${id}`).then(response => {
+      if (response.status !== 200) {
+        console.log(
+          "Looks like there was a problem. Status Code: " + response.status
+        );
+        return;
+      }
+      setTimeout(() => {
+        if ($("#leaves-notification-collapsible").children().length === 1)
+          fetchLeaves(fetchLeaves($("#select-application-type").val()));
+        else $(`#${id}`).remove();
+      }, 500);
+    });
+  }
+
   $(document).ready(function() {
     fetchLeaves("applied");
-    $("#hello").change(function() {
+    $("#select-application-type").change(function() {
       var selectedOption = $(this)
         .children("option:selected")
         .val();
       fetchLeaves(selectedOption);
     });
+    /*   $("#reject").click(function() {
+      const z = $(this).val();
+      reject("false", z);
+    });
+    $("#accept").click(function() {
+      const z = $(this).val();
+      accept("true", z);
+    }); */
   });
 </script>
 <%- include('partials/footer'); -%>
