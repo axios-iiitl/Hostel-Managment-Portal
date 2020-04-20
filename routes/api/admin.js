@@ -16,7 +16,7 @@ router.get("/dashboard", auth, function (req, res) {
   });
 });
 
-router.get("/data/leaves", (req, res) => {
+router.get("/data/leaves", auth, (req, res) => {
   var perPage = 4;
   var page;
 
@@ -63,7 +63,7 @@ router.get("/data/leaves", (req, res) => {
   }
 });
 
-router.get("/dashboard/details", function (req, res) {
+router.get("/dashboard/details", auth, function (req, res) {
   res.render("details", {
     currentUser: req.user,
     clientType: req.session.client
@@ -89,72 +89,16 @@ router.post("/dashboard/info", auth, function (req, res) {
   });
 });
 
-router.get("/dashboard/permit/accept/:id", function (req, res) {
-  console.log("hello");
-  Leave.findOne({ _id: req.params.id }, function (err, leave) {
-    if (err) {
-      res.redirect("/admin/dashboard");
-    } else {
-      leave.Approve = true;
-      Leave.findOneAndUpdate({ _id: req.params.id }, leave, function (
-        err,
-        leave
-      ) {
-        if (err) {
-          res.redirect("/admin/dashboard");
-        } else {
-          res.redirect("/admin/dashboard");
-        }
-      });
-    }
-  });
-});
+router.get("/dashboard/permit", auth, (req, res) => {
+  if (req.query.approve && req.query._id) {
+    var isApproved = (req.query.approve === "true");
 
-router.get("/dashboard/permit/reject/:id", function (req, res) {
-  Leave.findOne({ _id: req.params.id }, function (err, leave) {
-    if (err) {
-      res.redirect("/admin/dashboard");
-    } else {
-      leave.Approve = false;
-      Leave.findOneAndUpdate({ _id: req.params.id }, leave, function (
-        err,
-        leave
-      ) {
-        if (err) {
-          res.redirect("/admin/dashboard");
-        } else {
-          res.redirect("/admin/dashboard");
-        }
-      });
-    }
-  });
-});
-
-router.get("/dashboard/permit", (req, res) => {
-  if (req.query.approve === true) {
-    Leave.findOne({ _id: req.query._id }, (err, leave) => {
-      if (err) Error(err);
-      leave.Approve = true;
-      Leave.findByIdAndUpdate(leave._id, leave, (err, leave) => {
-        if (err) Error(err);
-        console.log(leave);
-        res.send({
-          hello: "hello"
-        });
-      });
+    Leave.findByIdAndUpdate({ _id: req.query._id }, { Approve: isApproved }, (err, leave) => {
+      if (err) res.status(500);
+      res.sendStatus(200);
     });
-  } else if (req.query.approve === false) {
-    Leave.findOne({ _id: req.query._id }, (err, leave) => {
-      if (err) Error(err);
-      leave.Approve = false;
-      Leave.findByIdAndUpdate(leave._id, leave, (err, leave) => {
-        if (err) Error(err);
-        console.log(leave);
-        res.send({
-          hello: "hello"
-        });
-      });
-    });
+  } else {
+    res.status(500);
   }
 });
 module.exports = router;
