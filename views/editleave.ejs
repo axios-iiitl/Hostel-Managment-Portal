@@ -15,7 +15,7 @@
             </div>
 
             <div class="form-group">
-                <label>Name:</label><br>
+                <label>Email:</label><br>
                 <input type="text" name="leave[Email]" value="<%=leave.Email%>" readonly required>
             </div>
              
@@ -29,10 +29,15 @@
                 <input type="date" name="leave[Return]" value="<%=leave.Return%>" required>
             </div>
 
-            <div class="form group">
-                <label>Reason</label><br>
-                <input type="text" name="leave[Reason]" placeholder="Reason" value="<%=leave.Reason%>"required>
-            </div>
+            <div class="inp-animation-container">
+                <input
+                  type="text"
+                  name="leave[Reason]"
+                required/>
+                <div class="inp-label"> 
+                  <span> Reason </span>
+                </div>
+              </div>
 
             <div class="form-group">
                 <br>

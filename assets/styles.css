@@ -65,6 +65,11 @@ body {
   .brand-logo{
     top: 50%;
   }
+  .logout{
+    position: absolute;
+    right: 6%;
+    margin-top: 15px;
+  }
   .left{
     position: absolute;
     left: 30px;
@@ -72,6 +77,9 @@ body {
   .left img{
     height: 40px;
     width: 65px;
+  }
+  .jumbotron h3{
+    font-size: 32px;
   }
 }
 @media screen and (max-height:400px){
@@ -355,7 +363,6 @@ nav ul a {
   .c-box{
     margin-bottom: 30px;
     border: .5px solid #333;
-    
   }
   .c-box::before{
     content: '';
@@ -369,9 +376,10 @@ nav ul a {
     z-index: -1;
   }
   .c-box:nth-child(1)::before{
-    background-image: linear-gradient(315deg , #474243 , #2b2725);
+    background-image: linear-gradient(315deg , #1c4f6c , #1c4f6c);
   }
   .c-box:nth-child(3)::before{
-    background-image: linear-gradient(315deg , #474243 , #2b2725);
+    /* background-image: linear-gradient(315deg , #474243 , #2b2725); */
+    background-image: linear-gradient(315deg , #1c4f6c , #1c4f6c);
   }
 }
