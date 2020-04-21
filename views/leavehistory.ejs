@@ -36,7 +36,7 @@
         <a href="/user/dashboard/delete/leave/<%=leave._id%>"
           ><button class="btn red darken-1 ">Delete</button></a
         >
-        <button class="btn grey darken-1 ">Waiting</button>
+        <button class="btn grey darken-1 " style="margin-top: 5px;">Waiting</button>
         <%}else if(leave.Approve==true){%>
         <button class="btn light-green darken-2 ">Approved</button>
         <%}else if(leave.Approve==false){%>
@@ -45,10 +45,18 @@
         <br /><br />
       </div>
       <%})%> <%}%>
-
-      <%for(var i=0;i< number;i++){%>
-        <a href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i%></a>
-    <%}%>
+      <div class="pagination">
+        <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=0%>">&laquo;</a>
+        <%for(var i=0;i< number;i++){%>
+          <%if(i != page){%>
+            <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
+          <%}else{%>
+            <a class="active" href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
+          <%}%>
+      <%}%>
+        <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=number-1%>">&raquo;</a>
+      </div>
+      
     
     </div>
   </div>

@@ -8,7 +8,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css"> -->
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script
@@ -56,7 +57,11 @@
 
         <ul id="nav-mobile" class="view-on-med-and-down">
         </li>
-        <li><a href="/auth/logout">LogOut</a></li>
+        <%if(!currentUser){%>
+          <li><a class="sgup-g" href="/auth/google">Sign Up/Login with G+</a></li>
+          <%}else{%>
+        <li><a class="logout" href="/auth/logout">LogOut</a></li>
+        <%}%>
         </ul>
 
       </div>

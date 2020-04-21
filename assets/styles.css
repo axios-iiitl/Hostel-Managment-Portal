@@ -10,6 +10,7 @@ body {
 
 .login-card {
   position: absolute;
+  margin-top: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -42,9 +43,74 @@ body {
 
 .login-card h4 {
   color: var(--white-bg-text);
+  text-align: center;
   font-size: 18px;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
+}
+
+/* pagination */
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: rgba(128, 128, 128, 0.801);
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+/* responsive */
+
+@media screen and (max-width:550px){
+  .login-card{
+    max-width: 90vw;
+    height: 500px;
+    /* left: 45%; */
+  }
+  .login-card-inner{
+    height: 100%;
+  }
+  .login-card img {
+    width: 60vmin;
+  }
+  .sgup-g{
+    display: none;
+  }
+  .brand-logo{
+    top: 50%;
+  }
+  .logout{
+    position: absolute;
+    right: 6%;
+    margin-top: 15px;
+  }
+  .left{
+    position: absolute;
+    left: 30px;
+  }
+  .left img{
+    height: 40px;
+    width: 65px;
+  }
+  .jumbotron h3{
+    font-size: 32px;
+  }
+}
+@media screen and (max-width: 350px){
+  .login-card{
+    top: 58%;
+    margin-bottom: 30px;
+  }
 }
 
 /* sidenave */
@@ -315,7 +381,6 @@ nav ul a {
   .c-box{
     margin-bottom: 30px;
     border: .5px solid #333;
-    
   }
   .c-box::before{
     content: '';
@@ -329,9 +394,10 @@ nav ul a {
     z-index: -1;
   }
   .c-box:nth-child(1)::before{
-    background-image: linear-gradient(315deg , #474243 , #2b2725);
+    background-image: linear-gradient(315deg , #1c4f6c , #1c4f6c);
   }
   .c-box:nth-child(3)::before{
-    background-image: linear-gradient(315deg , #474243 , #2b2725);
+    /* background-image: linear-gradient(315deg , #474243 , #2b2725); */
+    background-image: linear-gradient(315deg , #1c4f6c , #1c4f6c);
   }
 }

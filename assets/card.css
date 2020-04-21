@@ -82,5 +82,20 @@
 }
 .c-content a:hover {
   color: #000;
-  background-color: rgb(80, 78, 78, 0.15);
+  background-color: #1c4f6c;
+}
+
+@media screen and (max-width:550px){
+  .c-content h2{
+    font-size: 3.2em;
+  }
+  .c-content h3{
+    color: #1c4f6c;
+  }
+  .c-box:hover .c-content h2 {
+    top: -50px;
+  }
+  .c-box{
+    padding-top: 30px;
+  }
 }
