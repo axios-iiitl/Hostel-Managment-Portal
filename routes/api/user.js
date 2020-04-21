@@ -40,10 +40,12 @@ router.get("/dashboard/application", auth, (req, res) => {
     if (leave) {
       res.redirect("/user/dashboard/edit/leave/" + leave.id);
     } else {
+      const errors = [];
       res.render("application", {
         currentUser: req.user,
         clientType: req.session.client,
-        flag: 0
+        flag: 0,
+        msg: errors
       });
     }
   });
@@ -156,14 +158,20 @@ router.post("/dashboard/contacts/:id", auth, function (req, res) {
 // Leave Routes
 
 router.post("/dashboard/leave", function (req, res) {
-  Leave.create(req.body.leave, function (err, leave) {
-    if (err) {
-      console.log(err);
-      res.redirect("/user/dashboard");
-    } else {
-      res.redirect("/user/dashboard");
-    }
-  });
+  const errors = [];
+  if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
+    errors.push("Name or Email has changed and user is requested not to do so");
+    res.render("application", { currentUser: req.user, msg: errors, clientType: req.session.client, flag: 0 });
+  } else {
+    Leave.create(req.body.leave, function (err, leave) {
+      if (err) {
+        console.log(err);
+        res.redirect("/user/dashboard");
+      } else {
+        res.redirect("/user/dashboard");
+      }
+    });
+  }
 });
 
 router.get("/dashboard/edit/leave/:id", auth, function (req, res) {
@@ -171,25 +179,36 @@ router.get("/dashboard/edit/leave/:id", auth, function (req, res) {
     if (err) {
       res.redirect("/user/dashboard");
     }
+    const errors = [];
     res.render("editleave", {
       currentUser: req.user,
       leave: leave,
-      clientType: req.session.client
+      clientType: req.session.client,
+      msg: errors
     });
   });
 });
 
 router.post("/dashboard/edit/leave/:id", auth, function (req, res) {
-  Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (
-    err,
-    leave
-  ) {
-    if (err) {
-      res.redirect("/user/dashboard");
-    } else {
-      res.redirect("/user/dashboard");
-    }
-  });
+  if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
+    const errors = [];
+    errors.push("Name or Email has changed and user is requested not to do so");
+    Leave.findOne({ _id: req.params.id }, function (err, leave) {
+      if (err) Error(err);
+      res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave });
+    });
+  } else {
+    Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (
+      err,
+      leave
+    ) {
+      if (err) {
+        res.redirect("/user/dashboard");
+      } else {
+        res.redirect("/user/dashboard");
+      }
+    });
+  }
 });
 
 router.get("/dashboard/delete/leave/:id", auth, function (req, res) {
