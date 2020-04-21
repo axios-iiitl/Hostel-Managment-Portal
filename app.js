@@ -41,9 +41,10 @@ app.get("/", function (req, res) {
     });
   } else {
     Admin.findOne({ googleId: req.session.token }, function (err, admin) {
+      if (err) Error(err);
       if (admin) {
         res.redirect("/admin/dashboard");
-      } else if (err) {
+      } else {
         res.redirect("/user/dashboard");
       }
     });
