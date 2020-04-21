@@ -17,7 +17,10 @@
       <h3 style="color: #1c4f6c;" class="notif-heading underline">
         Notifications
       </h3>
-      <div class="admin-image" style="width: 100%;display: flex;justify-content: center;align-items: center;">
+      <div
+        class="admin-image"
+        style="width: 100%;display: flex;justify-content: center;align-items: center;"
+      >
         <img src="/images/notification.svg" />
       </div>
       <div class="dropdown">
@@ -73,8 +76,7 @@
             );
           } else {
             data.leaves.forEach(leave => {
-              var render = "",
-                render2 = "";
+              var render = "";
 
               if (leave.Approve == undefined) {
                 render = `<div class="appr-rej">
@@ -82,11 +84,10 @@
                      
                     <button class="btn red accent-2" value="${leave._id}"  id="reject" onclick="handleLeave(false, '${leave._id}')" style="background-color: #052c66;">Reject </button>
                 </div>`;
-                render2 = `<button class="btn blue darken-1" value="${leave._id}" id="accept2">Approve</button><button class="btn red accent-2" value="${leave._id}"  id="reject2" style="background-color: #052c66;">Reject </button>`;
               } else if (leave.Approve) {
-                render2 = render = `<button class="btn green darken-2">Approved</button>`;
+                render = `<button class="btn green darken-2">Approved</button>`;
               } else {
-                render2 = render = `<button class="btn red accent-2">Rejected</button>`;
+                render = `<button class="btn red accent-2">Rejected</button>`;
               }
 
               $("#leaves-notification-collapsible").append(
@@ -106,7 +107,7 @@
             <strong style="color: #052c66;">Email:</strong>
             <p>${leave.Email}</p><strong style="color: #052c66;">Leave Date:</strong><p>${leave.Leave}</p>
             <strong style="color: #052c66;">Return Date:</strong> <p>${leave.Return}</p> <strong style="color: #052c66;">Reason:</strong> <p>${leave.Reason}</p> <div class="view-on-mobile">` +
-                  render2 +
+                  render +
                   `</div> </div> </li>`
               );
             });
