@@ -49,6 +49,26 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
+/* pagination */
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: rgba(128, 128, 128, 0.801);
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
 /* responsive */
 
 @media screen and (max-width:550px){

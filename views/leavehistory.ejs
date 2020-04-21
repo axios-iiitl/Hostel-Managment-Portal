@@ -45,10 +45,14 @@
         <br /><br />
       </div>
       <%})%> <%}%>
-
-      <%for(var i=0;i< number;i++){%>
-        <a href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i%></a>
-    <%}%>
+      <div class="pagination">
+        <a href="/user/dashboard/leavehistory/?pageno=<%=0%>">&laquo;</a>
+        <%for(var i=0;i< number;i++){%>
+          <a href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
+      <%}%>
+        <a href="/user/dashboard/leavehistory/?pageno=<%=number-1%>">&raquo;</a>
+      </div>
+      
     
     </div>
   </div>
