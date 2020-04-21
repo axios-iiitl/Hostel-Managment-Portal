@@ -10,6 +10,7 @@ body {
 
 .login-card {
   position: absolute;
+  margin-top: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -27,7 +28,7 @@ body {
 }
 
 .login-card img {
-  height: 260px;
+  height: 50%;
 }
 
 .login-card a {
@@ -42,9 +43,48 @@ body {
 
 .login-card h4 {
   color: var(--white-bg-text);
+  text-align: center;
   font-size: 18px;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
+}
+
+/* responsive */
+
+@media screen and (max-width:550px){
+  .login-card{
+    max-width: 90vw;
+    max-height: 60vh;
+  }
+  .login-card img {
+    width: 60vmin;
+  }
+  .sgup-g{
+    display: none;
+  }
+  .brand-logo{
+    top: 50%;
+  }
+  .left{
+    position: absolute;
+    left: 30px;
+  }
+  .left img{
+    height: 40px;
+    width: 65px;
+  }
+}
+@media screen and (max-height:400px){
+  body{
+    height: 70vw;
+  }
+  .login-card{
+    position: absolute;
+    top: 70%;
+    transform: translate(-50% , -50%);
+    max-width: 90vw;
+    min-height: 45vw;
+  }
 }
 
 /* sidenave */
