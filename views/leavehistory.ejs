@@ -46,11 +46,15 @@
       </div>
       <%})%> <%}%>
       <div class="pagination">
-        <a href="/user/dashboard/leavehistory/?pageno=<%=0%>">&laquo;</a>
+        <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=0%>">&laquo;</a>
         <%for(var i=0;i< number;i++){%>
-          <a href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
+          <%if(i != page){%>
+            <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
+          <%}else{%>
+            <a class="active" href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
+          <%}%>
       <%}%>
-        <a href="/user/dashboard/leavehistory/?pageno=<%=number-1%>">&raquo;</a>
+        <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=number-1%>">&raquo;</a>
       </div>
       
     
