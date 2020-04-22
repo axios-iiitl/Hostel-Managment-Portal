@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const auth = require("../../middleware/authuser");
 const User = require("../../models/User");
 const Leave = require("../../models/Leave");
+const moment = require("moment");
 
 const router = express.Router();
 
@@ -163,14 +164,21 @@ router.post("/dashboard/leave", function (req, res) {
     errors.push("Name or Email has changed and user is requested not to do so");
     res.render("application", { currentUser: req.user, msg: errors, clientType: req.session.client, flag: 0 });
   } else {
-    Leave.create(req.body.leave, function (err, leave) {
-      if (err) {
-        console.log(err);
-        res.redirect("/user/dashboard");
-      } else {
-        res.redirect("/user/dashboard");
-      }
-    });
+    var leaveDuration = Math.ceil((new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) / (1000 * 60 * 60 * 24));
+    req.body.leave.leaveDuration = leaveDuration;
+    if (leaveDuration <= 0) {
+      errors.push("Please enter the date correctly");
+      res.render("application", { currentUser: req.user, msg: errors, clientType: req.session.client, flag: 0 });
+    } else {
+      Leave.create(req.body.leave, function (err, leave) {
+        if (err) {
+          console.log(err);
+          res.redirect("/user/dashboard");
+        } else {
+          res.redirect("/user/dashboard");
+        }
+      });
+    }
   }
 });
 
@@ -180,34 +188,57 @@ router.get("/dashboard/edit/leave/:id", auth, function (req, res) {
       res.redirect("/user/dashboard");
     }
     const errors = [];
+    var dates = {
+      leave: moment(leave.Leave).format("ll"),
+      return: moment(leave.Return).format("ll")
+    };
     res.render("editleave", {
       currentUser: req.user,
       leave: leave,
       clientType: req.session.client,
-      msg: errors
+      msg: errors,
+      dates
     });
   });
 });
 
 router.post("/dashboard/edit/leave/:id", auth, function (req, res) {
+  const errors = [];
   if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
-    const errors = [];
     errors.push("Name or Email has changed and user is requested not to do so");
     Leave.findOne({ _id: req.params.id }, function (err, leave) {
       if (err) Error(err);
-      res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave });
+      var dates = {
+        leave: moment(leave.Leave).format("ll"),
+        return: moment(leave.Return).format("ll")
+      };
+      res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave, dates });
     });
   } else {
-    Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (
-      err,
-      leave
-    ) {
-      if (err) {
-        res.redirect("/user/dashboard");
-      } else {
-        res.redirect("/user/dashboard");
-      }
-    });
+    var leaveDuration = Math.ceil((new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) / (1000 * 60 * 60 * 24));
+    req.body.leave.leaveDuration = leaveDuration;
+    if (leaveDuration <= 0) {
+      errors.push("Please enter the date correctly");
+      Leave.findOne({ _id: req.params.id }, function (err, leave) {
+        if (err) Error(err);
+        var dates = {
+          leave: moment(leave.Leave).format("ll"),
+          return: moment(leave.Return).format("ll")
+        };
+        res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave, dates });
+      });
+    } else {
+      Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (
+        err,
+        leave
+      ) {
+        if (err) {
+          res.redirect("/user/dashboard");
+        } else {
+          res.redirect("/user/dashboard");
+        }
+      });
+    }
   }
 });
 

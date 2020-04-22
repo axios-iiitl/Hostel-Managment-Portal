@@ -1,7 +1,12 @@
 <%- include('partials/header'); -%>
 
 <%- include('partials/sidenav'); -%>
-
+<style>
+strong{
+  font-weight: 900;
+  color: #004c79;
+}
+</style>
 <div class="start-h2">
   <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
 </div>
@@ -23,6 +28,8 @@
         <p><%=leave.Name%></p>
         <strong>Email:</strong>
         <p><%=leave.Email%></p>
+        <strong>Duration:</strong>
+        <p><%=leave.leaveDuration%> days</p>
         <strong>Leave Date:</strong>
         <p><%=leave.Leave%></p>
         <strong>Return Date:</strong>

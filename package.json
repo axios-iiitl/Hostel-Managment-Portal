@@ -19,6 +19,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "js-alert": "^1.0.4",
+    "moment": "^2.24.0",
     "mongoose": "^5.9.5",
     "mongoose-findorcreate": "^3.0.0",
     "passport": "^0.4.1",
@@ -39,7 +40,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run lint", "git add"
+      "npm run lint",
+      "git add"
     ]
   },
   "husky": {
