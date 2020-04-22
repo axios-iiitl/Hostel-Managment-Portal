@@ -252,4 +252,7 @@ body {
   .contact{
     min-height: 300px ;
   }
+  .start-h2 .search-icon:hover::after{
+    display: none;
+  }
 }
