@@ -4,17 +4,17 @@
 <div class="start-h2">
     <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
 </div>
-<%msg.forEach(function(err){%>
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <%=err%>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <%})%>
 <div class="container">
     <div class="jumbotron">    
   <h3>Edit your Application for Leave</h3>
+        <%msg.forEach(function(err){%>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert" style="padding: 15px;background: rgb(187, 36, 36);color: white;font-weight: 900;text-align: center;">
+            <%=err%>
+            <button class="btn black" type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <%})%>
         <form action="/user/dashboard/edit/leave/<%=leave._id%>" method="POST">
             <div class="form-group">
               <label>Name:</label><br>
@@ -28,18 +28,19 @@
              
             <div class="form-group">
                 <label>Leaving Date</label><br>
-                <input type="date" name="leave[Leave]"  value="<%=leave.Leave%>" required>
+                <input type="text" name="leave[Leave]" class="datepicker"  value="<%=dates.leave%>" required>
             </div>
 
             <div class="form-group">
                 <label>Returning Date</label><br>
-                <input type="date" name="leave[Return]" value="<%=leave.Return%>" required>
+                <input type="text" name="leave[Return]" class="datepicker" value="<%=dates.return%>" required>
             </div>
 
             <div class="inp-animation-container">
                 <input
                   type="text"
                   name="leave[Reason]"
+                  value="<%=leave.Reason%>"
                 required/>
                 <div class="inp-label"> 
                   <span> Reason </span>
@@ -55,5 +56,12 @@
         
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {format: "mmm dd, yyyy"});
+  });
+</script>
 
 <%- include('partials/footer'); -%>

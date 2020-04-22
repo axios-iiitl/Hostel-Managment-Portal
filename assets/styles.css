@@ -59,7 +59,7 @@ body {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
 }
 
 .pagination a.active {
@@ -67,47 +67,49 @@ body {
   color: white;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
 
 /* responsive */
 
-@media screen and (max-width:550px){
-  .login-card{
+@media screen and (max-width: 550px) {
+  .login-card {
     max-width: 90vw;
     height: 500px;
     /* left: 45%; */
   }
-  .login-card-inner{
+  .login-card-inner {
     height: 100%;
   }
   .login-card img {
     width: 60vmin;
   }
-  .sgup-g{
+  .sgup-g {
     display: none;
   }
-  .brand-logo{
+  .brand-logo {
     top: 50%;
   }
-  .logout{
+  .logout {
     position: absolute;
     right: 6%;
     margin-top: 15px;
   }
-  .left{
+  .left {
     position: absolute;
     left: 30px;
   }
-  .left img{
+  .left img {
     height: 40px;
     width: 65px;
   }
-  .jumbotron h3{
+  .jumbotron h3 {
     font-size: 32px;
   }
 }
-@media screen and (max-width: 350px){
-  .login-card{
+@media screen and (max-width: 350px) {
+  .login-card {
     top: 58%;
     margin-bottom: 30px;
   }
@@ -202,7 +204,7 @@ nav ul a {
   color: black;
 }
 
-.start-h2 .search-icon{
+.start-h2 .search-icon {
   position: absolute;
   left: 90%;
   top: 16%;
@@ -256,15 +258,14 @@ nav ul a {
   align-items: center;
 }
 .leave-content {
-  border-bottom: 1px solid #ccc;
-  /* border-radius: 10px; */
+  border-bottom: 3px solid #ccc;
   padding: 20px 40px;
   margin-bottom: 20px;
   transition: 1s;
 }
 .leave-content:hover {
-  border-bottom: 1px solid rgb(95, 0, 90);
-  transition: 1s;
+  border-bottom: 3px solid rgb(170, 48, 0);
+  transition: 0.5s;
 }
 
 .form-container {
@@ -345,59 +346,63 @@ nav ul a {
   align-items: center;
 }
 
-
 /* responsive */
 
 /* header */
-.view-on-med-and-down{
-  position: absolute;right: 5%;
-  display: none;pointer-events: none;
+.view-on-med-and-down {
+  position: absolute;
+  right: 5%;
+  display: none;
+  pointer-events: none;
 }
 
-@media screen and (max-width: 1000px){
-  .view-on-med-and-down{
-    display: inline;pointer-events: all;
+@media screen and (max-width: 1000px) {
+  .view-on-med-and-down {
+    display: inline;
+    pointer-events: all;
   }
-  .hide-on-med-and-down{
-    display: none;pointer-events: none;
+  .hide-on-med-and-down {
+    display: none;
+    pointer-events: none;
   }
 }
-@media screen and (max-width: 1250px){
-  .signed-as{
+@media screen and (max-width: 1250px) {
+  .signed-as {
     display: none;
   }
 }
 
 /* user dashboard */
-@media screen and (max-width: 950px){
-  .c-image{
+@media screen and (max-width: 950px) {
+  .c-image {
     display: none;
   }
 }
-@media screen and (max-width: 730px){
-  .c-container{
-    display: flex; flex-wrap: wrap;
+@media screen and (max-width: 730px) {
+  .c-container {
+    display: flex;
+    flex-wrap: wrap;
   }
-  .c-box{
+  .c-box {
     margin-bottom: 30px;
-    border: .5px solid #333;
+    border: 0.5px solid #333;
   }
-  .c-box::before{
-    content: '';
+  .c-box::before {
+    content: "";
     position: absolute;
     top: -2px;
     left: -2px;
     right: -2px;
     bottom: -2px;
     background: #333;
-    transform: skew(2deg ,2deg);
+    transform: skew(2deg, 2deg);
     z-index: -1;
   }
-  .c-box:nth-child(1)::before{
-    background-image: linear-gradient(315deg , #1c4f6c , #1c4f6c);
+  .c-box:nth-child(1)::before {
+    background-image: linear-gradient(315deg, #1c4f6c, #1c4f6c);
   }
-  .c-box:nth-child(3)::before{
+  .c-box:nth-child(3)::before {
     /* background-image: linear-gradient(315deg , #474243 , #2b2725); */
-    background-image: linear-gradient(315deg , #1c4f6c , #1c4f6c);
+    background-image: linear-gradient(315deg, #1c4f6c, #1c4f6c);
   }
 }
