@@ -8,7 +8,7 @@
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "lint:fix": "prettier-eslint $PWD/'**/*.js' --write"
+    "lint:fix": "prettier-eslint $PWD/'**/*.js' --write && prettier-eslint $PWD/'**/*.css' --write"
   },
   "author": "",
   "license": "ISC",

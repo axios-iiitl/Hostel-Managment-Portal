@@ -160,15 +160,31 @@ router.post("/dashboard/contacts/:id", auth, function (req, res) {
 
 router.post("/dashboard/leave", function (req, res) {
   const errors = [];
-  if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
+  if (
+    req.body.leave.Name !== req.user.name ||
+    req.body.leave.Email !== req.user.email
+  ) {
     errors.push("Name or Email has changed and user is requested not to do so");
-    res.render("application", { currentUser: req.user, msg: errors, clientType: req.session.client, flag: 0 });
+    res.render("application", {
+      currentUser: req.user,
+      msg: errors,
+      clientType: req.session.client,
+      flag: 0
+    });
   } else {
-    var leaveDuration = Math.ceil((new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) / (1000 * 60 * 60 * 24));
+    var leaveDuration = Math.ceil(
+      (new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) /
+        (1000 * 60 * 60 * 24)
+    );
     req.body.leave.leaveDuration = leaveDuration;
     if (leaveDuration <= 0) {
       errors.push("Please enter the date correctly");
-      res.render("application", { currentUser: req.user, msg: errors, clientType: req.session.client, flag: 0 });
+      res.render("application", {
+        currentUser: req.user,
+        msg: errors,
+        clientType: req.session.client,
+        flag: 0
+      });
     } else {
       Leave.create(req.body.leave, function (err, leave) {
         if (err) {
@@ -204,7 +220,10 @@ router.get("/dashboard/edit/leave/:id", auth, function (req, res) {
 
 router.post("/dashboard/edit/leave/:id", auth, function (req, res) {
   const errors = [];
-  if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
+  if (
+    req.body.leave.Name !== req.user.name ||
+    req.body.leave.Email !== req.user.email
+  ) {
     errors.push("Name or Email has changed and user is requested not to do so");
     Leave.findOne({ _id: req.params.id }, function (err, leave) {
       if (err) Error(err);
@@ -212,10 +231,19 @@ router.post("/dashboard/edit/leave/:id", auth, function (req, res) {
         leave: moment(leave.Leave).format("ll"),
         return: moment(leave.Return).format("ll")
       };
-      res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave, dates });
+      res.render("editleave", {
+        currentUser: req.user,
+        msg: errors,
+        clientType: req.session.client,
+        leave: leave,
+        dates
+      });
     });
   } else {
-    var leaveDuration = Math.ceil((new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) / (1000 * 60 * 60 * 24));
+    var leaveDuration = Math.ceil(
+      (new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) /
+        (1000 * 60 * 60 * 24)
+    );
     req.body.leave.leaveDuration = leaveDuration;
     if (leaveDuration <= 0) {
       errors.push("Please enter the date correctly");
@@ -225,7 +253,13 @@ router.post("/dashboard/edit/leave/:id", auth, function (req, res) {
           leave: moment(leave.Leave).format("ll"),
           return: moment(leave.Return).format("ll")
         };
-        res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave, dates });
+        res.render("editleave", {
+          currentUser: req.user,
+          msg: errors,
+          clientType: req.session.client,
+          leave: leave,
+          dates
+        });
       });
     } else {
       Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (

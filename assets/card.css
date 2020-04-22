@@ -85,17 +85,17 @@
   background-color: #bbb3;
 }
 
-@media screen and (max-width:550px){
-  .c-content h2{
+@media screen and (max-width: 550px) {
+  .c-content h2 {
     font-size: 3.2em;
   }
-  .c-content h3{
+  .c-content h3 {
     color: #1c4f6c;
   }
   .c-box:hover .c-content h2 {
     top: -50px;
   }
-  .c-box{
+  .c-box {
     padding-top: 30px;
   }
 }
