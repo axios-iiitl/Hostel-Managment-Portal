@@ -67,7 +67,13 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
     })
     .exec(function (err, leaves) {
       if (err) Error(err);
-      if (err) {
+      if (leaves.length === 0) {
+        res.render("leavehistory", {
+          leaves: leaves,
+          currentUser: req.user,
+          clientType: req.session.client
+        });
+      } else if (err) {
         res.redirect("/user/dashboard");
       } else {
         Leave.countDocuments({ Email: req.user.email }).exec(function (
