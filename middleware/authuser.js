@@ -4,9 +4,15 @@ const User = require("../models/User");
 const auth = async (req, res, next) => {
   try {
     if (req.session.token) {
-      User.findOne({ googleId: req.session.token }, function (err, user) {
+      User.findOne({ email: req.user.email }, function (err, user) {
         if (user) {
-          next();
+          var x = user.accessToken.indexOf(req.session.token);
+          if (x !== -1) {
+            next();
+          } else {
+            res.cookie("token", "");
+            res.redirect("/");
+          }
         } else if (err) {
           res.cookie("token", "");
           res.redirect("/");
