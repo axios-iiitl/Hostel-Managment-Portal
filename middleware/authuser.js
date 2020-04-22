@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
             next();
           } else {
             res.cookie("token", "");
-            res.redirect("/");
+            res.redirect("/auth/logout");
           }
         } else if (err) {
           res.cookie("token", "");

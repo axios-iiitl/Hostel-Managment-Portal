@@ -57,7 +57,9 @@ router.get(
   }
 );
 
-router.get("/logout", (req, res) => {
+router.get("/logout", async (req, res) => {
+  
+  await User.update({email:req.user.email},{$pull:{accessToken: {$in:[req.session.token]}}})
   req.logout();
   req.session = null;
   req.token = null;
