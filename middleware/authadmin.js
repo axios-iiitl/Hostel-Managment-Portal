@@ -4,9 +4,15 @@ const Admin = require("../models/Admin");
 const auth = async (req, res, next) => {
   try {
     if (req.session.token) {
-      Admin.findOne({ googleId: req.session.token }, function (err, admin) {
+      Admin.findOne({ email: req.user.email }, function (err, admin) {
         if (admin) {
-          next();
+          var x = admin.accessToken.indexOf(req.session.token);
+          if (x !== -1) {
+            next();
+          } else {
+            res.cookie("token", "");
+            res.redirect("/auth/logout");
+          }
         } else if (err) {
           res.cookie("token", "");
           res.redirect("/");
