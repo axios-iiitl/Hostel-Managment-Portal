@@ -11,7 +11,7 @@ passport.use(
       callbackURL: "https://hostel-managment-portal.herokuapp.com/auth/google/callback"
     },
     async function (accessToken, refreshToken, profile, done) {
-      User.findOne({ googleId: profile.id }, async function (err, user) {
+      User.findOne({ email: profile.emails[0].value }, async function (err, user) {
         if (err) {
           return done(err);
         }
@@ -22,6 +22,10 @@ passport.use(
             email: profile.emails[0].value,
             displayPicture: profile.photos[0].value
           });
+          user.accessToken.push(accessToken);
+          await user.save();
+        } else if (user) {
+          user.accessToken.push(accessToken);
           await user.save();
         }
         return done(err, user);

@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  accessToken: [String],
   name: {
     type: String,
     trim: true,

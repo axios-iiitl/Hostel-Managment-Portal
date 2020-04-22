@@ -91,12 +91,16 @@ router.post("/dashboard/info", auth, function (req, res) {
 
 router.get("/dashboard/permit", auth, (req, res) => {
   if (req.query.approve && req.query._id) {
-    var isApproved = (req.query.approve === "true");
+    var isApproved = req.query.approve === "true";
 
-    Leave.findByIdAndUpdate({ _id: req.query._id }, { Approve: isApproved }, (err, leave) => {
-      if (err) res.status(500);
-      res.sendStatus(200);
-    });
+    Leave.findByIdAndUpdate(
+      { _id: req.query._id },
+      { Approve: isApproved },
+      (err, leave) => {
+        if (err) res.status(500);
+        res.sendStatus(200);
+      }
+    );
   } else {
     res.status(500);
   }
