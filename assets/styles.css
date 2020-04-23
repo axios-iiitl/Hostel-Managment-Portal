@@ -166,7 +166,17 @@ nav ul a {
   border: none;
   margin-top: 20px;
 }
-
+.dashboard-action-res {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 239px;
+  height: 250px;
+  padding: 10px;
+}
+.dashboard-action-res a{
+  background-color: #359f64;
+}
 .jumbotron h3 {
   width: 100%;
   height: fit-content;
@@ -345,7 +355,11 @@ nav ul a {
   flex-direction: column;
   align-items: center;
 }
-
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* responsive */
 
 /* header */
@@ -386,23 +400,13 @@ nav ul a {
   .c-box {
     margin-bottom: 30px;
     border: 0.5px solid #333;
+    display: none !important;
   }
-  .c-box::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: #333;
-    transform: skew(2deg, 2deg);
-    z-index: -1;
+  .c-image-res{
+    display: flex !important;
+    flex-direction: column;
   }
-  .c-box:nth-child(1)::before {
-    background-image: linear-gradient(315deg, #1c4f6c, #1c4f6c);
-  }
-  .c-box:nth-child(3)::before {
-    /* background-image: linear-gradient(315deg , #474243 , #2b2725); */
-    background-image: linear-gradient(315deg, #1c4f6c, #1c4f6c);
+  .c-image-res img{
+    height: 25vh;
   }
 }
