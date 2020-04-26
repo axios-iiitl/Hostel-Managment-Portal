@@ -292,4 +292,13 @@ router.get("/dashboard/delete/leave/:id", auth, function (req, res) {
   });
 });
 
+router.get("/dashboard/profile/:id", auth, function (req, res) {
+  User.findOne({ googleId: req.params.id }, function (err, user) {
+    if (err) {
+      res.redirect("/user/dashboard");
+    }
+    res.render("yourprofile", { currentUser: req.user, clientType: req.session.client, user: user });
+  });
+});
+
 module.exports = router;

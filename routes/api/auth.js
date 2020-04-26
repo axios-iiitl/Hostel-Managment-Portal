@@ -20,6 +20,7 @@ router.get(
     console.log(req.session.token);
     res.cookie("token", req.session.token);
     Admin.findOne({ email: req.user.email }, function (err, admin) {
+      console.log("hello");
       if (err) Error(err);
       if (!admin) {
         User.findOne({ email: req.user.email }, function (err, user) {
@@ -41,6 +42,7 @@ router.get(
               if (err) Error(err);
               admin.accessToken.push(req.session.token);
               await admin.save();
+              console.log("hello2");
               var x = admin.accessToken.indexOf(req.session.token);
               if (x !== -1) {
                 req.session.status = "applied";
@@ -59,6 +61,7 @@ router.get(
 
 router.get("/logout", async (req, res) => {
   await User.update({ email: req.user.email }, { $pull: { accessToken: { $in: [req.session.token] } } });
+  await Admin.update({ email: req.user.email }, { $pull: { accessToken: { $in: [req.session.token] } } });
   req.logout();
   req.session = null;
   req.token = null;

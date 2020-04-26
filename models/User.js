@@ -12,6 +12,26 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  branch: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  year: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  course: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  rollNo: {
+    type: String,
+    trim: true,
+    required: true
+  },
   email: {
     type: String,
     trim: true,
