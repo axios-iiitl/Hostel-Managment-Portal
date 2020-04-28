@@ -17,10 +17,8 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
     req.session.token = req.user.accessToken[req.user.accessToken.length - 1];
-    console.log(req.session.token);
     res.cookie("token", req.session.token);
     Admin.findOne({ email: req.user.email }, function (err, admin) {
-      console.log("hello");
       if (err) Error(err);
       if (!admin) {
         User.findOne({ email: req.user.email }, function (err, user) {
@@ -38,7 +36,10 @@ router.get(
           if (err) {
             res.redirect("/");
           } else if (user) {
-            Admin.findOne({ email: req.user.email }, async function (err, admin) {
+            Admin.findOne({ email: req.user.email }, async function (
+              err,
+              admin
+            ) {
               if (err) Error(err);
               admin.accessToken.push(req.session.token);
               await admin.save();
@@ -60,8 +61,17 @@ router.get(
 );
 
 router.get("/logout", async (req, res) => {
-  await User.update({ email: req.user.email }, { $pull: { accessToken: { $in: [req.session.token] } } });
-  await Admin.update({ email: req.user.email }, { $pull: { accessToken: { $in: [req.session.token] } } });
+  if (req.session.client === "user") {
+    await User.updateOne(
+      { email: req.user.email },
+      { $pull: { accessToken: { $in: [req.session.token] } } }
+    );
+  } else {
+    await Admin.updateOne(
+      { email: req.user.email },
+      { $pull: { accessToken: { $in: [req.session.token] } } }
+    );
+  }
   req.logout();
   req.session = null;
   req.token = null;
