@@ -5,8 +5,10 @@ const cookieSession = require("cookie-session");
 const authRoutes = require("./routes/api/auth");
 const user = require("./routes/api/user");
 const admin = require("./routes/api/admin");
+const superuser = require("./routes/api/super_user");
 const passport = require("passport");
 const Admin = require("./models/Admin");
+const Super_User = require("./models/Super_User");
 
 require("./db/mongoose");
 
@@ -42,21 +44,29 @@ app.get("/", function (req, res) {
       clientType: req.session.client
     });
   } else {
-    Admin.findOne({ googleId: req.session.token }, function (err, admin) {
-      if (err) Error(err);
-      if (admin) {
-        res.redirect("/admin/dashboard");
-      } else {
-        res.redirect("/user/dashboard");
+
+    Super_User.findOne({email:req.user.email},(err,superuser)=>{
+      if(err) Error(err);
+      if(superuser){
+          res.redirect("/superuser/dashboard");
+      }else{
+        Admin.findOne({ email: req.user.email }, function (err, admin) {
+          if (err) Error(err);
+          if (admin) {
+            res.redirect("/admin/dashboard");
+          } else {
+            res.redirect("/user/dashboard");
+          }
+        });
       }
-    });
+    })
   }
 });
 
 app.use("/auth", authRoutes);
 app.use("/user", user);
 app.use("/admin", admin);
-
+app.use("/superuser", superuser);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server up on port ${PORT} 🔥 `));
