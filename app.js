@@ -15,6 +15,8 @@ const app = express();
 app.use(express.json());
 app.set("view engine", "ejs");
 
+app.locals.moment = require("moment");
+
 // to link statis files
 app.use(express.static("./assets"));
 
