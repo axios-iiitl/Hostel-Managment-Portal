@@ -8,3 +8,4 @@ const AdminSchema = new mongoose.Schema({
 
 const Admin = mongoose.model("admin", AdminSchema);
 module.exports = Admin;
+

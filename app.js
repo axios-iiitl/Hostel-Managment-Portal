@@ -6,6 +6,7 @@ const authRoutes = require("./routes/api/auth");
 const user = require("./routes/api/user");
 const admin = require("./routes/api/admin");
 const superuser = require("./routes/api/super_user");
+const mess = require("./routes/api/mess");
 const passport = require("passport");
 const Admin = require("./models/Admin");
 const Super_User = require("./models/Super_User");
@@ -67,6 +68,7 @@ app.use("/auth", authRoutes);
 app.use("/user", user);
 app.use("/admin", admin);
 app.use("/superuser", superuser);
+app.use("/mess",mess);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server up on port ${PORT} 🔥 `));
