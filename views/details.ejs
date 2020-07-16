@@ -15,15 +15,23 @@
 <div class="search-container">
     <div class="search-group">
         <form action="/admin/dashboard/info" method="POST">
-            <h4>Enter the email to get details of a student</h4>
-            <div class="c-image" style="display: flex; justify-content: center;margin-top: 25px;">
-                <img src="../../images/people_search_maroon.svg" alt="">
+          <h4>Enter the enrollment number to get details of a student</h4>
+          <div class="c-image" style="display: flex; justify-content: center;margin-top: 25px;">
+            <img src="../../images/people_search_maroon.svg" alt="">
+          </div>
+          
+          <%if(error){%>
+            <div style="display: flex; justify-content: center; margin: 20px 0px;">
+              <div class="card-panel grey darken-2" style="padding: 10px 20px;">
+                <span class="white-text">Student not found
+                </span>
+              </div>
             </div>
-
-            <div class="inp-animation-container" style="margin-left: 25%; max-width: 50%;">
-                <input  type="email" name="email"required/>
+          <%}%>
+          <div class="inp-animation-container" style="margin-left: 25%; max-width: 50%;">
+                <input  type="text" name="email" required/>
                 <div class="inp-label">
-                  <span> Enter the email </span>
+                  <span> Enter the enrollment number </span>
                 </div>
               </div>
 
