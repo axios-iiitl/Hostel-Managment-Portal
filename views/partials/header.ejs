@@ -44,7 +44,7 @@
           <%}else{%>
           <li><a class="signed-as" href="#">Signed in as <%=currentUser.name%></a></li>
           <li>
-            <%if(clientType == "admin"|| clientType=="superuser"){%>
+            <%if(clientType == "admin"|| clientType=="superuser"||clientType=="mess"){%>
             <!-- <a href="#">Edit Profile </a> -->
             <%}else{%>
             <a href="/user/dashboard/profile/<%=currentUser.googleId%>">
