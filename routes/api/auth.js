@@ -26,7 +26,7 @@ router.get(
           Admin.findOne({ email: req.user.email }, function (err, admin) {
             if (err) Error(err);
             if (!admin) {
-              Mess.findOne({},async (err,mess)=>{
+              Mess.findOne({email:req.user.email},async (err,mess)=>{
                 if(err) Error(err);
                 if(!mess){
                   User.findOne({ email: req.user.email }, function (err, user) {

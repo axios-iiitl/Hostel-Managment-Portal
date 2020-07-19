@@ -26,7 +26,6 @@ passport.use(
 
           var str = profile.emails[0].value;
           var res = str.split("@");
-
           if (
             (res[1] === "iiitl.ac.in" && str[0] === "c") ||
             str[0] === "l" ||
