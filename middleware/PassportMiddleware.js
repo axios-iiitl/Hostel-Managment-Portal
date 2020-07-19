@@ -68,10 +68,10 @@ passport.use(
             name: profile.displayName,
             email: profile.emails[0].value,
             displayPicture: profile.photos[0].value,
-            branch: branch,
-            year: year,
-            course: course,
-            rollNo: rollNo
+            branch: branch || "",
+            year: year || "",
+            course: course || "",
+            rollNo: rollNo || ""
           });
           user.accessToken.push(accessToken);
           try {
