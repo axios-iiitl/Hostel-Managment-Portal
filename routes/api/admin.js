@@ -66,13 +66,22 @@ router.get("/data/leaves", auth, (req, res) => {
 router.get("/dashboard/details", auth, function (req, res) {
   res.render("details", {
     currentUser: req.user,
-    clientType: req.session.client
+    clientType: req.session.client,
+    error: null
   });
 });
 
 router.post("/dashboard/info", auth, function (req, res) {
-  User.findOne({ email: req.body.email }, function (err, user) {
+  User.findOne({ email: req.body.email + "@iiitl.ac.in" }, function (err, user) {
     if (err) Error(err);
+    if(!user){ 
+      res.render("details", {
+        currentUser: req.user,
+        clientType: req.session.client,
+        error: "User not found"
+      });
+      return;
+    }
     Leave.find({ Email: req.body.email })
       .sort({ createdAt: "desc" })
       .exec(function (err, leaves) {
