@@ -63,6 +63,10 @@ const UserSchema = new mongoose.Schema({
     roomNumber: {
       type: String,
       trim: true
+    },
+    bedNumber:{
+      type:String,
+      trim:true
     }
   },
   contacts: {
@@ -81,8 +85,20 @@ const UserSchema = new mongoose.Schema({
     address: {
       type: String,
       trim: true
+    },
+    emergencyNumber:{
+      type: String,
+      trim: true
     }
-  }
+  },
+  fitem:{
+    type:Number,
+    default:1
+  }, 
+  fcontact:{
+    type:Number,
+    default:1
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);

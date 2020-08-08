@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const auth = require("../../middleware/authuser");
 const User = require("../../models/User");
 const Leave = require("../../models/Leave");
+const RequestItem = require("../../models/RequestItem");
+const RequestContact = require("../../models/RequestContact");
+
 const moment = require("moment");
 
 const router = express.Router();
@@ -98,32 +101,66 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
 
 router.get("/dashboard/items/:id", auth, function (req, res) {
   User.findOne({ googleId: req.params.id }, function (err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("item", {
-        user: user,
-        currentUser: req.user,
-        clientType: req.session.client
-      });
-    }
+    RequestItem.find({Email:user.email},(err,request)=>{
+
+        if (err) {
+          console.log(err);
+        } else {
+          if(request.length){
+            res.render("item", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:1,
+              request:request
+            });
+          }else{
+            res.render("item", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:0,
+              request:request
+            });
+          }
+          
+        }
+      
+    });
   });
 });
 
 router.post("/dashboard/items/:id", auth, function (req, res) {
   User.findOne({ googleId: req.params.id }, function (err, user) {
-    if (err) {
-      console.log(err);
+
+    if(err){
+      throw Error(err);
+    }
+
+    if(user.fitem===1){
+      user.fitem=0;
+        Object.keys(req.body.items).forEach(
+          v => (user.items[v] = req.body.items[v])
+        );
+        user.save(function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect("/user/dashboard");
+          }
+        });
     } else {
-      Object.keys(req.body.items).forEach(
-        v => (user.items[v] = req.body.items[v])
-      );
-      user.save(function (err) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/user/dashboard");
+        let x={
+          Name:user.name,
+          Email:user.email,
+          items:req.body.items
         }
+        RequestItem.create(x,(err,request)=>{
+          if(err){
+            console.log(err);
+          } else {
+            res.redirect("/user/dashboard");
+          }
       });
     }
   });
@@ -131,36 +168,139 @@ router.post("/dashboard/items/:id", auth, function (req, res) {
 
 router.get("/dashboard/contacts/:id", auth, function (req, res) {
   User.findOne({ googleId: req.params.id }, function (err, user) {
+    RequestContact.find({Email:user.email},(err,request)=>{
+
+        if (err) {
+          console.log(err);
+        } else {
+          if(request.length){
+            res.render("contact", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:1,
+              request:request
+            });
+          }else{
+            res.render("contact", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:0,
+              request:request
+            });
+          }
+          
+        }
+      
+    });
+  });
+});
+
+// router.get("/dashboard/contacts/:id", auth, function (req, res) {
+//   User.findOne({ googleId: req.params.id }, function (err, user) {
+//     RequestContact.find({Email:user.email},(err,request)=>{
+//       if(err){
+//         throw Error(err);
+//       }else{
+//         console.log(request.length);
+//         if(request.length){
+//           res.render("contact", {
+//             user: user,
+//             currentUser: req.user,
+//             clientType: req.session.client,
+//             frequest:1,
+//             request:request
+//           }); 
+//         }else{
+//           res.render("contact", {
+//             user: user,
+//             currentUser: req.user,
+//             clientType: req.session.client,
+//             frequest:0,
+//             request:request
+//           });
+//         }
+//       }
+//     })
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render("contact", {
+//         user: user,
+//         currentUser: req.user,
+//         clientType: req.session.client
+//       });
+//     }
+//   });
+// });
+
+router.post("/dashboard/contacts/:id", auth, function (req, res) {
+  User.findOne({ googleId: req.params.id }, function (err, user) {
+
+    if(err){
+      throw Error(err);
+    }
+
+    if(user.fcontact===1){
+        user.fcontact=0;
+        Object.keys(req.body.contacts).forEach(
+          v => (user.contacts[v] = req.body.contacts[v])
+        );
+        user.save(function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect("/user/dashboard");
+          }
+        });
+    } else {
+      let x={
+        Name:user.name,
+        Email:user.email,
+        contacts:req.body.contacts
+      }
+      RequestContact.create(x,(err,request)=>{
+         if(err){
+          console.log(err);
+         } else {
+          res.redirect("/user/dashboard");
+         }
+      });
+    }
+   
+    // if (err) {
+    //   console.log(err);
+    // } else {
+    //   Object.keys(req.body.contacts).forEach(
+    //     v => (user.contacts[v] = req.body.contacts[v])
+    //   );
+    //   user.save(function (err) {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       res.redirect("/user/dashboard");
+    //     }
+    //   });
+    // }
+  });
+});
+
+
+router.get("/dashboard/fees/:id",auth,async (req,res)=>{
+  User.findOne({ googleId: req.params.id }, function (err, user) {
     if (err) {
       console.log(err);
     } else {
-      res.render("contact", {
+      res.render("fees", {
         user: user,
         currentUser: req.user,
         clientType: req.session.client
       });
     }
   });
-});
+})
 
-router.post("/dashboard/contacts/:id", auth, function (req, res) {
-  User.findOne({ googleId: req.params.id }, function (err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      Object.keys(req.body.contacts).forEach(
-        v => (user.contacts[v] = req.body.contacts[v])
-      );
-      user.save(function (err) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/user/dashboard");
-        }
-      });
-    }
-  });
-});
 
 // Leave Routes
 
