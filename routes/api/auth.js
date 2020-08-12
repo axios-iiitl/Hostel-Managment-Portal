@@ -19,60 +19,36 @@ router.get(
   (req, res) => {
     req.session.token = req.user.accessToken[req.user.accessToken.length - 1];
     res.cookie("token", req.session.token);
-    // console.log(req.session.token);
-    Super_User.findOne({email:req.user.email},async (err,superuser)=>{
-       if(err) Error(err);
-       if(!superuser){
-          Admin.findOne({ email: req.user.email }, function (err, admin) {
-            if (err) Error(err);
-            if (!admin) {
-              User.findOne({ email: req.user.email }, function (err, user) {
-                if (err) Error(err);
-                var x = user.accessToken.indexOf(req.session.token);
-                if (x !== -1) {
+    
+    Super_User.findOne({email:req.user.email},(err,superuser)=>{
+       if(err){
+         throw Error(err);
+       }else if(superuser){
+        req.session.client = "superuser";
+        res.redirect("/superuser/dashboard");
+       }else{
+         Admin.findOne({email:req.user.email},(err,admin)=>{
+            if(err){
+              throw Error(err);
+            }else if(admin){
+              req.session.status = "applied";
+              req.session.client = "admin";
+              res.redirect("/admin/dashboard");
+            }else{
+              User.findOne({email:req.user.email},(err,user)=>{
+                if(err){
+                  throw Error(err);
+                }else if(user){
                   req.session.client = "user";
                   res.redirect("/user/dashboard");
-                } else {
+                }else{
                   res.redirect("/");
                 }
-              });
-            } else {
-              User.deleteOne({ email: req.user.email }, function (err, user) {
-                if (err) {
-                  res.redirect("/");
-                } else if (user) {
-                  Admin.findOne({ email: req.user.email }, async function (
-                    err,
-                    admin
-                  ) {
-                    if (err) Error(err);
-                    admin.accessToken.push(req.session.token);
-                    await admin.save();
-                    console.log("hello2");
-                    var x = admin.accessToken.indexOf(req.session.token);
-                    if (x !== -1) {
-                      req.session.status = "applied";
-                      req.session.client = "admin";
-                      res.redirect("/admin/dashboard");
-                    } else {
-                      res.redirect("/");
-                    }
-                  });
-                }
-              });
+              })
             }
-          });
-       }else{
-         superuser.accessToken.push(req.session.token);
-         await superuser.save();
-          User.deleteOne({email:req.user.email},(err,user)=>{
-            if(err) res.redirect("/");
-          });
-          req.session.client = "superuser";
-          res.redirect("/superuser/dashboard");
+         });
        }
-    });
-
+    })
     // Admin.findOne({ email: req.user.email }, function (err, admin) {
     //   if (err) Error(err);
     //   if (!admin) {
