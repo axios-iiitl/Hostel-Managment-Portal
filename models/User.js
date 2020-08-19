@@ -91,8 +91,60 @@ const UserSchema = new mongoose.Schema({
       trim: true
     }
   },
-  hostelfees:[],
-  messfees:[],
+  hostelfees:[{
+    sem:{
+     type:String,
+     trim:true
+    },
+    transactionAmount:{
+      type:String,
+      trim:true
+    },
+    transactionId:{
+      type:String,
+      trim:true
+    },
+    modeOfPayment:{
+      type:String,
+      trim:true
+    },
+    dateTime:{
+      type:Date
+    },
+    occupancy:{
+      type:String,
+      trim:true
+    },
+    accepted:{
+      type:Boolean,
+      default:false
+    },
+  }],
+  messfees:[{
+    sem:{
+      type:String,
+      trim:true
+     },
+     transactionAmount:{
+       type:String,
+       trim:true
+     },
+     transactionId:{
+       type:String,
+       trim:true
+     },
+     modeOfPayment:{
+       type:String,
+       trim:true
+     },
+     dateTime:{
+       type:Date
+     },
+     accepted:{
+       type:Boolean,
+       default:false
+     },
+  }],
   fitem:{
     type:Number,
     default:1

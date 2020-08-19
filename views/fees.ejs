@@ -12,6 +12,20 @@
     <%})%>
   </div>
 </div>
+
+<div class="container">
+  <div class="jumbotron">
+    <%user.hostelfees.forEach((x)=>{%>
+     <h5>Semester</h5>  <%= x.sem%><br/>
+     <h5>Transaction Amount</h5><%= x.transactionAmount%><br/>
+     <h5>Transaction ID</h5><%= x.transactionId%><br/>
+     <h5>Mode of Payment</h5><%= x.modeofPayment%><br/>
+     <h5>Date and Time of Transaction</h5><%= x.dateTime%><br/>
+     <h5>Type of Room Occupancy</h5><%= x.occupancy%><br/>
+     <h5>Accepted</h5><%= x.accepted%><br/>
+    <%})%>
+  </div>
+</div>
 <div class="container">
   <div class="row item-detail">
     <h4 style="text-align: center;">
@@ -80,6 +94,18 @@
         />
         <div class="inp-label">
           <span> Date and Time of Transaction </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="hostel[occupancy]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Type of Room Occupancy </span>
         </div>
       </div>
       <br />
@@ -184,9 +210,189 @@
   </div>
 </div>
 
-<div>
+<div class="container">
+  <div class="jumbotron">
+    <h5>Request warden to change Hostel Fee Details</h5>
+        <form
+        action="/user/dashboard/hostelfees/<%=user.googleId%>/editsubmit"
+        method="POST"
+        style="width: 80%"
+        >
+      <label for="Sem" >Choose Semester:</label>
+        <select name="hostel[sem]" style="display: flex;" id="sem">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
 
+        <div class="inp-animation-container">
+          <input
+            type="text"
+            name="hostel[transactionAmount]"
+            value=""
+            required
+          />
+          <div class="inp-label">
+            <span> Transaction Amount </span>
+          </div>
+        </div>
+
+        <div class="inp-animation-container">
+          <input
+            type="text"
+            name="hostel[transactionId]"
+            value=""
+            required
+          />
+          <div class="inp-label">
+            <span> Transaction Id </span>
+          </div>
+        </div>
+
+        <div class="inp-animation-container">
+          <input
+            type="text"
+            name="hostel[modeOfPayment]"
+            value=""
+            required
+          />
+          <div class="inp-label">
+            <span> Mode of Payment </span>
+          </div>
+        </div>
+
+        <div class="inp-animation-container">
+          <input
+            type="datetime-local"
+            name="hostel[dateTime]"
+            value=""
+            required
+          />
+          <div class="inp-label">
+            <span> Date and Time of Transaction </span>
+          </div>
+        </div>
+
+        <div class="inp-animation-container">
+          <input
+            type="text"
+            name="hostel[occupancy]"
+            value=""
+            required
+          />
+          <div class="inp-label">
+            <span> Type of Room Occupancy </span>
+          </div>
+        </div>
+
+        <br />
+        <div
+          class="form-group"
+          style="margin-top: 15px; display: flex; justify-content: center"
+        >
+          <button
+            class="btn btn-lg btn-primary btn-block blue darken-2"
+            onclick="M.toast({html: 'Submitted'})"
+          >
+            Submit!
+          </button>
+        </div>
+      </form>
+  </div>
 </div>
+
+
+<div class="container">
+  <div class="row item-detail">
+    <h4 style="text-align: center;">
+      Request Warden to Change Mess Fees details
+    </h4>
+    <img src="/images/soup.svg" style="height: 25vh;" />
+    <form
+      action="/user/dashboard/messfees/<%=user.googleId%>/editsubmit"
+      method="POST"
+      style="width: 80%"
+    >
+     <label for="Sem" >Choose Semester:</label>
+      <select name="mess[sem]" style="display: flex;" id="sem">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="mess[transactionAmount]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Transaction Amount </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="mess[transactionId]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Transaction Id </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="mess[modeOfPayment]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Mode of Payment </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="datetime-local"
+          name="mess[dateTime]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Date and Time of Transaction </span>
+        </div>
+      </div>
+      <br />
+      <div
+        class="form-group"
+        style="margin-top: 15px; display: flex; justify-content: center"
+      >
+        <button
+          class="btn btn-lg btn-primary btn-block blue darken-2"
+          onclick="M.toast({html: 'Submitted'})"
+        >
+          Submit!
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <script>
    if (window.performance) {

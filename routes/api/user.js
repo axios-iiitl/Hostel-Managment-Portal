@@ -5,7 +5,8 @@ const User = require("../../models/User");
 const Leave = require("../../models/Leave");
 const RequestItem = require("../../models/RequestItem");
 const RequestContact = require("../../models/RequestContact");
-
+const RequestHostelFees = require("../../models/RequestHostelFees");
+const RequestMessFees = require("../../models/RequestMessFees");
 const moment = require("moment");
 
 const router = express.Router();
@@ -295,6 +296,8 @@ router.get("/dashboard/fees/:id",auth,async (req,res)=>{
       let msg=[];
       if(req.query.f==0){
         msg.push("Please make request to warden to change this as you had already filled details for this semester");
+      }else if(req.query.f==2){
+        msg.push("You can only make one request at the time for changing details");
       }
       res.render("fees", {
         user: user,
@@ -352,6 +355,52 @@ router.post("/dashboard/messfees/:id/submit",auth,async(req,res)=>{
         res.redirect("/user/dashboard/fees/"+req.params.id+"?f=1");
       }
     }
+  });
+});
+
+router.post("/dashboard/hostelfees/:id/editsubmit",auth,(req,res)=>{
+
+    let x={
+      name:req.user.name,
+      email:req.user.email,
+      hostelfees:req.body.hostel
+    }
+    RequestHostelFees.findOne({email:req.user.email},(err,request)=>{
+
+        if(request){
+          res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=2");
+        }else{
+            RequestHostelFees.create(x,(err,hos)=>{
+              if(err){
+                res.redirect("/user/dashboard");
+              }else{
+                res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=1");
+              }
+           });
+        }
+    });
+});
+
+router.post("/dashboard/messfees/:id/editsubmit",auth,(req,res)=>{
+
+  let x={
+    name:req.user.name,
+    email:req.user.email,
+    messfees:req.body.mess
+  }
+  RequestMessFees.findOne({email:req.user.email},(err,request)=>{
+
+      if(request){
+        res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=2");
+      }else{
+          RequestMessFees.create(x,(err,hos)=>{
+            if(err){
+              res.redirect("/user/dashboard");
+            }else{
+              res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=1");
+            }
+         });
+      }
   });
 });
 
