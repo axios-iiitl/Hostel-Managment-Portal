@@ -9,7 +9,11 @@
 <div class="container">
   <div class="row item-detail">
     <h4 style="text-align: center;">
+      <%if(user.fcontact===1){%>
+        Fill your Contact Details
+      <%}else{%>
       Edit your contact details <%=user.name%>
+      <%}%>
     </h4>
     <img src="/images/undraw_profile_6l1l.svg" style="height: 25vh;" />
     <form
@@ -37,7 +41,7 @@
           required
         />
         <div class="inp-label">
-          <span> Father's Number </span>
+          <span> Father's Name </span>
         </div>
       </div>
 
@@ -64,19 +68,57 @@
           <span> Address </span>
         </div>
       </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="contacts[emergencyNumber]"
+          value="<%=user.contacts.emergencyNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Emergency Number </span>
+        </div>
+      </div>
       <br />
       <div
         class="form-group"
         style="margin-top: 15px; display: flex; justify-content: center"
       >
-        <button
+        <%if(frequest===1){%>
+          One edit request in process , you can't submit.
+        <%}else{%>
+          <button
           class="btn btn-lg btn-primary btn-block blue darken-2"
           onclick="M.toast({html: 'Submitted'})"
-        >
-          Submit!
-        </button>
+          >
+          <%if(user.fcontact===1){%>
+            Submit!
+          <%}else{%>
+            Put Edit Request to Warden
+          <%}%>
+          </button>
+        <%}%>
+      
       </div>
     </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row item-detail">
+    <h5 style="text-align: center;">
+    <%if(request.length!==0){%>
+      Current request for contact edit
+    <%}%>
+    </h5>
+   <%request.forEach((req)=>{%>
+     <b>Phone Number:-</b><%=req.contacts.phoneNumber%>
+     <b>Guardian Name:-</b><%=req.contacts.guardianName%>
+     <b>Guardian Number:-</b><%=req.contacts.guardianNumber%>
+     <b>Address:-</b><%=req.contacts.address%>
+     <b>Emergency Number:-</b><%=req.contacts.emergencyNumber%>
+   <%})%>
   </div>
 </div>
 <%- include('partials/footer'); -%>

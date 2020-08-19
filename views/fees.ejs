@@ -1,0 +1,82 @@
+<%- include('partials/header'); -%> <%- include('partials/sidenav'); -%>
+
+<div class="start-h2">
+  <a href="/user/dashboard"
+    ><i class="material-icons back-icon">chevron_left</i></a
+  >
+</div>
+
+<div class="container">
+  <div class="row item-detail">
+    <h4 style="text-align: center;">
+      Edit your Hostel Fees details <%=user.name%>
+    </h4>
+    <img src="/images/payment.svg" style="height: 25vh;" />
+    <form
+      action=""
+      method="POST"
+      style="width: 80%"
+    >
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="hostel[transactionAmount]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Transaction Amount </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="hostel[transactionId]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Transaction Id </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="hostel[modeOfPayment]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Mode of Payment </span>
+        </div>
+      </div>
+
+      <div class="inp-animation-container">
+        <input
+          type="datetime-local"
+          name="hostel[dateTime]"
+          value=""
+          required
+        />
+        <div class="inp-label">
+          <span> Date and Time of Transaction </span>
+        </div>
+      </div>
+      <br />
+      <div
+        class="form-group"
+        style="margin-top: 15px; display: flex; justify-content: center"
+      >
+        <button
+          class="btn btn-lg btn-primary btn-block blue darken-2"
+          onclick="M.toast({html: 'Submitted'})"
+        >
+          Submit!
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<%- include('partials/footer'); -%>
