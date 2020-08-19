@@ -1,0 +1,31 @@
+<%- include('partials/header'); -%> <%- include('partials/admin-sidenav');-%>
+
+<div class="container">
+    <div class="jumbotron">
+        <h4>Request of Students to change Contact Details</h4>
+        <%if(requests.length!==0){%>
+            <%requests.forEach((req,index)=>{%>
+                <div>
+                    <b>Name:</b><%=req.Name%>
+                    <b>Email:</b><%=req.Email%>
+                </div>
+                <%users.forEach((user)=>{%>
+                <%if(user.email===req.Email){%>
+                        <b>Phone Number :-</b> <div><%=user.contacts.phoneNumber%> -> <%=req.contacts.phoneNumber%></div>
+                        <b>Guardian Name :-</b> <div><%=user.contacts.guardianName%> -> <%=req.contacts.guardianName%></div>
+                        <b>Guardian Number :-</b> <div><%=user.contacts.guardianNumber%> -> <%=req.contacts.guardianNumber%></div>
+                        <b>Address :-</b> <div><%=user.contacts.address%>  -> <%=req.contacts.address%></div>
+                        <b>Emergency Number :-</b> <div><%=user.contacts.emergencyNumber%> -> <%=req.contacts.emergencyNumber%></div>
+
+                <%}%>
+                <%})%>
+                <a href="/admin/dashboard/contact/edit/request/<%=req.Email%>/accept">Accept</a><a href="/admin/dashboard/contact/edit/request/<%=req.Email%>/reject">Reject</a>
+                <br/><br/><br/><br/>
+            <%})%>
+        <%}else{%>
+           <p>No students requested to change contact details</p>
+        <%}%>
+    </div>
+</div>
+
+<%- include('partials/footer'); -%>
