@@ -91,6 +91,8 @@ const UserSchema = new mongoose.Schema({
       trim: true
     }
   },
+  hostelfees:[],
+  messfees:[],
   fitem:{
     type:Number,
     default:1

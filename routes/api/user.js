@@ -292,15 +292,68 @@ router.get("/dashboard/fees/:id",auth,async (req,res)=>{
     if (err) {
       console.log(err);
     } else {
+      let msg=[];
+      if(req.query.f==0){
+        msg.push("Please make request to warden to change this as you had already filled details for this semester");
+      }
       res.render("fees", {
         user: user,
         currentUser: req.user,
-        clientType: req.session.client
+        clientType: req.session.client,
+        msg:msg
       });
     }
   });
-})
+});
 
+
+router.post("/dashboard/hostelfees/:id/submit",auth,async(req,res)=>{
+  console.log(req.body)
+  const x=req.body.hostel;
+  User.findOne({googleId:req.params.id},async(err,user)=>{
+    if(err){
+      console.log(err);
+    }else{
+      let f=0;
+      await user.hostelfees.forEach((val)=>{
+        if(val.sem=== x.sem){
+          f=1;
+        }
+      });
+      if(f==1){
+        res.redirect("/user/dashboard/fees/"+req.params.id+"?f=0");
+      }else{
+        user.hostelfees.push(x);
+        await user.save();
+        res.redirect("/user/dashboard/fees/"+req.params.id+"?f=1");
+      }
+    }
+  });
+});
+
+router.post("/dashboard/messfees/:id/submit",auth,async(req,res)=>{
+  console.log(req.body)
+  const x=req.body.mess;
+  User.findOne({googleId:req.params.id},async(err,user)=>{
+    if(err){
+      console.log(err);
+    }else{
+      let f=0;
+      await user.messfees.forEach((val)=>{
+        if(val.sem=== x.sem){
+          f=1;
+        }
+      });
+      if(f==1){
+        res.redirect("/user/dashboard/fees/"+req.params.id+"?f=0");
+      }else{
+        user.messfees.push(x);
+        await user.save();
+        res.redirect("/user/dashboard/fees/"+req.params.id+"?f=1");
+      }
+    }
+  });
+});
 
 // Leave Routes
 
