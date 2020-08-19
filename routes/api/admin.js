@@ -22,7 +22,7 @@ router.get("/dashboard", auth, function (req, res) {
           currentUser: req.user,
           status: "applied",
           clientType: req.session.client,
-          totolitemsrequest:items.length,
+          totalitemsrequest:items.length,
           totalcontactsrequest:contacts.length
         });
       }
@@ -78,38 +78,52 @@ router.get("/data/leaves", auth, (req, res) => {
 });
 
 router.get("/dashboard/details", auth, function (req, res) {
-  res.render("details", {
-    currentUser: req.user,
-    clientType: req.session.client,
-    error: null
+  RequestItem.find({},async (err,requestitems)=>{
+    RequestContact.find({},async(err,requestcontacts)=>{
+      res.render("details", {
+        currentUser: req.user,
+        clientType: req.session.client,
+        error: null,
+        totalcontactsrequest:requestcontacts.length,
+        totalitemsrequest:requestitems.length,
+      });
+    });
   });
 });
 
 router.post("/dashboard/info", auth, function (req, res) {
-  User.findOne({ email: req.body.email + "@iiitl.ac.in" }, function (err, user) {
-    if (err) Error(err);
-    if(!user){ 
-      res.render("details", {
-        currentUser: req.user,
-        clientType: req.session.client,
-        error: "User not found"
-      });
-      return;
-    }
-    Leave.find({ Email: req.body.email })
-      .sort({ createdAt: "desc" })
-      .exec(function (err, leaves) {
-        if (err) {
-          res.redirect("/admin/dashboard");
-        }
-        res.render("userinfo", {
-          currentUser: req.user,
-          leaves: leaves,
-          clientType: req.session.client,
-          user: user
+  RequestItem.find({},(err,items)=>{
+    RequestContact.find({},(err,contacts)=>{
+        User.findOne({ email: req.body.email + "@iiitl.ac.in" }, function (err, user) {
+          if (err) Error(err);
+          if(!user){ 
+            res.render("details", {
+              currentUser: req.user,
+              clientType: req.session.client,
+              error: "User not found",
+              totalcontactsrequest:contacts.length,
+              totalitemsrequest:items.length,
+            });
+            return;
+          }
+          Leave.find({ Email: req.body.email })
+            .sort({ createdAt: "desc" })
+            .exec(function (err, leaves) {
+              if (err) {
+                res.redirect("/admin/dashboard");
+              }
+              res.render("userinfo", {
+                currentUser: req.user,
+                leaves: leaves,
+                clientType: req.session.client,
+                user: user,
+                totalcontactsrequest:contacts.length,
+                totalitemsrequest:items.length,
+              });
+            });
         });
       });
-  });
+   });
 });
 
 router.get("/dashboard/permit", auth, (req, res) => {
@@ -131,10 +145,17 @@ router.get("/dashboard/permit", auth, (req, res) => {
 
 
 router.get("/dashboard/item/edit/request",auth,async (req,res)=>{
-  RequestItem.find({},async (err,requests)=>{
-     User.find({},async(err,users)=>{
-      res.render("adminitem",{currentUser:req.user,clientType:req.session.client,requests:requests,users:users});
-     });
+  RequestItem.find({},async (err,requestitems)=>{
+    RequestContact.find({},async(err,requestcontacts)=>{
+      User.find({},async(err,users)=>{
+        res.render("adminitem",{currentUser:req.user,
+                               clientType:req.session.client,
+                               requests:requestitems,
+                               totalcontactsrequest:requestcontacts.length,
+                               totalitemsrequest:requestitems.length,
+                               users:users});
+       });
+    });
   }); 
 });
 
@@ -164,11 +185,18 @@ router.get("/dashboard/item/edit/request/:id/:opt",auth,async(req,res)=>{
 });
 
 router.get("/dashboard/contact/edit/request",auth,async (req,res)=>{
-  RequestContact.find({},async(err,requests)=>{
-    User.find({},(err,users)=>{
-      res.render("admincontact",{currentUser:req.user,clientType:req.session.client,requests:requests,users:users});
+  RequestItem.find({},async (err,requestitems)=>{
+    RequestContact.find({},async(err,requestcontacts)=>{
+      User.find({},async(err,users)=>{
+        res.render("admincontact",{currentUser:req.user,
+                               clientType:req.session.client,
+                               requests:requestcontacts,
+                               totalcontactsrequest:requestcontacts.length,
+                               totalitemsrequest:requestitems.length,
+                               users:users});
+       });
     });
-  });
+  }); 
 });
 
 router.get("/dashboard/contact/edit/request/:id/:opt",auth,async(req,res)=>{
