@@ -41,12 +41,12 @@
   
           <div class="form-group">
             <label>Leaving Date:</label><br />
-            <input type="date" name="leave[Leave]"  required>
+            <input type="text" name="leave[Leave]" class="datepicker"  required>
           </div>
   
           <div class="form-group">
             <label>Returning Date:</label><br />
-            <input type="date" name="leave[Return]"  required>
+            <input type="text" name="leave[Return]" class="datepicker"  required>
           </div>
 
           <div class="inp-animation-container">
@@ -71,7 +71,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, {format: "dd/mm/yyyy"});
+    var instances = M.Datepicker.init(elems, {format: "mmm dd, yyyy"});
   });
 </script>
 <%- include('partials/footer'); -%>

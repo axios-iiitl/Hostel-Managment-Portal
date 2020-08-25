@@ -1,0 +1,65 @@
+
+<style>
+    strong{
+      font-weight: 900;
+      color: #004c79;
+    }
+  </style>
+  <div style="overflow: hidden;">
+  <div class="admin-header shadows">
+      <%- include('partials/header'); -%>
+      
+      <%- include('partials/sidenav'); -%>
+      </div>
+  
+      <div class="start-h2">
+          <a href="/user/dashboard"
+            ><i class="material-icons back-icon">chevron_left</i></a
+            >
+        </div>
+  
+  <div class="container-admin">
+      <div class="userinfo-cont">
+          
+         <div style="width: 40%;">
+            <h2>Basic Details:</h2>
+            <div><strong>Name:&nbsp;</strong><%=user.name%></div><br>
+            <div><strong>Email:&nbsp;</strong><%=user.email%></div><br>
+            <div><strong>Roll No:&nbsp;</strong><%=user.rollNo%></div><br>
+            <div><strong>Branch:&nbsp;</strong><%=user.branch%></div><br>
+            <div><strong>Course:&nbsp;</strong><%=user.course%></div><br>
+            <div><strong>Year:&nbsp;</strong><%=user.year%></div><br>
+            <div><strong>Guardian Name:&nbsp;</strong><%=user.guardianName%></div>
+            <br>
+          <h2>Item Information:</h2>
+            <div><strong>Chair Number:&nbsp;</strong><%=user.items.chairNumber%></div>
+            <div><strong>Lamp Number:&nbsp;</strong><%=user.items.lampNumber%></div>
+            <div><strong>Room Number:&nbsp;</strong><%=user.items.roomNumber%></div>
+            <div><strong>Shelf Number:&nbsp;</strong><%=user.items.ShelfNumber%></div>
+            <div><strong>Table Number:&nbsp;</strong><%=user.items.tableNumber%></div>
+            <br>
+         </div>
+      </div>
+  
+      <div class="userinfo-cont" style="margin-left: 9%; margin-bottom: 5%;">
+         <div style="width: 40%;">
+            <h2>Contact Information:</h2>
+            <div><strong>Address:&nbsp;</strong><%=user.contacts.address%></div><br>
+            <div><strong>Email:&nbsp;</strong><%=user.email%></div>
+            <div><strong>Contact Number:&nbsp;</strong><%=user.contacts.phoneNumber%></div><br>
+            <div><strong>Guardian Name:&nbsp;</strong><%=user.contacts.guardianName%></div>
+            <div><strong>Guardian Number:&nbsp;</strong><%=user.contacts.guardianNumber%></div>
+            <br>
+         </div>
+  
+          
+      </div>
+  
+  
+  </div>
+  
+  
+
+  
+  <%- include('partials/footer'); -%>
+  </div>

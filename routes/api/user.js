@@ -3,6 +3,10 @@ const bodyParser = require("body-parser");
 const auth = require("../../middleware/authuser");
 const User = require("../../models/User");
 const Leave = require("../../models/Leave");
+const RequestItem = require("../../models/RequestItem");
+const RequestContact = require("../../models/RequestContact");
+
+const moment = require("moment");
 
 const router = express.Router();
 
@@ -66,7 +70,13 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
     })
     .exec(function (err, leaves) {
       if (err) Error(err);
-      if (err) {
+      if (leaves.length === 0) {
+        res.render("leavehistory", {
+          leaves: leaves,
+          currentUser: req.user,
+          clientType: req.session.client
+        });
+      } else if (err) {
         res.redirect("/user/dashboard");
       } else {
         Leave.countDocuments({ Email: req.user.email }).exec(function (
@@ -91,32 +101,66 @@ router.get("/dashboard/leavehistory", auth, (req, res) => {
 
 router.get("/dashboard/items/:id", auth, function (req, res) {
   User.findOne({ googleId: req.params.id }, function (err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("item", {
-        user: user,
-        currentUser: req.user,
-        clientType: req.session.client
-      });
-    }
+    RequestItem.find({Email:user.email},(err,request)=>{
+
+        if (err) {
+          console.log(err);
+        } else {
+          if(request.length){
+            res.render("item", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:1,
+              request:request
+            });
+          }else{
+            res.render("item", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:0,
+              request:request
+            });
+          }
+          
+        }
+      
+    });
   });
 });
 
 router.post("/dashboard/items/:id", auth, function (req, res) {
   User.findOne({ googleId: req.params.id }, function (err, user) {
-    if (err) {
-      console.log(err);
+
+    if(err){
+      throw Error(err);
+    }
+
+    if(user.fitem===1){
+      user.fitem=0;
+        Object.keys(req.body.items).forEach(
+          v => (user.items[v] = req.body.items[v])
+        );
+        user.save(function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect("/user/dashboard");
+          }
+        });
     } else {
-      Object.keys(req.body.items).forEach(
-        v => (user.items[v] = req.body.items[v])
-      );
-      user.save(function (err) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/user/dashboard");
+        let x={
+          Name:user.name,
+          Email:user.email,
+          items:req.body.items
         }
+        RequestItem.create(x,(err,request)=>{
+          if(err){
+            console.log(err);
+          } else {
+            res.redirect("/user/dashboard");
+          }
       });
     }
   });
@@ -124,53 +168,179 @@ router.post("/dashboard/items/:id", auth, function (req, res) {
 
 router.get("/dashboard/contacts/:id", auth, function (req, res) {
   User.findOne({ googleId: req.params.id }, function (err, user) {
+    RequestContact.find({Email:user.email},(err,request)=>{
+
+        if (err) {
+          console.log(err);
+        } else {
+          if(request.length){
+            res.render("contact", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:1,
+              request:request
+            });
+          }else{
+            res.render("contact", {
+              user: user,
+              currentUser: req.user,
+              clientType: req.session.client,
+              frequest:0,
+              request:request
+            });
+          }
+          
+        }
+      
+    });
+  });
+});
+
+// router.get("/dashboard/contacts/:id", auth, function (req, res) {
+//   User.findOne({ googleId: req.params.id }, function (err, user) {
+//     RequestContact.find({Email:user.email},(err,request)=>{
+//       if(err){
+//         throw Error(err);
+//       }else{
+//         console.log(request.length);
+//         if(request.length){
+//           res.render("contact", {
+//             user: user,
+//             currentUser: req.user,
+//             clientType: req.session.client,
+//             frequest:1,
+//             request:request
+//           }); 
+//         }else{
+//           res.render("contact", {
+//             user: user,
+//             currentUser: req.user,
+//             clientType: req.session.client,
+//             frequest:0,
+//             request:request
+//           });
+//         }
+//       }
+//     })
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render("contact", {
+//         user: user,
+//         currentUser: req.user,
+//         clientType: req.session.client
+//       });
+//     }
+//   });
+// });
+
+router.post("/dashboard/contacts/:id", auth, function (req, res) {
+  User.findOne({ googleId: req.params.id }, function (err, user) {
+
+    if(err){
+      throw Error(err);
+    }
+
+    if(user.fcontact===1){
+        user.fcontact=0;
+        Object.keys(req.body.contacts).forEach(
+          v => (user.contacts[v] = req.body.contacts[v])
+        );
+        user.save(function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect("/user/dashboard");
+          }
+        });
+    } else {
+      let x={
+        Name:user.name,
+        Email:user.email,
+        contacts:req.body.contacts
+      }
+      RequestContact.create(x,(err,request)=>{
+         if(err){
+          console.log(err);
+         } else {
+          res.redirect("/user/dashboard");
+         }
+      });
+    }
+   
+    // if (err) {
+    //   console.log(err);
+    // } else {
+    //   Object.keys(req.body.contacts).forEach(
+    //     v => (user.contacts[v] = req.body.contacts[v])
+    //   );
+    //   user.save(function (err) {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       res.redirect("/user/dashboard");
+    //     }
+    //   });
+    // }
+  });
+});
+
+
+router.get("/dashboard/fees/:id",auth,async (req,res)=>{
+  User.findOne({ googleId: req.params.id }, function (err, user) {
     if (err) {
       console.log(err);
     } else {
-      res.render("contact", {
+      res.render("fees", {
         user: user,
         currentUser: req.user,
         clientType: req.session.client
       });
     }
   });
-});
+})
 
-router.post("/dashboard/contacts/:id", auth, function (req, res) {
-  User.findOne({ googleId: req.params.id }, function (err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      Object.keys(req.body.contacts).forEach(
-        v => (user.contacts[v] = req.body.contacts[v])
-      );
-      user.save(function (err) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/user/dashboard");
-        }
-      });
-    }
-  });
-});
 
 // Leave Routes
 
 router.post("/dashboard/leave", function (req, res) {
   const errors = [];
-  if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
+  if (
+    req.body.leave.Name !== req.user.name ||
+    req.body.leave.Email !== req.user.email
+  ) {
     errors.push("Name or Email has changed and user is requested not to do so");
-    res.render("application", { currentUser: req.user, msg: errors, clientType: req.session.client, flag: 0 });
-  } else {
-    Leave.create(req.body.leave, function (err, leave) {
-      if (err) {
-        console.log(err);
-        res.redirect("/user/dashboard");
-      } else {
-        res.redirect("/user/dashboard");
-      }
+    res.render("application", {
+      currentUser: req.user,
+      msg: errors,
+      clientType: req.session.client,
+      flag: 0
     });
+  } else {
+    var leaveDuration = Math.ceil(
+      (new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) /
+        (1000 * 60 * 60 * 24)
+    );
+    req.body.leave.leaveDuration = leaveDuration;
+    if (leaveDuration <= 0) {
+      errors.push("Please enter the date correctly");
+      res.render("application", {
+        currentUser: req.user,
+        msg: errors,
+        clientType: req.session.client,
+        flag: 0
+      });
+    } else {
+      Leave.create(req.body.leave, function (err, leave) {
+        if (err) {
+          console.log(err);
+          res.redirect("/user/dashboard");
+        } else {
+          res.redirect("/user/dashboard");
+        }
+      });
+    }
   }
 });
 
@@ -180,34 +350,75 @@ router.get("/dashboard/edit/leave/:id", auth, function (req, res) {
       res.redirect("/user/dashboard");
     }
     const errors = [];
+    var dates = {
+      leave: moment(leave.Leave).format("ll"),
+      return: moment(leave.Return).format("ll")
+    };
     res.render("editleave", {
       currentUser: req.user,
       leave: leave,
       clientType: req.session.client,
-      msg: errors
+      msg: errors,
+      dates
     });
   });
 });
 
 router.post("/dashboard/edit/leave/:id", auth, function (req, res) {
-  if (req.body.leave.Name !== req.user.name || req.body.leave.Email !== req.user.email) {
-    const errors = [];
+  const errors = [];
+  if (
+    req.body.leave.Name !== req.user.name ||
+    req.body.leave.Email !== req.user.email
+  ) {
     errors.push("Name or Email has changed and user is requested not to do so");
     Leave.findOne({ _id: req.params.id }, function (err, leave) {
       if (err) Error(err);
-      res.render("editleave", { currentUser: req.user, msg: errors, clientType: req.session.client, leave: leave });
+      var dates = {
+        leave: moment(leave.Leave).format("ll"),
+        return: moment(leave.Return).format("ll")
+      };
+      res.render("editleave", {
+        currentUser: req.user,
+        msg: errors,
+        clientType: req.session.client,
+        leave: leave,
+        dates
+      });
     });
   } else {
-    Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (
-      err,
-      leave
-    ) {
-      if (err) {
-        res.redirect("/user/dashboard");
-      } else {
-        res.redirect("/user/dashboard");
-      }
-    });
+    var leaveDuration = Math.ceil(
+      (new Date(req.body.leave.Return) - new Date(req.body.leave.Leave)) /
+        (1000 * 60 * 60 * 24)
+    );
+    req.body.leave.leaveDuration = leaveDuration;
+    if (leaveDuration <= 0) {
+      errors.push("Please enter the date correctly");
+      Leave.findOne({ _id: req.params.id }, function (err, leave) {
+        if (err) Error(err);
+        var dates = {
+          leave: moment(leave.Leave).format("ll"),
+          return: moment(leave.Return).format("ll")
+        };
+        res.render("editleave", {
+          currentUser: req.user,
+          msg: errors,
+          clientType: req.session.client,
+          leave: leave,
+          dates
+        });
+      });
+    } else {
+      Leave.findOneAndUpdate({ _id: req.params.id }, req.body.leave, function (
+        err,
+        leave
+      ) {
+        if (err) {
+          res.redirect("/user/dashboard");
+        } else {
+          res.redirect("/user/dashboard");
+        }
+      });
+    }
   }
 });
 
@@ -218,6 +429,15 @@ router.get("/dashboard/delete/leave/:id", auth, function (req, res) {
     } else {
       res.redirect("/user/dashboard");
     }
+  });
+});
+
+router.get("/dashboard/profile/:id", auth, function (req, res) {
+  User.findOne({ googleId: req.params.id }, function (err, user) {
+    if (err) {
+      res.redirect("/user/dashboard");
+    }
+    res.render("yourprofile", { currentUser: req.user, clientType: req.session.client, user: user });
   });
 });
 

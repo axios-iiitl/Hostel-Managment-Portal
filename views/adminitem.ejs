@@ -1,0 +1,31 @@
+<%- include('partials/header'); -%> <%- include('partials/admin-sidenav');-%>
+
+<div class="container">
+    <div class="jumbotron">
+        <h4>Request of Students to change Item Details</h4>
+        <%if(requests.length!==0){%>
+            <%requests.forEach((req,index)=>{%>
+                <div>
+                    <b>Name:</b><%=req.Name%>
+                    <b>Email:</b><%=req.Email%>
+                </div>
+                <%users.forEach((user)=>{%>
+                <%if(user.email===req.Email){%>
+                        <b>Table Number :-</b> <div><%=user.items.tableNumber%> -> <%=req.items.tableNumber%></div>
+                        <b>Chair Number :-</b> <div><%=user.items.chairNumber%> -> <%=req.items.chairNumber%></div>
+                        <b>Chelf Number :-</b> <div><%=user.items.shelfNumber%> -> <%=req.items.shelfNumber%></div>
+                        <b>Lamp Number  :-</b> <div><%=user.items.lampNumber%>  -> <%=req.items.lampNumber%></div>
+                        <b>Room Number  :-</b> <div><%=user.items.roomNumber%>  -> <%=req.items.roomNumber%></div>
+                        <b>Bed Number :-</b> <div><%=user.items.bedNumber%> -> <%=req.items.bedNumber%></div>
+                <%}%>
+                <%})%>
+                <a href="/admin/dashboard/item/edit/request/<%=req.Email%>/accept">Accept</a><a href="/admin/dashboard/item/edit/request/<%=req.Email%>/reject">Reject</a>
+                <br/><br/><br/><br/>
+            <%})%>
+        <%}else{%>
+            <p>No students requested to change item details</p>
+        <%}%>
+    </div>
+</div>
+
+<%- include('partials/footer'); -%>

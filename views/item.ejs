@@ -9,7 +9,13 @@
 <div class="container">
   <div class="row item-detail">
     <div>
-      <h4 style="text-align: center;">Edit your item details <%=user.name%></h4>
+      <h4 style="text-align: center;">
+        <%if(user.fitem===1){%>
+          Fill your Item Details
+        <%}else{%>
+          Edit your item details <%=user.name%>
+        <%}%>
+      </h4>
     </div>
     <img
       src="/images/undraw_apartment_rent_o0ut.svg"
@@ -82,18 +88,56 @@
         </div>
       </div>
 
+      <div class="inp-animation-container">
+        <input
+          type="text"
+          name="items[bedNumber]"
+          value="<%=user.items.bedNumber%>"
+          required
+        />
+        <div class="inp-label">
+          <span> Bed Number </span>
+        </div>
+      </div>
+
       <div
         class="form-group"
         style="margin-top: 15px; display: flex; justify-content: center"
       >
+      <%if(frequest===1){%>
+        One edit request in process , you can't submit.
+      <%}else{%>
         <button
           class="btn btn-lg btn-block blue darken-2"
           onclick="M.toast({html: 'Submitted'})"
         >
+        <%if(user.fitem===1){%>
           Submit!
+        <%}else{%>
+          Put Edit Request to Warden
+        <%}%>
         </button>
+      <%}%>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row item-detail">
+    <h5 style="text-align: center;">
+    <%if(request.length!==0){%>
+      Current request for item edit
+    <%}%>
+    </h5>
+   <%request.forEach((req)=>{%>
+     <b>Table Number:-</b><%=req.items.tableNumber%>
+     <b>Chair Number:-</b><%=req.items.chairNumber%>
+     <b>Shelf Number:-</b><%=req.items.shelfNumber%>
+     <b>Lamp Number :-</b><%=req.items.lampNumber%>
+     <b>Room Number :-</b><%=req.items.roomNumber%>
+     <b>Bed Number :-</b><%=req.items.bedNumber%>
+   <%})%>
   </div>
 </div>
 <%- include('partials/footer'); -%>

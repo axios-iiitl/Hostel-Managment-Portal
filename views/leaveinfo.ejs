@@ -27,9 +27,9 @@
            <strong>Email:</strong>
            <p><%=leave.Email%></p>
            <strong>Leave Date:</strong>
-           <p><%=leave.Leave%></p>
+           <p><%=moment(leave.Leave).format("ddd MMM D, YYYY")%></p>
            <strong>Return Date:</strong>
-           <p><%=leave.Return%></p>
+           <p><%=moment(leave.Return).format("ddd MMM D, YYYY")%></p>
            <strong>Reason:</strong>
            <p><%=leave.Reason%></p>
            <%if(leave.Approve==null){%>

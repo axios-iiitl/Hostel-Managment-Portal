@@ -7,6 +7,29 @@
 <div class="container">
   <div class="jumbotron dashboard">
     <div class="c-container">
+      <div class="c-image-res">
+          <div class="flex-center">
+            <img src="/images/undraw_new_entries_nh3h.svg" />
+          </div>
+          <div class="flex-center">
+            <div class="dashboard-action-res">
+              <%if(flag==0){%>
+              <h5>New Application</h5>
+              <p>Here you can a create new application for your leave </p>
+              <a class="waves-effect waves-light btn-small" href="/user/dashboard/application">Create</a>
+              <%}else if(flag==1){%>
+                <h5>Edit Application</h5>
+                <p>Here you can edit the existing application of yours.</p>
+                <a class="waves-effect waves-light btn-small" href="/user/dashboard/edit/leave/<%=leave._id%>">Edit</a>
+              <%}%>
+            </div>
+            <div class="dashboard-action-res">
+                <h5>Past Applications</h5>
+                <p>View recent applications</p>
+                <a class="waves-effect waves-light btn-small" href="/user/dashboard/leavehistory">View</a>
+            </div>
+          </div>
+      </div>
       <div class="c-box">
           <div class="c-content">
               <%if(flag==0){%>

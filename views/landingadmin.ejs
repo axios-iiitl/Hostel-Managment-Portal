@@ -41,7 +41,7 @@
   <br /><br />
 
   <div style="height: 60px; width: 100%;"></div>
-</div>
+</div> 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var elems = document.querySelectorAll(".collapsible");
@@ -77,7 +77,11 @@
           } else {
             data.leaves.forEach(leave => {
               var render = "";
-
+              var leaveDate = new Date(leave.Leave);
+              leave.Leave = leaveDate.toLocaleDateString();
+              var returnDate = new Date(leave.Return);
+              leave.Return = returnDate.toLocaleDateString();
+              console.log(leave.Leave)
               if (leave.Approve == undefined) {
                 render = `<div class="appr-rej">
                     <button class="btn blue darken-1" value="${leave._id}" onclick="handleLeave(true, '${leave._id}')" id="accept">Approve</button>
@@ -96,7 +100,7 @@
                 <div class="collapsible-header" style="display: flex; align-items: center;">
             <i class="material-icons"> notifications_active </i> <span style="color: #052c66;display: flex;align-items: center;">
               <span class="material-icons notifi-name" style="font-size: 20px;">person</span>&nbsp;${leave.Name}</span>
-            <span class="no-days" style="position: absolute;left: 50%;transform: translate(-50%);" >Days : /*number*/</span>
+            <span class="no-days" style="position: absolute;left: 50%;transform: translate(-50%);" >Duration : ${leave.leaveDuration} days</span>
             <span style="position: absolute;right: 10%;">
               <div class="hide-on-mobile">` +
                   render +
@@ -105,7 +109,8 @@
           </div>
           <div class="collapsible-body">
             <strong style="color: #052c66;">Email:</strong>
-            <p>${leave.Email}</p><strong style="color: #052c66;">Leave Date:</strong><p>${leave.Leave}</p>
+            <p>${leave.Email}</p> <strong style="color: #052c66;">Duration:</strong>
+            <p>${leave.leaveDuration} days</p><strong style="color: #052c66;">Leave Date:</strong><p>${leave.Leave}</p>
             <strong style="color: #052c66;">Return Date:</strong> <p>${leave.Return}</p> <strong style="color: #052c66;">Reason:</strong> <p>${leave.Reason}</p> <div class="view-on-mobile">` +
                   render +
                   `</div> </div> </li>`
@@ -147,14 +152,6 @@
         .val();
       fetchLeaves(selectedOption);
     });
-    /*   $("#reject").click(function() {
-      const z = $(this).val();
-      reject("false", z);
-    });
-    $("#accept").click(function() {
-      const z = $(this).val();
-      accept("true", z);
-    }); */
   });
 </script>
 <%- include('partials/footer'); -%>

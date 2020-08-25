@@ -1,3 +1,10 @@
+
+<style>
+  strong{
+    font-weight: 900;
+    color: #004c79;
+  }
+</style>
 <div style="overflow: hidden;">
 <div class="admin-header shadows">
     <%- include('partials/header'); -%>
@@ -71,6 +78,8 @@
          <p><%=leave.Name%></p>
          <strong>Email:</strong>
          <p><%=leave.Email%></p>
+         <strong>Duration:</strong>
+         <p><%=leave.leaveDuration%> days</p>
          <strong>Leave Date:</strong>
          <p><%=leave.Leave%></p>
          <strong>Return Date:</strong>

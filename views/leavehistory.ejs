@@ -1,67 +1,91 @@
-<%- include('partials/header'); -%>
-
-<%- include('partials/sidenav'); -%>
-
+<%- include('partials/header'); -%> <%- include('partials/sidenav'); -%>
+<style>
+  strong {
+    font-weight: 900;
+    color: #004c79;
+  }
+</style>
 <div class="start-h2">
-  <a href="/user/dashboard"><i class="material-icons back-icon">chevron_left</i></a>
+  <a href="/user/dashboard"
+    ><i class="material-icons back-icon">chevron_left</i></a
+  >
 </div>
 
 <div class="container">
-    <div class="jumbotron item-detail">
-      <%if(leaves.length==0){%>
-      <div class="status-heading">No Applications</div>
-      <%}else{%>
-      <div class="status-heading"><h3>Leave Application Information/Status</h3></div>
-      <img src="/images/undraw_schedule_pnbk.svg" style="height: 35vh; margin-top: 35px;" />
-      <!-- // -->
+  <div class="jumbotron item-detail">
+    <div class="status-heading">
+      <h3>Leave Application Information/Status</h3>
+    </div>
+    <img
+      src="/images/undraw_schedule_pnbk.svg"
+      style="height: 35vh; margin-top: 35px;"
+    />
+    <!-- // -->
+    <br />
+    <%if(leaves.length==0){%>
+    <div
+      style="padding: 20px;
+    border: 1px solid #2727275e;
+    border-radius: 10px;"
+      class="status-heading"
+    >
+      No Applications
+    </div>
+    <%}else{%>
+    <h4 style="margin: 65px 0px 35px 0px;">Recent Leave:</h4>
+    <%leaves.forEach(function(leave){%>
+    <div class="leave-content">
       <br />
-      <h4 style="margin: 65px 0px 35px 0px;">Recent Leave:</h4>
-      <%leaves.forEach(function(leave){%>
-      <div class="leave-content">
-        <br />
-        <strong>Name:</strong>
-        <p><%=leave.Name%></p>
-        <strong>Email:</strong>
-        <p><%=leave.Email%></p>
-        <strong>Leave Date:</strong>
-        <p><%=leave.Leave%></p>
-        <strong>Return Date:</strong>
-        <p><%=leave.Return%></p>
-        <strong>Reason:</strong>
-        <p><%=leave.Reason%></p>
-        <%if(leave.Approve==null){%>
-        <a href="/user/dashboard/edit/leave/<%=leave._id%>"
-          ><button class="btn yellow darken-4">Edit</button></a
-        >
-        <a href="/user/dashboard/delete/leave/<%=leave._id%>"
-          ><button class="btn red darken-1 ">Delete</button></a
-        >
-        <button class="btn grey darken-1 " style="margin-top: 5px;">Waiting</button>
-        <%}else if(leave.Approve==true){%>
-        <button class="btn light-green darken-2 ">Approved</button>
-        <%}else if(leave.Approve==false){%>
-        <button class="btn red darken-1 ">Rejected</button>
-        <%}%>
-        <br /><br />
-      </div>
-      <%})%> <%}%>
-      <div class="pagination">
-        <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=0%>">&laquo;</a>
-        <%for(var i=0;i< number;i++){%>
-          <%if(i != page){%>
-            <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
-          <%}else{%>
-            <a class="active" href="/user/dashboard/leavehistory/?pageno=<%=i%>"><%=i+1%></a>
-          <%}%>
+      <strong>Name:</strong>
+      <p><%=leave.Name%></p>
+      <strong>Email:</strong>
+      <p><%=leave.Email%></p>
+      <strong>Duration:</strong>
+      <p><%=leave.leaveDuration%> days</p>
+      <strong>Leave Date:</strong>
+      <p><%=moment(leave.Leave).format("ddd MMM D, YYYY")%></p>
+      <strong>Return Date:</strong>
+      <p><%=moment(leave.Return).format("ddd MMM D, YYYY")%></p>
+      <strong>Reason:</strong>
+      <p><%=leave.Reason%></p>
+      <%if(leave.Approve==null){%>
+      <a href="/user/dashboard/edit/leave/<%=leave._id%>"
+        ><button class="btn yellow darken-4">Edit</button></a
+      >
+      <a href="/user/dashboard/delete/leave/<%=leave._id%>"
+        ><button class="btn red darken-1 ">Delete</button></a
+      >
+      <button class="btn grey darken-1 " style="margin-top: 5px;">
+        Waiting
+      </button>
+      <%}else if(leave.Approve==true){%>
+      <button class="btn light-green darken-2 ">Approved</button>
+      <%}else if(leave.Approve==false){%>
+      <button class="btn red darken-1 ">Rejected</button>
       <%}%>
-        <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=number-1%>">&raquo;</a>
-      </div>
-      
-    
+      <br /><br />
+    </div>
+    <%})%>
+    <div class="pagination">
+      <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=0%>"
+        >&laquo;</a
+      >
+      <%for(var i=0;i< number;i++){%> <%if(i != page){%>
+      <a class="waves-effect" href="/user/dashboard/leavehistory/?pageno=<%=i%>"
+        ><%=i+1%></a
+      >
+      <%}else{%>
+      <a class="active" href="/user/dashboard/leavehistory/?pageno=<%=i%>"
+        ><%=i+1%></a
+      >
+      <a
+        class="waves-effect"
+        href="/user/dashboard/leavehistory/?pageno=<%=number-1%>"
+        >&raquo;</a
+      >
+      <%}%> <%}%><%}%>
     </div>
   </div>
-
- 
-
+</div>
 
 <%- include('partials/footer'); -%>
