@@ -4,6 +4,8 @@ const User = require("../../models/User");
 const Leave = require("../../models/Leave");
 const RequestItem = require("../../models/RequestItem");
 const RequestContact = require("../../models/RequestContact");
+const RequestHostelFees = require("../../models/RequestHostelFees");
+const RequestMessFees = require("../../models/RequestMessFees");
 
 const auth = require("../../middleware/authadmin");
 const { request } = require("express");
@@ -222,4 +224,60 @@ router.get("/dashboard/contact/edit/request/:id/:opt",auth,async(req,res)=>{
     });
   }
 });
+
+router.get("/dashboard/fees/edit/request",(req,res)=>{
+  RequestItem.find({},async (err,requestitems)=>{
+    RequestContact.find({},async(err,requestcontacts)=>{
+      RequestHostelFees.find({},async(err,requesthostelfees)=>{
+      User.find({},async(err,users)=>{
+          
+        let hostelfeesfirstrequest=[];
+        let hostelfeeseditrequest =[];
+
+        await users.forEach(async(user)=>{
+            await user.hostelfees.forEach((hostel)=>{
+              if(hostel.accepted == false){
+                    let x={
+                      name:user.name,
+                      rollNo:user.rollNo
+                    }
+                  x.hostel=hostel;
+                  hostelfeesfirstrequest.push(x);
+              }
+            });
+        });
+
+        await requesthostelfees.forEach(async(hh)=>{
+           await users.forEach(async(user)=>{
+             if(user.email == hh.email){
+                let i=await user.hostelfees.findIndex(y=>y.sem==hh.hostelfees.sem);
+                const x={
+                  name:user.name,
+                  rollNo:user.rollNo,
+                  hostel:user.hostelfees[i],
+                  newhostel:hh.hostelfees
+                }
+                hostelfeeseditrequest.push(x);
+             }
+           });
+        });
+
+        console.log(hostelfeesfirstrequest);
+        console.log(hostelfeeseditrequest);
+             
+        res.render("adminfees",{currentUser:req.user,
+                               clientType:req.session.client,
+                               hostelfeesfirstrequest,
+                               hostelfeeseditrequest,
+                               totalcontactsrequest:requestcontacts.length,
+                               totalitemsrequest:requestitems.length,
+                               users:users});
+       });
+      });
+    });
+  });  
+});
+
+
+
 module.exports = router;

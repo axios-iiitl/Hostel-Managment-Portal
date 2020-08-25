@@ -1,0 +1,81 @@
+<%- include('partials/header'); -%>
+<%- include('partials/admin-sidenav');-%>
+<div class="container">
+    <div class="jumbotron">
+        <label for="Sem" >Choose Semester:</label>
+        <select name="hostel[sem]" style="display: flex;" id="sem">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+    </div>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h3>Hostel Fees request</h3>
+        <%hostelfeesfirstrequest.forEach((i)=>{%>
+            <span><b>Name:</b></span><%=i.name%><br/>
+            <span><b>Roll No:</b><%=i.rollNo%><br/>
+            <span><b>Semester:</b><%=i.hostel.sem%><br/>
+            <span><b>Transaction Amount</b><%=i.hostel.transactionAmount%><br/>
+            <span><b>Transaction Id:</b><%=i.hostel.transactionId%><br/>
+            <span><b>Mode of Payment</b><%=i.hostel.modeOfPayment%><br/>
+            <span><b>Date and Time of Transaction</b><%=i.hostel.dateTime%><br/>
+        <%})%>
+    </div>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h3>Mess Fees request</h3>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h3>Edit Request for Hostel Fees</h3>
+        <%hostelfeeseditrequest.forEach((i)=>{%>
+            <span><b>Name:  </b></span><%=i.name%><br/>
+            <span><b>Roll No:  </b><%=i.rollNo%><br/>
+            <span><b>Semester:  </b><%=i.hostel.sem%><b> => </b><%=i.newhostel.sem%><br/>
+            <span><b>Transaction Amount:  </b><%=i.hostel.transactionAmount%><b> => </b><%=i.newhostel.transactionAmount%><br/>
+            <span><b>Transaction Id:  </b><%=i.hostel.transactionId%><b> => </b><%=i.newhostel.transactionId%><br/>
+            <span><b>Mode of Payment:  </b><%=i.hostel.modeOfPayment%><b> => </b><%=i.newhostel.modeOfPayment%><br/>
+            <span><b>Date and Time of Transaction:  </b><%=i.hostel.dateTime%><b> => </b><%=i.newhostel.dateTime%><br/><br/><br/><br/>
+        <%})%>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h3>Edit Request for Mess Fees</h3>
+    </div>
+</div>
+
+
+<script>
+   
+ const semester = document.getElementById("sem");
+  
+  semester.addEventListener('onchange',()=>{
+            
+            if (window.performance) {
+                
+            }
+            if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+            console.log("ch");
+            location.href="http://localhost:3000/admin/dashboard/fees/edit/request?sem="+semester.value;
+            } else {
+            } 
+  })
+
+</script>
+<%- include('partials/footer'); -%>
