@@ -326,6 +326,7 @@ router.post("/dashboard/hostelfees/:id/submit",auth,async(req,res)=>{
       if(f==1){
         res.redirect("/user/dashboard/fees/"+req.params.id+"?f=0");
       }else{
+        x.course = user.course+":"+user.branch;
         user.hostelfees.push(x);
         await user.save();
         res.redirect("/user/dashboard/fees/"+req.params.id+"?f=1");

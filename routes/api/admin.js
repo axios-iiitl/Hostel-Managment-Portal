@@ -261,10 +261,18 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
              }
            });
         });
-
-        console.log(hostelfeesfirstrequest);
-        console.log(hostelfeeseditrequest);
+        
+        if(req.query.sem){
+           hostelfeesfirstrequest.forEach(()=>{
              
+           })
+        }else{
+
+        }
+        // console.log(hostelfeesfirstrequest);
+        // console.log(hostelfeeseditrequest);
+        
+  
         res.render("adminfees",{currentUser:req.user,
                                clientType:req.session.client,
                                hostelfeesfirstrequest,
@@ -275,7 +283,7 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
        });
       });
     });
-  });  
+  });   
 });
 
 

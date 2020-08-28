@@ -1,7 +1,15 @@
 <%- include('partials/header'); -%>
 <%- include('partials/admin-sidenav');-%>
+</div>
 <div class="container">
     <div class="jumbotron">
+        <label for="course">Choose Course</label>
+        <select style="display: flex;" id="course">
+            <option value="BTECH:CS">BTECH:CS</option>
+            <option value="BTECH:CSAI">BTECH:CSAI</option>
+            <option value="BTECH:IT">BTECH:IT</option>
+            <option value="MTECH:IT">MTECH:IT</option>
+        </select>
         <label for="Sem" >Choose Semester:</label>
         <select name="hostel[sem]" style="display: flex;" id="sem">
           <option value="1">1</option>
@@ -13,6 +21,7 @@
           <option value="7">7</option>
           <option value="8">8</option>
         </select>
+        <button id="go">Go</button>
     </div>
 </div>
 
@@ -63,19 +72,13 @@
 
 <script>
    
+ const go = document.getElementById("go");
  const semester = document.getElementById("sem");
-  
-  semester.addEventListener('onchange',()=>{
-            
-            if (window.performance) {
-                
-            }
-            if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-            console.log("ch");
-            location.href="http://localhost:3000/admin/dashboard/fees/edit/request?sem="+semester.value;
-            } else {
-            } 
-  })
+ const course = document.getElementById("course");
+
+  go.addEventListener('click',()=>{  
+    location.href="http://localhost:3000/admin/dashboard/fees/edit/request?sem="+semester.value+"&course="+course.value;
+  });
 
 </script>
 <%- include('partials/footer'); -%>
