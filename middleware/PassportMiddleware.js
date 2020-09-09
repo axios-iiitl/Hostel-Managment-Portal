@@ -48,12 +48,14 @@ passport.use(
 
                       var str = profile.emails[0].value;
                       var res = str.split("@");
+                      console.log(str[0]);
 
                       if (
-                        (res[1] === "iiitl.ac.in" && str[0] === "c") ||
-                        str[0] === "l" ||
-                        str[0] === "r" ||
-                        str[0] === "m"
+                        res[1] === "iiitl.ac.in" &&
+                        (str[0] === "c" ||
+                          str[0] === "l" ||
+                          str[0] === "r" ||
+                          str[0] === "m")
                       ) {
                         if (str[0] === "l") {
                           course = "BTECH";
@@ -68,11 +70,6 @@ passport.use(
                           branch = "CS";
                         } else if (str[1] === "i") {
                           branch = "IT";
-                        }
-
-                        if (str[0] !== "r") {
-                          year = str.slice(3, 7);
-                          rollNo = res[0];
                         }
 
                         if (str[0] !== "r") {
