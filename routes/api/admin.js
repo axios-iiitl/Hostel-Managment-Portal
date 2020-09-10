@@ -246,7 +246,8 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
                       name:user.name,
                       rollNo:user.rollNo,
                       branch:user.branch,
-                      course:user.course
+                      course:user.course,
+                      email:user.email
                     }
                   x.hostel=hostel;
                   hostelfeesfirstrequest.push(x);
@@ -263,6 +264,7 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
                 const x={
                   name:user.name,
                   rollNo:user.rollNo,
+                  email:user.email,
                   hostel:user.hostelfees[i],
                   newhostel:hh.hostelfees,
                   branch:user.branch,
@@ -281,7 +283,8 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
                     name:user.name,
                     rollNo:user.rollNo,
                     branch:user.branch,
-                    course:user.course
+                    course:user.course,
+                    email:user.email
                   }
                 x.mess=mess;
                 messfeesfirstrequest.push(x);
@@ -299,6 +302,7 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
                const x={
                  name:user.name,
                  rollNo:user.rollNo,
+                 email:user.email,
                  mess:user.messfees[i],
                  newmess:hh.messfees,
                  branch:user.branch,
@@ -342,8 +346,7 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
            }
          }); 
        }
-
-    
+       
         res.render("adminfees",{currentUser:req.user,
                                clientType:req.session.client,
                                hostelfeesfirstrequest:queriedhostel,
@@ -360,6 +363,68 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
   });   
 });
 
+router.get("/dashboard/hostelfeesfirstrequest/:email/:sem/:choice",auth,(req,res)=>{
+   User.findOne({email:req.params.email},async(err,user)=>{
+      user.hostelfees.forEach((i)=>{
+        if(i.sem == req.params.sem){
+          i.accepted=req.params.choice;
+        }
+      });
+      await user.save();
+      res.redirect("/admin/dashboard/fees/edit/request");
+   });
+});
 
+router.get("/dashboard/messfeesfirstrequest/:email/:sem/:choice",auth,(req,res)=>{
+  User.findOne({email:req.params.email},async(err,user)=>{
+     user.messfees.forEach((i)=>{
+       if(i.sem == req.params.sem){
+         i.accepted=req.params.choice;
+       }
+     });
+     await user.save();
+     res.redirect("/admin/dashboard/fees/edit/request");
+  });
+});
+
+router.get("/dashboard/hostelfeeseditrequest/:email/:sem/:choice",auth,(req,res)=>{
+
+  RequestHostelFees.findOne({email:req.params.email},(err,request)=>{
+      User.findOne({email:req.params.email},async(err,user)=>{
+        if(err){
+          throw Error(err);
+        }else{
+          if(req.params.choice == "verified"){
+              await user.hostelfees.forEach((i)=>{
+                 if(i.sem == request.hostelfees.sem){
+                    i.transactionAmount = request.hostelfees.transactionAmount;
+                    i.transactionId = request.hostelfees.transactionId;
+                    i.modeOfPayment = request.hostelfees.modeOfPayment;
+                    i.dateTime = request.hostelfees.dateTime;
+                    i.occupancy = request.hostelfees.occupancy;
+                    i.accepted = "verified";
+                 }
+              });
+              await user.save();
+              RequestHostelFees.findOneAndDelete({email:req.params.email},(err,x)=>{
+                if(err){
+                  throw Error(err);
+                }else{
+                  res.redirect("/admin/dashboard/fees/edit/request");
+                }
+            })
+          }else{
+             RequestHostelFees.findOneAndDelete({email:req.params.email},(err,x)=>{
+                 if(err){
+                   throw Error(err);
+                 }else{
+                   res.redirect("/admin/dashboard/fees/edit/request");
+                 }
+             })
+          }
+        }
+      });
+  });
+});
 
 module.exports = router;

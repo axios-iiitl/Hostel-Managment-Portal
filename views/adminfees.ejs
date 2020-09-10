@@ -36,7 +36,7 @@
             <span><b>Transaction Id:</b><%=i.hostel.transactionId%><br/>
             <span><b>Mode of Payment</b><%=i.hostel.modeOfPayment%><br/>
             <span><b>Date and Time of Transaction</b><%=i.hostel.dateTime%><br/>
-            <a href="">Accept</a>        <a href="">Reject</a>
+            <a href="/admin/dashboard/hostelfeesfirstrequest/<%=i.email%>/<%=i.hostel.sem%>/verified">Accept</a>      <a href="/admin/dashboard/hostelfeesfirstrequest/<%=i.email%>/<%=i.hostel.sem%>/not-verified">Reject</a>
         <%})%>
     </div>
 </div>
@@ -52,6 +52,7 @@
             <span><b>Transaction Id:</b><%=i.mess.transactionId%><br/>
             <span><b>Mode of Payment</b><%=i.mess.modeOfPayment%><br/>
             <span><b>Date and Time of Transaction</b><%=i.mess.dateTime%><br/>
+            <a href="/admin/dashboard/messfeesfirstrequest/<%=i.email%>/<%=i.mess.sem%>/verified">Accept</a>      <a href="/admin/dashboard/messfeesfirstrequest/<%=i.email%>/<%=i.mess.sem%>/not-verified">Reject</a>
         <%})%>
     </div>
 </div>
@@ -67,7 +68,10 @@
             <span><b>Transaction Amount:  </b><%=i.hostel.transactionAmount%><b> => </b><%=i.newhostel.transactionAmount%><br/>
             <span><b>Transaction Id:  </b><%=i.hostel.transactionId%><b> => </b><%=i.newhostel.transactionId%><br/>
             <span><b>Mode of Payment:  </b><%=i.hostel.modeOfPayment%><b> => </b><%=i.newhostel.modeOfPayment%><br/>
-            <span><b>Date and Time of Transaction:  </b><%=i.hostel.dateTime%><b> => </b><%=i.newhostel.dateTime%><br/><br/><br/><br/>
+            <span><b>Date and Time of Transaction:  </b><%=i.hostel.dateTime%><b> => </b><%=i.newhostel.dateTime%><br/>
+            <a href="/admin/dashboard/hostelfeeseditrequest/<%=i.email%>/<%=i.hostel.sem%>/verified">Update</a>
+            <a href="/admin/dashboard/hostelfeeseditrequest/<%=i.email%>/<%=i.hostel.sem%>/not-verified">Decline</a>
+            <br/><br/><br/>
         <%})%>
     </div>
 </div>
