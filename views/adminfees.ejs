@@ -36,6 +36,7 @@
             <span><b>Transaction Id:</b><%=i.hostel.transactionId%><br/>
             <span><b>Mode of Payment</b><%=i.hostel.modeOfPayment%><br/>
             <span><b>Date and Time of Transaction</b><%=i.hostel.dateTime%><br/>
+            <a href="">Accept</a>        <a href="">Reject</a>
         <%})%>
     </div>
 </div>
@@ -43,6 +44,15 @@
 <div class="container">
     <div class="jumbotron">
         <h3>Mess Fees request</h3>
+        <%messfeesfirstrequest.forEach((i)=>{%>
+            <span><b>Name:</b></span><%=i.name%><br/>
+            <span><b>Roll No:</b><%=i.rollNo%><br/>
+            <span><b>Semester:</b><%=i.mess.sem%><br/>
+            <span><b>Transaction Amount</b><%=i.mess.transactionAmount%><br/>
+            <span><b>Transaction Id:</b><%=i.mess.transactionId%><br/>
+            <span><b>Mode of Payment</b><%=i.mess.modeOfPayment%><br/>
+            <span><b>Date and Time of Transaction</b><%=i.mess.dateTime%><br/>
+        <%})%>
     </div>
 </div>
 

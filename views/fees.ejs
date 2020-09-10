@@ -15,15 +15,32 @@
 
 <div class="container">
   <div class="jumbotron">
+    <h4>Your Hostel Fees Details</h4>
     <%user.hostelfees.forEach((x)=>{%>
      <h5>Semester</h5>  <%= x.sem%><br/>
      <h5>Transaction Amount</h5><%= x.transactionAmount%><br/>
      <h5>Transaction ID</h5><%= x.transactionId%><br/>
-     <h5>Mode of Payment</h5><%= x.modeofPayment%><br/>
+     <h5>Mode of Payment</h5><%= x.modeOfPayment%><br/>
      <h5>Date and Time of Transaction</h5><%= x.dateTime%><br/>
      <h5>Type of Room Occupancy</h5><%= x.occupancy%><br/>
      <h5>Accepted</h5><%= x.accepted%><br/>
     <%})%>
+    <br><br><br>
+  </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+    <h4>Your Mess Fees Details</h4>
+    <%user.messfees.forEach((x)=>{%>
+      <h5>Semester</h5>  <%= x.sem%><br/>
+      <h5>Transaction Amount</h5><%= x.transactionAmount%><br/>
+      <h5>Transaction ID</h5><%= x.transactionId%><br/>
+      <h5>Mode of Payment</h5><%= x.modeOfPayment%><br/>
+      <h5>Date and Time of Transaction</h5><%= x.dateTime%><br/>
+      <h5>Accepted</h5><%= x.accepted%><br/>
+     <%})%>
+     <br><br><br>
   </div>
 </div>
 <div class="container">

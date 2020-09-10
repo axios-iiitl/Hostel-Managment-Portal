@@ -298,6 +298,12 @@ router.get("/dashboard/fees/:id",auth,async (req,res)=>{
         msg.push("Please make request to warden to change this as you had already filled details for this semester");
       }else if(req.query.f==2){
         msg.push("You can only make one request at the time for changing details");
+      }else if(req.query.f ==3){
+        msg.push("Your application is under review for this semester");
+      }else if(req.query.f == 4){
+        msg.push("Be Logical , Lol , what to Edit if you have not submiited any details of this semester before");
+      }else if(req.query.f == 5){
+        msg.push("Yours fees for this semester has been verified . No need to make edit request .")
       }
       res.render("fees", {
         user: user,
@@ -360,16 +366,45 @@ router.post("/dashboard/messfees/:id/submit",auth,async(req,res)=>{
 });
 
 router.post("/dashboard/hostelfees/:id/editsubmit",auth,(req,res)=>{
+  User.findOne({email:req.user.email},async(err,user)=>{
 
     let x={
       name:req.user.name,
       email:req.user.email,
       hostelfees:req.body.hostel
     }
-    RequestHostelFees.findOne({email:req.user.email},(err,request)=>{
+    
+    let i=-1;
+    await user.hostelfees.forEach((hostel)=>{
+       if(hostel.sem == req.body.hostel.sem && hostel.accepted=="Application under Review"){
+          i=1;
+       }
+    });
 
+    let j=-1;
+    await user.hostelfees.forEach((hostel)=>{
+      if(hostel.sem == req.body.hostel.sem){
+        j=1;
+      }
+    });
+
+    let k=-1;
+
+    await user.hostelfees.forEach((hostel)=>{
+      if(hostel.sem == req.body.hostel.sem && hostel.accepted=="verified"){
+        k=1;
+      }
+    })
+    RequestHostelFees.findOne({email:req.user.email},(err,request)=>{
+        
         if(request){
           res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=2");
+        }else if(i==1){
+          res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=3");
+        }else if(j==-1){
+          res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=4");
+        }else if(k==1){
+          res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=5");
         }else{
             RequestHostelFees.create(x,(err,hos)=>{
               if(err){
@@ -380,19 +415,49 @@ router.post("/dashboard/hostelfees/:id/editsubmit",auth,(req,res)=>{
            });
         }
     });
+  });
 });
 
 router.post("/dashboard/messfees/:id/editsubmit",auth,(req,res)=>{
+  User.findOne({email:req.user.email},async(err,user)=>{
 
   let x={
     name:req.user.name,
     email:req.user.email,
     messfees:req.body.mess
   }
+
+  let i=-1;
+  await user.messfees.forEach((mess)=>{
+     if(mess.sem == req.body.mess.sem && mess.accepted=="Application under Review"){
+        i=1;
+     }
+  });
+
+  let j=-1;
+    await user.messfees.forEach((mess)=>{
+      if(mess.sem == req.body.mess.sem){
+        j=1;
+      }
+    })
+
+    let k=-1;
+
+    await user.messfees.forEach((mess)=>{
+      if(mess.sem == req.body.mess.sem && mess.accepted=="verified"){
+        k=1;
+      }
+    })
   RequestMessFees.findOne({email:req.user.email},(err,request)=>{
 
       if(request){
         res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=2");
+      }else if(i==1){
+        res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=3");
+      }else if(j==-1){
+        res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=4");
+      }else if(k==1){
+        res.redirect("/user/dashboard/fees/"+req.user.googleId+"?f=5");
       }else{
           RequestMessFees.create(x,(err,hos)=>{
             if(err){
@@ -403,6 +468,7 @@ router.post("/dashboard/messfees/:id/editsubmit",auth,(req,res)=>{
          });
       }
   });
+ });
 });
 
 // Leave Routes

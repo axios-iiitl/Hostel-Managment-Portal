@@ -116,8 +116,8 @@ const UserSchema = new mongoose.Schema({
       trim:true
     },
     accepted:{
-      type:Boolean,
-      default:false
+      type:String,
+      default:"Application under Review"
     },
   }],
   messfees:[{
@@ -141,8 +141,8 @@ const UserSchema = new mongoose.Schema({
        type:Date
      },
      accepted:{
-       type:Boolean,
-       default:false
+       type:String,
+       default:"Application under Review"
      },
   }],
   fitem:{

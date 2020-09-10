@@ -229,17 +229,24 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
   RequestItem.find({},async (err,requestitems)=>{
     RequestContact.find({},async(err,requestcontacts)=>{
       RequestHostelFees.find({},async(err,requesthostelfees)=>{
+        RequestMessFees.find({},async(err,requestmessfees)=>{
+
       User.find({},async(err,users)=>{
           
         let hostelfeesfirstrequest=[];
         let hostelfeeseditrequest =[];
+        let messfeesfirstrequest=[];
+        let messfeeseditrequest=[];
 
+        // Hostel Fees First Request
         await users.forEach(async(user)=>{
             await user.hostelfees.forEach((hostel)=>{
-              if(hostel.accepted == false){
+              if(hostel.accepted == "Application under Review"){
                     let x={
                       name:user.name,
-                      rollNo:user.rollNo
+                      rollNo:user.rollNo,
+                      branch:user.branch,
+                      course:user.course
                     }
                   x.hostel=hostel;
                   hostelfeesfirstrequest.push(x);
@@ -247,6 +254,8 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
             });
         });
 
+
+        //Hostel Fees Edit Request
         await requesthostelfees.forEach(async(hh)=>{
            await users.forEach(async(user)=>{
              if(user.email == hh.email){
@@ -255,33 +264,98 @@ router.get("/dashboard/fees/edit/request",(req,res)=>{
                   name:user.name,
                   rollNo:user.rollNo,
                   hostel:user.hostelfees[i],
-                  newhostel:hh.hostelfees
+                  newhostel:hh.hostelfees,
+                  branch:user.branch,
+                  course:user.course
                 }
                 hostelfeeseditrequest.push(x);
              }
            });
         });
         
-        if(req.query.sem){
-           hostelfeesfirstrequest.forEach(()=>{
-             
-           })
-        }else{
+        //Mess Fees First Request
+        await users.forEach(async(user)=>{
+          await user.messfees.forEach((mess)=>{
+            if(mess.accepted == "Application under Review"){
+                  let x={
+                    name:user.name,
+                    rollNo:user.rollNo,
+                    branch:user.branch,
+                    course:user.course
+                  }
+                x.mess=mess;
+                messfeesfirstrequest.push(x);
+            }
+          });
+      });
 
-        }
-        // console.log(hostelfeesfirstrequest);
-        // console.log(hostelfeeseditrequest);
+
+        //Mess Fees Edit Request
         
-  
+        await requestmessfees.forEach(async(hh)=>{
+          await users.forEach(async(user)=>{
+            if(user.email == hh.email){
+               let i=await user.messfees.findIndex(y=>y.sem==hh.messfees.sem);
+               const x={
+                 name:user.name,
+                 rollNo:user.rollNo,
+                 mess:user.messfees[i],
+                 newmess:hh.messfees,
+                 branch:user.branch,
+                 course:user.course
+               }
+               messfeeseditrequest.push(x);
+            }
+          });
+       });
+             
+
+        const queriedhostel=[];
+        const queriedmess=[];
+
+        // Queried Hostel Fees First Request
+        if(req.query.sem && req.query.course){
+           hostelfeesfirstrequest.forEach((x)=>{
+              if(x.hostel.sem==req.query.sem && req.query.course == (x.course+":"+x.branch)){
+                 queriedhostel.push(x);
+              }
+           });
+        }else{
+          hostelfeesfirstrequest.forEach((x)=>{
+            if(x.hostel.sem==1 && x.course == "BTECH" && x.branch =="CS"){
+               queriedhostel.push(x);
+            }
+          }); 
+        }
+      
+        //Queried Mess First Request
+        if(req.query.sem && req.query.course){
+          messfeesfirstrequest.forEach((x)=>{
+             if(x.mess.sem==req.query.sem && req.query.course == (x.course+":"+x.branch)){
+                queriedmess.push(x);
+             }
+          });
+       }else{
+         messfeesfirstrequest.forEach((x)=>{
+           if(x.mess.sem==1 && x.course == "BTECH" && x.branch =="CS"){
+              queriedmess.push(x);
+           }
+         }); 
+       }
+
+    
         res.render("adminfees",{currentUser:req.user,
                                clientType:req.session.client,
-                               hostelfeesfirstrequest,
+                               hostelfeesfirstrequest:queriedhostel,
                                hostelfeeseditrequest,
+                               messfeesfirstrequest:queriedmess,
+                               messfeeseditrequest,
                                totalcontactsrequest:requestcontacts.length,
                                totalitemsrequest:requestitems.length,
                                users:users});
        });
       });
+     });
     });
   });   
 });
