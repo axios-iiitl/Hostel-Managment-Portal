@@ -4,7 +4,6 @@ mongoose
   .connect(keys.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: "Messportal",
     useCreateIndex: true,
     useFindAndModify: false
   })
