@@ -204,3 +204,54 @@ body {
 .alert-content h3 {
   width: fit-content;
 }
+.lappie , .mobile{
+  position: absolute;
+}
+.mobile{
+  display: none;pointer-events: none;
+}
+@media screen and (max-width:500px){
+  .search-inp{
+    max-width: 200px;
+  }
+  .lappie{
+    display: none; pointer-events: none;
+  }
+  .mobile{
+    display: inline-block; pointer-events: all;
+  }
+  .search-group h4{
+    font-size: 25px;
+    text-align: center;
+  }
+  .dropdown h5{
+    font-size: medium;
+  }
+  .userinfo-cont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 9%;
+  }
+  .userinfo-cont h2 , .item-detail h2{
+    font-size: 38px;
+  }
+  .colomn-rev{
+    flex-direction: column-reverse;
+
+  }
+  .move-right{
+    margin-left: 9%;
+  }
+  .info-width{
+    left: 50%;
+    width: 80% !important;
+    min-height: 80vw !important;
+  }
+  .contact{
+    min-height: 300px ;
+  }
+  .start-h2 .search-icon:hover::after{
+    display: none;
+  }
+}
